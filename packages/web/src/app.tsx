@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-import { getThemedComponents, getThemeOptions } from './theme';
+import { getThemedComponents, getThemeOptions } from './config';
 
 export const App = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
