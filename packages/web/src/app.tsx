@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   CssBaseline,
   ThemeProvider,
@@ -8,6 +7,7 @@ import {
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
+import { Content } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
 export const App = () => {
@@ -19,14 +19,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box
-        sx={{
-          padding: 2,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
+      <Content>
         <Typography>app.tsx</Typography>
         <Button
           color="primary"
@@ -36,7 +29,7 @@ export const App = () => {
         >
           Sample Button
         </Button>
-      </Box>
+      </Content>
     </ThemeProvider>
   );
 };
