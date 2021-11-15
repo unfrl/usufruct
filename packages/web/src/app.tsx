@@ -5,6 +5,7 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
+import { Routes, Route } from 'react-router-dom';
 
 import { AppBar, Content } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
@@ -20,9 +21,17 @@ export const App = () => {
       <CssBaseline />
       <AppBar title="Usufruct" />
       <Content>
-        <Typography align="center" variant="h3">
-          TODO!
-        </Typography>
+        <Routes>
+          <Route path="/" element={<Typography>TODO!</Typography>} />
+          <Route
+            path="*"
+            element={
+              <Typography align="center" variant="h3">
+                Not found!
+              </Typography>
+            }
+          />
+        </Routes>
       </Content>
     </ThemeProvider>
   );
