@@ -1,5 +1,4 @@
 import {
-  Button,
   CssBaseline,
   ThemeProvider,
   Typography,
@@ -21,15 +20,9 @@ export const App = () => {
       <CssBaseline />
       <AppBar title="Usufruct" />
       <Content>
-        <Typography>app.tsx</Typography>
-        <Button
-          color="primary"
-          variant="contained"
-          size="small"
-          sx={{ marginTop: 1 }}
-        >
-          Sample Button
-        </Button>
+        <Typography align="center" variant="h3">
+          TODO!
+        </Typography>
       </Content>
     </ThemeProvider>
   );
