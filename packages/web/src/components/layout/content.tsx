@@ -1,9 +1,7 @@
 import React from 'react';
 import { Container, styled } from '@mui/material';
 
-const ToolbarOffset = styled('div')(({ theme }) => ({
-  ...theme.mixins.toolbar,
-}));
+const ToolbarOffset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const StyledContent = styled('div')(({ theme }) => ({
   display: 'flex',

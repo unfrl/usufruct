@@ -7,7 +7,7 @@ import {
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-import { Content } from './components';
+import { AppBar, Content } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
 export const App = () => {
@@ -19,6 +19,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <AppBar title="Usufruct" />
       <Content>
         <Typography>app.tsx</Typography>
         <Button
