@@ -1,42 +1,42 @@
-import { useState } from 'react';
+import {
+  Box,
+  Button,
+  CssBaseline,
+  ThemeProvider,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
+import { createTheme } from '@mui/material/styles';
 
-function App() {
-  const [count, setCount] = useState(0);
+import { getThemedComponents, getThemeOptions } from './theme';
+
+export const App = () => {
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
+  const mode = prefersDarkMode ? 'dark' : 'light';
+  const initial = createTheme(getThemeOptions(mode));
+  const theme = { ...initial, ...getThemedComponents(initial) };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box
+        sx={{
+          padding: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
+      >
+        <Typography>app.tsx</Typography>
+        <Button
+          color="primary"
+          variant="contained"
+          size="small"
+          sx={{ marginTop: 1 }}
+        >
+          Sample Button
+        </Button>
+      </Box>
+    </ThemeProvider>
   );
-}
-
-export default App;
+};
