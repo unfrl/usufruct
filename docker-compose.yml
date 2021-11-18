@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: usufruct_postgres
+    image: postgres:14
+    ports:
+      - 5432:5432
+    environment:
+      - "POSTGRES_PASSWORD=local"
+      - "POSTGRES_USER=local"
+      - "POSTGRES_DB=usufruct"
+  adminer:
+    container_name: usufruct_adminer
+    image: wodby/adminer:4.8
+    ports:
+      - 9000:9000
+    environment:
+      - "ADMINER_DEFAULT_DB_DRIVER=pgsql"
+      - "ADMINER_DEFAULT_DB_HOST=postgres"
+      - "ADMINER_DEFAULT_DB_NAME=usufruct"
+    depends_on:
+      - postgres
