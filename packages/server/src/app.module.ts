@@ -4,12 +4,18 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { dbConfig } from './config';
-import { Item } from './entities';
+import { Item, ItemAttribute, LendableItem } from './entities';
+import { ItemAttributeValue } from './entities/item-attribute-value.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dbConfig),
-    TypeOrmModule.forFeature([Item])
+    TypeOrmModule.forFeature([
+      LendableItem,
+      Item,
+      ItemAttribute,
+      ItemAttributeValue,
+    ]),
   ],
   controllers: [AppController],
   providers: [AppService],
