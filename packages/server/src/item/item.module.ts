@@ -18,4 +18,4 @@ import {
     ]),
   ],
 })
-export class ItemsModule {}
+export class ItemModule {}
