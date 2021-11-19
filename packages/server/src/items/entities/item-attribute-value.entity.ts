@@ -1,6 +1,6 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
 
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from 'src/common';
 import { ItemAttribute } from './item-attribute.entity';
 import { Item } from './item.entity';
 

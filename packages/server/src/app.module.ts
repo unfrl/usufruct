@@ -4,23 +4,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { dbConfig } from './config';
-import {
-  Item,
-  ItemAttribute,
-  ItemAttributeValue,
-  LendableItem,
-} from './entities';
+import { ItemsModule } from './items';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(dbConfig),
-    TypeOrmModule.forFeature([
-      Item,
-      ItemAttribute,
-      ItemAttributeValue,
-      LendableItem,
-    ]),
-  ],
+  imports: [TypeOrmModule.forRoot(dbConfig), ItemsModule],
   controllers: [AppController],
   providers: [AppService],
 })

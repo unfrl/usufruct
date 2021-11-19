@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 
-import { BaseEntity } from './base.entity';
+import { BaseEntity } from 'src/common';
 
 export enum ItemAttributeDataType {
   STRING = 'string',
