@@ -4,7 +4,7 @@ import { ItemService } from './item.service';
 
 @Controller('api/items')
 export class ItemController {
-  constructor(private readonly _itemService: ItemService) {}
+  public constructor(private readonly _itemService: ItemService) {}
 
   @Get()
   public async getItems() {
