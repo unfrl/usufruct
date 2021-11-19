@@ -1,4 +1,5 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { envConfig } from './env.config';
 const { isProduction, isDevelopment } = envConfig;
 
@@ -10,6 +11,7 @@ const password = process.env.DB_PASSWORD || 'local';
 const database = process.env.DB_NAME || 'usufruct';
 const entities = ['dist/**/*.entity{.ts,.js}'];
 const synchronize = isDevelopment;
+const namingStrategy = new SnakeNamingStrategy();
 
 export const dbConfig: TypeOrmModuleOptions = isProduction
   ? {
@@ -18,6 +20,7 @@ export const dbConfig: TypeOrmModuleOptions = isProduction
       port,
       synchronize,
       entities,
+      namingStrategy,
     }
   : {
       type,
@@ -28,4 +31,5 @@ export const dbConfig: TypeOrmModuleOptions = isProduction
       database,
       entities,
       synchronize,
+      namingStrategy,
     };
