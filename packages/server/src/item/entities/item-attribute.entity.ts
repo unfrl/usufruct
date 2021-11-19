@@ -3,8 +3,8 @@ import { Column, Entity } from 'typeorm';
 import { BaseEntity } from 'src/common';
 
 export enum ItemAttributeDataType {
-  STRING = 'string',
-  NUMBER = 'number',
+  String = 'string',
+  Number = 'number',
 }
 
 @Entity()
