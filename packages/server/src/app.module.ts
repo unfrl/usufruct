@@ -4,11 +4,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { dbConfig } from './config';
+import { Item } from './entities';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dbConfig),
-    
+    TypeOrmModule.forFeature([Item])
   ],
   controllers: [AppController],
   providers: [AppService],

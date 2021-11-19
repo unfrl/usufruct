@@ -1,16 +1,17 @@
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { envConfig } from './env.config';
 const { isProduction, isDevelopment } = envConfig;
 
 const type = 'postgres';
 const host = process.env.DB_HOST || 'localhost';
-const port = process.env.DB_PORT || 5432;
+const port = Number(process.env.DB_PORT || 5432);
 const username = process.env.DB_USERNAME || 'local';
 const password = process.env.DB_PASSWORD || 'local';
 const database = process.env.DB_NAME || 'usufruct';
-const entities = ['src/**/**.entity{.ts,.js}'];
+const entities = ['dist/**/*.entity{.ts,.js}'];
 const synchronize = isDevelopment;
 
-export const dbConfig: any = isProduction
+export const dbConfig: TypeOrmModuleOptions = isProduction
   ? {
       type,
       host,
