@@ -7,6 +7,8 @@ import {
   ItemAttributeValue,
   LendableItem,
 } from './entities';
+import { ItemController } from './item.controller';
+import { ItemService } from './item.service';
 
 @Module({
   imports: [
@@ -17,5 +19,8 @@ import {
       LendableItem,
     ]),
   ],
+  controllers: [ItemController],
+  providers: [ItemService],
+  exports: [ItemService],
 })
 export class ItemModule {}
