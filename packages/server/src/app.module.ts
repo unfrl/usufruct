@@ -14,10 +14,10 @@ import {
   imports: [
     TypeOrmModule.forRoot(dbConfig),
     TypeOrmModule.forFeature([
-      LendableItem,
       Item,
       ItemAttribute,
       ItemAttributeValue,
+      LendableItem,
     ]),
   ],
   controllers: [AppController],
