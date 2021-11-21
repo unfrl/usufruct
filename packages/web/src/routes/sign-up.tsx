@@ -12,8 +12,10 @@ export const SignUp = observer(() => {
 
   const authenticating = authStore.status === AuthStatus.Authenticating;
 
-  const handleAuthenticate = async (payload: AuthenticationPayload) => {
-    const { email, password } = payload;
+  const handleAuthenticate = async ({
+    email,
+    password,
+  }: AuthenticationPayload) => {
     await authStore.signUp(email, password);
   };
 
