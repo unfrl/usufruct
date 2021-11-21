@@ -1,7 +1,7 @@
 import ArrowDropDownRounded from '@mui/icons-material/ArrowDropDownRounded';
-import { Theme } from '@mui/material/styles';
-import primaryColor from '@mui/material/colors/indigo';
 import secondaryColor from '@mui/material/colors/amber';
+import primaryColor from '@mui/material/colors/indigo';
+import { Theme } from '@mui/material/styles';
 
 const SYSTEM_FONT = [
   '-apple-system',
@@ -23,7 +23,7 @@ export const getThemeOptions = (mode: 'dark' | 'light') => ({
     secondary: secondaryColor,
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 10,
   },
   typography: {
     fontFamily: SYSTEM_FONT,
