@@ -1,7 +1,17 @@
-import React from 'react';
 import { Container, styled } from '@mui/material';
 
-const ToolbarOffset = styled('div')(({ theme }) => theme.mixins.toolbar);
+export interface ContentProps {
+  children: any;
+  maxWidth?: 'xl' | 'lg' | 'md' | 'sm';
+}
+
+export const Content = (props: ContentProps) => {
+  return (
+    <Container maxWidth={props.maxWidth || 'lg'} style={{ padding: 0 }}>
+      <StyledContent>{props.children}</StyledContent>
+    </Container>
+  );
+};
 
 const StyledContent = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -20,17 +30,3 @@ const StyledContent = styled('div')(({ theme }) => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
 }));
-
-export interface IContentProps {
-  children: any;
-  maxWidth?: 'xl' | 'lg' | 'md' | 'sm';
-}
-
-export const Content: React.FC<IContentProps> = (props) => {
-  return (
-    <Container maxWidth={props.maxWidth || 'lg'} style={{ padding: 0 }}>
-      <ToolbarOffset />
-      <StyledContent>{props.children}</StyledContent>
-    </Container>
-  );
-};

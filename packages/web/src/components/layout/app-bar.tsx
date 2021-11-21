@@ -1,16 +1,29 @@
-import React from 'react';
-import { AppBar as MuiAppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar as MuiAppBar, Link, Toolbar, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
-export interface IAppBarProps {
+export interface AppBarProps {
   title: string;
+  titleLink?: string;
 }
 
-export const AppBar: React.FC<IAppBarProps> = (props) => {
+export const AppBar = (props: AppBarProps) => {
+  const title = props.titleLink ? (
+    <Link
+      component={RouterLink}
+      to={props.titleLink}
+      style={{ color: 'inherit' }}
+    >
+      {props.title}
+    </Link>
+  ) : (
+    props.title
+  );
+
   return (
-    <MuiAppBar position="fixed">
+    <MuiAppBar position="sticky">
       <Toolbar>
         <Typography variant="h6" component="div">
-          {props.title}
+          {title}
         </Typography>
       </Toolbar>
     </MuiAppBar>
