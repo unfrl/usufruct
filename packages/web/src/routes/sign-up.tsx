@@ -1,18 +1,20 @@
-import React from 'react';
+import { observer } from 'mobx-react';
 import {
   AuthenticationForm,
   AuthenticationPayload,
   Content,
 } from '../components';
+import { useStores } from '../hooks';
+import { AuthStatus } from '../stores';
 
-export const SignUp = () => {
-  const [authenticating, setAuthenticating] = React.useState(false);
+export const SignUp = observer(() => {
+  const { authStore } = useStores();
 
-  const handleAuthenticate = (payload: AuthenticationPayload) => {
-    console.log('auth payload', payload);
-    setAuthenticating(true);
+  const authenticating = authStore.status === AuthStatus.Authenticating;
 
-    setTimeout(() => setAuthenticating(false), 1500);
+  const handleAuthenticate = async (payload: AuthenticationPayload) => {
+    const { email, password } = payload;
+    await authStore.signUp(email, password);
   };
 
   return (
@@ -24,6 +26,6 @@ export const SignUp = () => {
       />
     </Content>
   );
-};
+});
 
 export default SignUp;
