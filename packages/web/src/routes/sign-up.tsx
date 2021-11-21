@@ -7,7 +7,7 @@ import {
 import { useStores } from '../hooks';
 import { AuthStatus } from '../stores';
 
-export const SignUp = observer(() => {
+const SignUp = observer(() => {
   const { authStore } = useStores();
 
   const authenticating = authStore.status === AuthStatus.Authenticating;
