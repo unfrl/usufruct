@@ -5,10 +5,12 @@ import {
   useMediaQuery,
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
-import { Routes, Route } from 'react-router-dom';
-
-import { AppBar, Content } from './components';
+import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { AppLayout } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
+
+const SignUp = React.lazy(() => import('./routes/sign-up'));
 
 export const App = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -19,20 +21,22 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar title="Usufruct" />
-      <Content>
+      <React.Suspense fallback={<Typography>Loading...</Typography>}>
         <Routes>
-          <Route path="/" element={<Typography>TODO!</Typography>} />
-          <Route
-            path="*"
-            element={
-              <Typography align="center" variant="h3">
-                Not found!
-              </Typography>
-            }
-          />
+          <Route path="/" element={<AppLayout />}>
+            <Route index element={<Typography>TODO!</Typography>} />
+            <Route path="/sign-up" element={<SignUp />} />
+            <Route
+              path="*"
+              element={
+                <Typography align="center" variant="h3">
+                  Not found!
+                </Typography>
+              }
+            />
+          </Route>
         </Routes>
-      </Content>
+      </React.Suspense>
     </ThemeProvider>
   );
 };
