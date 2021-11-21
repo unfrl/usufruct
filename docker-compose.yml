@@ -21,3 +21,27 @@ services:
       - "ADMINER_DEFAULT_DB_NAME=usufruct"
     depends_on:
       - postgres
+  
+  maildev:
+    container_name: usufruct_maildev
+    image: maildev/maildev
+    ports:
+      - "1080:80"
+      - "1025:25"
+  
+  redis:
+    container_name: usufruct_redis
+    image: redis:6.2.6
+    ports:
+      - 6379:6379
+
+  redis_commander:
+    container_name: usufruct_redis_commander
+    image: rediscommander/redis-commander
+    environment:
+      - "REDIS_HOST=redis"
+      - "REDIS_PORT=6379"
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
