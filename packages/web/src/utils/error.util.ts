@@ -1,5 +1,5 @@
 /**
- * Attempts to parse JSON as `{ message: string }` from the `error.message` property,
+ * Attempts to parse the `error.message` property as JSON `{ message: string }`,
  * returning the message value if successful.
  */
 export const tryParseRestError = (error: any) => {
