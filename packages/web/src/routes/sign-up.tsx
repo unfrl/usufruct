@@ -6,17 +6,22 @@ import {
 } from '../components';
 import { useStores } from '../hooks';
 import { AuthStatus } from '../stores';
+import { tryParseRestError } from '../utils';
 
 const SignUp = observer(() => {
-  const { authStore } = useStores();
+  const { auth, toasts } = useStores();
 
-  const authenticating = authStore.status === AuthStatus.Authenticating;
+  const authenticating = auth.status === AuthStatus.Authenticating;
 
   const handleAuthenticate = async ({
     email,
     password,
   }: AuthenticationPayload) => {
-    await authStore.signUp(email, password);
+    try {
+      await auth.signUp(email, password);
+    } catch (error) {
+      toasts.error(tryParseRestError(error));
+    }
   };
 
   return (

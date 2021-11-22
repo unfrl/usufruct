@@ -1,16 +1,19 @@
 import { Usufruct } from '@unfrl/usufruct-sdk';
 import { AuthStore } from './auth.store';
+import { ToastStore } from './toast.store';
 
 export class RootStore {
   public readonly client: Usufruct;
 
-  public readonly authStore: AuthStore;
+  // stores
+  public readonly auth: AuthStore;
+  public readonly toasts: ToastStore;
 
   public constructor() {
     this.client = new Usufruct(
       {
         signRequest: async (resource) => {
-          const token = this.authStore.getAccessToken();
+          const token = this.auth.getAccessToken();
           resource.headers.set('Authorization', `Bearer ${token}`);
           return resource;
         },
@@ -18,6 +21,8 @@ export class RootStore {
       // TODO: move to config and pull from env variable
       'http://localhost:1337',
     );
-    this.authStore = new AuthStore(this);
+
+    this.auth = new AuthStore(this);
+    this.toasts = new ToastStore();
   }
 }

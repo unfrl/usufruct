@@ -7,7 +7,7 @@ import {
 import { createTheme } from '@mui/material/styles';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppLayout } from './components';
+import { AppLayout, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
 const SignUp = React.lazy(() => import('./routes/sign-up'));
@@ -37,6 +37,7 @@ export const App = () => {
           </Route>
         </Routes>
       </React.Suspense>
+      <Toasts />
     </ThemeProvider>
   );
 };

@@ -26,7 +26,7 @@ export class AuthStore {
   /**
    * Attempts to sign up new user, returning true if successful.
    */
-  public async signUp(email: string, password: string): Promise<boolean> {
+  public signUp = async (email: string, password: string): Promise<void> => {
     this.setStatus(AuthStatus.Authenticating);
 
     try {
@@ -35,19 +35,14 @@ export class AuthStore {
         email,
         password,
       });
-
-      return true;
-    } catch (error) {
-      console.error('failed to sign up', error);
-      return false;
     } finally {
       this.setStatus(AuthStatus.Ready);
     }
-  }
+  };
 
-  private setStatus(status: AuthStatus) {
+  private setStatus = (status: AuthStatus) => {
     this.status = status;
-  }
+  };
 
   //#region Access token
 
