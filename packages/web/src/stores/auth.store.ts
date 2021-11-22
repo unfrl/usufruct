@@ -23,9 +23,6 @@ export class AuthStore {
     this.setStatus(AuthStatus.Ready);
   }
 
-  /**
-   * Attempts to sign up new user, returning true if successful.
-   */
   public signUp = async (email: string, password: string): Promise<void> => {
     this.setStatus(AuthStatus.Authenticating);
 
