@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as fs from 'fs';
@@ -13,6 +14,7 @@ async function bootstrap() {
   app.enableCors({
     origin: origins,
   });
+  app.useGlobalPipes(new ValidationPipe());
 
   const swaggerOptions = new DocumentBuilder()
     .setTitle('Usufruct')
