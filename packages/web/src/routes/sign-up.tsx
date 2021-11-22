@@ -28,7 +28,7 @@ const SignUp = observer(() => {
     }
   };
 
-  const renderBody = () => {
+  const renderContent = () => {
     if (emailSent) {
       return (
         <EmailSent description="Please click the verification email we sent you to finish setting up your account." />
@@ -44,7 +44,7 @@ const SignUp = observer(() => {
     );
   };
 
-  return <Content maxWidth="sm">{renderBody()}</Content>;
+  return <Content maxWidth="sm">{renderContent()}</Content>;
 });
 
 export default SignUp;
