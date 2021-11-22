@@ -4,11 +4,15 @@ import * as fs from 'fs';
 import { AppModule } from './app.module';
 
 const port = process.env.PORT || 1337;
+const origins = ['http://localhost:3000'];
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.setGlobalPrefix('api');
+  app.enableCors({
+    origin: origins,
+  });
 
   const swaggerOptions = new DocumentBuilder()
     .setTitle('Usufruct')

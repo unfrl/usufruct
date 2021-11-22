@@ -1,6 +1,8 @@
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
+const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';
+
 export enum AuthStatus {
   Initializing,
   Ready,
@@ -21,13 +23,45 @@ export class AuthStore {
     this.setStatus(AuthStatus.Ready);
   }
 
-  public async signUp(email: string, password: string) {
+  /**
+   * Attempts to sign up new user, returning true if successful.
+   */
+  public async signUp(email: string, password: string): Promise<boolean> {
     this.setStatus(AuthStatus.Authenticating);
 
-    setTimeout(() => this.setStatus(AuthStatus.Ready), 2500);
+    try {
+      await this._rootStore.client.signUp({
+        displayName: email,
+        email,
+        password,
+      });
+
+      return true;
+    } catch (error) {
+      console.error('failed to sign up', error);
+      return false;
+    } finally {
+      this.setStatus(AuthStatus.Ready);
+    }
   }
 
   private setStatus(status: AuthStatus) {
     this.status = status;
   }
+
+  //#region Access token
+
+  public getAccessToken = (): string => {
+    return localStorage.getItem(ACCESS_TOKEN_KEY) ?? '';
+  };
+
+  private setAccessToken = (token: string) => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+  };
+
+  private clearAccessToken = () => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  };
+
+  //#endregion
 }

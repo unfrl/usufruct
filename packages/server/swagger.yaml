@@ -1,5 +1,5 @@
 input-file: swagger-spec.json
-add-credentials: true
+add-credential: true
 generate-metadata: false
 
 typescript:
