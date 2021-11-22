@@ -19,7 +19,6 @@ export const Toasts = observer(() => {
         onClose={toasts.close}
         severity={toasts.toast.type}
         variant="filled"
-        sx={{ width: '100%' }}
       >
         {toasts.toast.message}
       </Alert>
