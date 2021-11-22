@@ -15,7 +15,7 @@ export class AuthController {
   })
   @ApiResponse({ status: HttpStatus.OK })
   @HttpCode(200)
-  @Post('signup')
+  @Post('sign-up')
   public async signUp(@Body() signUpDto: SignUpDto): Promise<void> {
     return await this._authService.signUp(signUpDto);
   }
@@ -27,7 +27,7 @@ export class AuthController {
   })
   @ApiResponse({ status: HttpStatus.OK, type: AuthDto })
   @HttpCode(200)
-  @Post('signin')
+  @Post('sign-in')
   public async signIn(@Body() signInDto: SignInDto): Promise<AuthDto> {
     return await this._authService.signIn(signInDto);
   }

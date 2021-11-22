@@ -1,4 +1,3 @@
-// import { MailerModule } from '@nestjs-modules/mailer';
 import { InjectRedis, Redis } from '@nestjs-modules/ioredis';
 import { MailerService } from '@nestjs-modules/mailer';
 import {
@@ -24,17 +23,13 @@ export class VerificationService {
   ) {}
 
   public async sendVerificationEmail(user: User): Promise<void> {
-    const verificationToken = uuidv4();
-    const redisKey = this.getVerificationTokenRedisKey(
-      verificationToken,
-      user.email,
-    );
+    const token = uuidv4();
+    const redisKey = this.getVerificationTokenRedisKey(token, user.email);
 
-    await this._redisClient.setex(redisKey, 86400, ''); //Currently this sets the key to expire in 1 day (86400 seconds)
+    await this._redisClient.setex(redisKey, 86400, ''); // Currently this sets the key to expire in 1 day (86400 seconds)
 
-    const hostname = appConfig.host;
-    const schema = appConfig.scheme;
-    const verificationUrl = `${schema}://${hostname}/verification?token=${verificationToken}&email=${user.email}`; //TODO: Add the verification controller/endpoint!
+    const { host, scheme } = appConfig;
+    const verificationUrl = `${scheme}://${host}/verification?token=${token}&email=${user.email}`; //TODO: Add the verification controller/endpoint!
 
     await this._mailerService.sendMail({
       to: user.email,
@@ -42,10 +37,9 @@ export class VerificationService {
       subject: 'Welcome to Carpool!',
       html: `<h1>Welcome!</h1>\n<p>\nThanks for joining Carpool! Please verify your account by clicking\n<a href="${verificationUrl}">here</a>\n</p>\n`,
     });
-    console.log(`Sent verification email for: ${user.email}`);
   }
 
-  public async verifyUser(verificationDto: VerificationDto): Promise<User> {
+  public async verifyUser(verificationDto: VerificationDto): Promise<void> {
     const { token, email } = verificationDto;
 
     const redisKey = this.getVerificationTokenRedisKey(token, email);
@@ -54,16 +48,16 @@ export class VerificationService {
         'Token provided is either expired or invalid.',
       );
     }
+
     await this._redisClient.del(redisKey);
 
     const user = await this._userRepository.findOne({ where: { email } });
     if (!user) {
       throw new NotFoundException('User account no longer exists');
     }
+
     user.isVerified = true;
     await this._userRepository.save(user);
-
-    return user;
   }
 
   private getVerificationTokenRedisKey(token: string, email: string) {

@@ -53,10 +53,12 @@ export class UserService {
       throw new Error('Email, hashed password, and display name are required');
     }
 
-    let user = new User({ email, hashedPassword, displayName });
+    const user = await this._userRepository.save(
+      new User({ email, hashedPassword, displayName }),
+    );
 
-    user = await this._userRepository.save(user);
-    this._verificationService.sendVerificationEmail(user); //TODO: email verification!
+    await this._verificationService.sendVerificationEmail(user);
+
     return user;
   }
 
@@ -65,9 +67,6 @@ export class UserService {
    * @param displayName - Display name to check exists
    */
   public async displayNameExists(displayName: string): Promise<boolean> {
-    return (
-      (await this._userRepository.findOne({ where: { displayName } })) !==
-      undefined
-    );
+    return !!(await this.findOneByDisplayName(displayName));
   }
 }

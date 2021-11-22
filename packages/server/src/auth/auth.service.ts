@@ -4,7 +4,6 @@ import * as bcrypt from 'bcrypt';
 import { authConfig } from 'src/config';
 import { UserService } from 'src/user';
 import { AuthDto, SignInDto, SignUpDto } from './dtos';
-import { JwtPayload } from './interfaces';
 
 @Injectable()
 export class AuthService {
@@ -78,12 +77,9 @@ export class AuthService {
     return this.generateAccessToken(user.id);
   }
 
-  public async generateAccessToken(userId: string): Promise<AuthDto> {
-    const tokenPayload: JwtPayload = { sub: userId };
-    const token = this._jwtService.sign(tokenPayload);
-
+  public generateAccessToken(userId: string): AuthDto {
     return {
-      accessToken: token,
+      accessToken: this._jwtService.sign({ sub: userId }),
     };
   }
 }
