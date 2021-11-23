@@ -15,11 +15,7 @@ export interface AppBarProps {
 
 export const AppBar = (props: AppBarProps) => {
   const title = props.titleLink ? (
-    <Link
-      component={RouterLink}
-      to={props.titleLink}
-      style={{ color: 'inherit' }}
-    >
+    <Link component={RouterLink} to={props.titleLink} sx={{ color: 'inherit' }}>
       {props.title}
     </Link>
   ) : (

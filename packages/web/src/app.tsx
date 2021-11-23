@@ -25,8 +25,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Typography>TODO!</Typography>} />
-            <Route path="/sign-up" element={<Authenticate signUp={true} />} />
-            <Route path="/sign-in" element={<Authenticate signUp={false} />} />
+
             <Route
               path="*"
               element={
@@ -36,6 +35,8 @@ export const App = () => {
               }
             />
           </Route>
+          <Route path="/sign-up" element={<Authenticate signUp={true} />} />
+          <Route path="/sign-in" element={<Authenticate signUp={false} />} />
         </Routes>
       </React.Suspense>
       <Toasts />
