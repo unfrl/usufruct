@@ -42,12 +42,12 @@ export class AuthStore {
     this.setStatus(AuthStatus.Authenticating);
 
     try {
-      const response = await this._root.client.signIn({
+      const { accessToken } = await this._root.client.signIn({
         email,
         password,
       });
 
-      this.setAccessToken(response.accessToken);
+      this.setAccessToken(accessToken);
 
       await this.loadUser();
     } finally {
