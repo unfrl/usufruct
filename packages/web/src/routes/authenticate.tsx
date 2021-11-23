@@ -42,7 +42,7 @@ const Authenticate = observer((props: AuthenticateProps) => {
   const renderContent = () => {
     if (emailSent) {
       return (
-        <EmailSent description="Please click the link in the email we sent you to verify your account." />
+        <EmailSent description="Please click the link in the email we sent you to finish creating your account." />
       );
     }
 
@@ -55,7 +55,7 @@ const Authenticate = observer((props: AuthenticateProps) => {
         <AuthenticationForm
           authenticating={authenticating}
           onAuthenticate={handleAuthenticate}
-          submitText="Sign Up"
+          submitText={signUp ? 'Sign Up' : 'Login'}
         />
       </FormContainer>
     );
