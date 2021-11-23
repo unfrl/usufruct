@@ -75,6 +75,7 @@ export class AuthStore {
       this.setUser(user);
     } catch (error) {
       console.log('failed to get profile, accessToken likely expired', error);
+      this.logout();
     }
   };
 
