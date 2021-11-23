@@ -15,7 +15,7 @@ export class AuthStore {
 
   public status: AuthStatus = AuthStatus.Initializing;
 
-  public get isAuthenticated() {
+  public get authenticated() {
     return !!this.user;
   }
 
@@ -53,6 +53,11 @@ export class AuthStore {
     } finally {
       this.setStatus(AuthStatus.Ready);
     }
+  };
+
+  public verifyUser = async (email: string, token: string): Promise<void> => {
+    // TODO: update to authenticate user when the verification route returns an accessToken
+    await this._root.client.verifyUser({ email, token });
   };
 
   public logout = () => {

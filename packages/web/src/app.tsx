@@ -11,6 +11,7 @@ import { AppLayout, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
 const Authenticate = React.lazy(() => import('./routes/authenticate'));
+const Verification = React.lazy(() => import('./routes/verification'));
 
 export const App = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -36,7 +37,8 @@ export const App = () => {
             />
           </Route>
           <Route path="/sign-up" element={<Authenticate signUp={true} />} />
-          <Route path="/sign-in" element={<Authenticate signUp={false} />} />
+          <Route path="/login" element={<Authenticate signUp={false} />} />
+          <Route path="/verification" element={<Verification />} />
         </Routes>
       </React.Suspense>
       <Toasts />

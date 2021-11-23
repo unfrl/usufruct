@@ -50,7 +50,7 @@ export const AppBar = observer((props: AppBarProps) => {
       <Box>
         <Button
           component={RouterLink}
-          to="/sign-in"
+          to="/login"
           variant="text"
           color="inherit"
           sx={{ marginRight: 1 }}

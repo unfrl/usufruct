@@ -1,4 +1,4 @@
-import { Body, Controller, HttpStatus, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { VerificationDto } from '../dtos';
 import { VerificationService } from '../services';
@@ -18,6 +18,7 @@ export class VerificationController {
   })
   @ApiResponse({ status: HttpStatus.OK })
   @ApiResponse({ status: HttpStatus.UNAUTHORIZED })
+  @HttpCode(HttpStatus.OK)
   @Post()
   public async verifyUser(
     @Body() verificationDto: VerificationDto,
