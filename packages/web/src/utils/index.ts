@@ -1,1 +1,1 @@
-export * from './error.util';
+export * from './tryParseRestError';

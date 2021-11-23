@@ -1,3 +1,4 @@
+import { UserDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
@@ -10,17 +11,17 @@ export enum AuthStatus {
 }
 
 export class AuthStore {
-  // TODO: likely will want this as computed when implemented, don't want the value being set anywhere else
-  public authenticated: boolean = false;
+  public user: UserDto | null = null;
 
   public status: AuthStatus = AuthStatus.Initializing;
 
+  public get isAuthenticated() {
+    return !!this.user;
+  }
+
   public constructor(private readonly _root: RootStore) {
     makeAutoObservable(this);
-
-    // TODO: reason for status to be "Initializing" is to first refresh the auth status for logged in users
-    // for now, just setting ready here until we impl the init
-    this.setStatus(AuthStatus.Ready);
+    this.initialize();
   }
 
   public signUp = async (email: string, password: string): Promise<void> => {
@@ -47,16 +48,39 @@ export class AuthStore {
       });
 
       this.setAccessToken(response.accessToken);
+
+      await this.loadUser();
     } finally {
       this.setStatus(AuthStatus.Ready);
+    }
+  };
+
+  public logout = () => {
+    this.clearUser();
+    this.clearAccessToken();
+  };
+
+  private initialize = async () => {
+    if (this.getAccessToken()) {
+      await this.loadUser();
+    }
+
+    this.setStatus(AuthStatus.Ready);
+  };
+
+  private loadUser = async () => {
+    try {
+      const user = await this._root.client.getMyProfile();
+
+      this.setUser(user);
+    } catch (error) {
+      console.log('failed to get profile, accessToken likely expired', error);
     }
   };
 
   private setStatus = (status: AuthStatus) => {
     this.status = status;
   };
-
-  //#region Access token
 
   public getAccessToken = (): string => {
     return localStorage.getItem(ACCESS_TOKEN_KEY) ?? '';
@@ -70,5 +94,11 @@ export class AuthStore {
     localStorage.removeItem(ACCESS_TOKEN_KEY);
   };
 
-  //#endregion
+  private setUser = (user: UserDto) => {
+    this.user = user;
+  };
+
+  private clearUser = () => {
+    this.user = null;
+  };
 }
