@@ -1,15 +1,14 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as IORedis from 'ioredis';
+import { UserController, VerificationController } from './controllers';
 import { User } from './entities';
-import { UserService } from './user.service';
-import { VerificationController } from './verification.controller';
-import { VerificationService } from './verification.service';
+import { UserService, VerificationService } from './services';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), IORedis],
   providers: [UserService, VerificationService],
   exports: [UserService],
-  controllers: [VerificationController],
+  controllers: [UserController, VerificationController],
 })
 export class UserModule {}

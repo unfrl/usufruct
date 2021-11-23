@@ -15,6 +15,12 @@ export interface AuthDto {
   accessToken: string;
 }
 
+export interface UserDto {
+  id: string;
+  email: string;
+  displayName: string;
+}
+
 export interface VerificationDto {
   email: string;
   token: string;
@@ -37,6 +43,26 @@ export type UsufructSignInResponse = AuthDto & {
      * The response body as parsed JSON or XML
      */
     parsedBody: AuthDto;
+  };
+};
+
+/**
+ * Contains response data for the getMyProfile operation.
+ */
+export type UsufructGetMyProfileResponse = UserDto & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: coreHttp.HttpResponse & {
+    /**
+     * The response body as text (string format)
+     */
+    bodyAsText: string;
+
+    /**
+     * The response body as parsed JSON or XML
+     */
+    parsedBody: UserDto;
   };
 };
 

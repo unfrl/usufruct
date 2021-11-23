@@ -69,6 +69,36 @@ export const AuthDto: coreHttp.CompositeMapper = {
   }
 };
 
+export const UserDto: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "UserDto",
+    modelProperties: {
+      id: {
+        serializedName: "id",
+        required: true,
+        type: {
+          name: "String"
+        }
+      },
+      email: {
+        serializedName: "email",
+        required: true,
+        type: {
+          name: "String"
+        }
+      },
+      displayName: {
+        serializedName: "displayName",
+        required: true,
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
 export const VerificationDto: coreHttp.CompositeMapper = {
   type: {
     name: "Composite",

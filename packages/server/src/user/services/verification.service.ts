@@ -9,8 +9,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { appConfig } from 'src/config';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
-import { VerificationDto } from './dtos';
-import { User } from './entities';
+import { VerificationDto } from '../dtos';
+import { User } from '../entities';
 
 @Injectable()
 export class VerificationService {

@@ -1,5 +1,4 @@
 import * as coreHttp from "@azure/core-http";
-import { ItemController } from "./operations";
 import * as Parameters from "./models/parameters";
 import * as Mappers from "./models/mappers";
 import { UsufructContext } from "./usufructContext";
@@ -8,6 +7,7 @@ import {
   SignUpDto,
   SignInDto,
   UsufructSignInResponse,
+  UsufructGetMyProfileResponse,
   VerificationDto
 } from "./models";
 
@@ -24,7 +24,22 @@ export class Usufruct extends UsufructContext {
     options?: UsufructOptionalParams
   ) {
     super(credentials, $host, options);
-    this.itemController = new ItemController(this);
+  }
+
+  /**
+   * Get items
+   * @param options The options parameters.
+   */
+  getItems(
+    options?: coreHttp.OperationOptions
+  ): Promise<coreHttp.RestResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { options: operationOptions },
+      getItemsOperationSpec
+    ) as Promise<coreHttp.RestResponse>;
   }
 
   /**
@@ -64,6 +79,22 @@ export class Usufruct extends UsufructContext {
   }
 
   /**
+   * Gets the current user profile
+   * @param options The options parameters.
+   */
+  getMyProfile(
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructGetMyProfileResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { options: operationOptions },
+      getMyProfileOperationSpec
+    ) as Promise<UsufructGetMyProfileResponse>;
+  }
+
+  /**
    * Verify a User using the token emailed to them during account creation
    * @param body
    * @param options The options parameters.
@@ -80,13 +111,18 @@ export class Usufruct extends UsufructContext {
       verifyUserOperationSpec
     ) as Promise<coreHttp.RestResponse>;
   }
-
-  itemController: ItemController;
 }
 // Operation Specifications
 
 const serializer = new coreHttp.Serializer(Mappers, /* isXml */ false);
 
+const getItemsOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/items",
+  httpMethod: "GET",
+  responses: { 200: {} },
+  urlParameters: [Parameters.$host],
+  serializer
+};
 const signUpOperationSpec: coreHttp.OperationSpec = {
   path: "/api/auth/sign-up",
   httpMethod: "POST",
@@ -109,6 +145,18 @@ const signInOperationSpec: coreHttp.OperationSpec = {
   urlParameters: [Parameters.$host],
   headerParameters: [Parameters.contentType, Parameters.accept],
   mediaType: "json",
+  serializer
+};
+const getMyProfileOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/users/me",
+  httpMethod: "GET",
+  responses: {
+    200: {
+      bodyMapper: Mappers.UserDto
+    }
+  },
+  urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.accept1],
   serializer
 };
 const verifyUserOperationSpec: coreHttp.OperationSpec = {

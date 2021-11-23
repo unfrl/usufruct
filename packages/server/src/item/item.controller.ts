@@ -1,6 +1,6 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { ItemService } from './item.service';
 
 @ApiTags('Items')
@@ -8,6 +8,10 @@ import { ItemService } from './item.service';
 export class ItemController {
   public constructor(private readonly _itemService: ItemService) {}
 
+  @ApiOperation({
+    operationId: 'getItems',
+    summary: 'Get items',
+  })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @Get()
