@@ -15,7 +15,7 @@ export class AuthStore {
 
   public status: AuthStatus = AuthStatus.Initializing;
 
-  public constructor(private readonly _rootStore: RootStore) {
+  public constructor(private readonly _root: RootStore) {
     makeAutoObservable(this);
 
     // TODO: reason for status to be "Initializing" is to first refresh the auth status for logged in users
@@ -27,8 +27,21 @@ export class AuthStore {
     this.setStatus(AuthStatus.Authenticating);
 
     try {
-      await this._rootStore.client.signUp({
+      await this._root.client.signUp({
         displayName: email,
+        email,
+        password,
+      });
+    } finally {
+      this.setStatus(AuthStatus.Ready);
+    }
+  };
+
+  public signIn = async (email: string, password: string): Promise<void> => {
+    this.setStatus(AuthStatus.Authenticating);
+
+    try {
+      await this._root.client.signIn({
         email,
         password,
       });

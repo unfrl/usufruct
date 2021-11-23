@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { styled, TextField } from '@mui/material';
+import { Box, TextField } from '@mui/material';
 import React from 'react';
 
 export interface AuthenticationPayload {
@@ -25,7 +25,7 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit}>
       <TextField
         fullWidth
         required
@@ -48,7 +48,7 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
         onChange={(e) => setState({ ...state, password: e.target.value })}
         disabled={props.authenticating}
       />
-      <FormActions>
+      <Box sx={{ marginTop: 2 }}>
         <LoadingButton
           fullWidth
           variant="contained"
@@ -58,17 +58,7 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
         >
           {props.submitText ?? 'Submit'}
         </LoadingButton>
-      </FormActions>
-    </Form>
+      </Box>
+    </form>
   );
 };
-
-const Form = styled('form')(({ theme }) => ({
-  padding: theme.spacing(2),
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: theme.shape.borderRadius,
-}));
-
-const FormActions = styled('div')(({ theme }) => ({
-  marginTop: theme.spacing(2),
-}));

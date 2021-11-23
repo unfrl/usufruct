@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AppLayout, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
-const SignUp = React.lazy(() => import('./routes/sign-up'));
+const Authenticate = React.lazy(() => import('./routes/authenticate'));
 
 export const App = () => {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
@@ -25,7 +25,7 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Typography>TODO!</Typography>} />
-            <Route path="/sign-up" element={<SignUp />} />
+            <Route path="/sign-up" element={<Authenticate signUp={true} />} />
             <Route
               path="*"
               element={
