@@ -2,7 +2,7 @@ import { UserDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
-const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';
+export const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';
 
 export enum AuthStatus {
   Initializing,
@@ -56,7 +56,6 @@ export class AuthStore {
   };
 
   public verifyUser = async (email: string, token: string): Promise<void> => {
-    // TODO: update to authenticate user when the verification route returns an accessToken
     await this._root.client.verifyUser({ email, token });
   };
 

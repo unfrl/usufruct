@@ -27,6 +27,7 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
   return (
     <form onSubmit={handleSubmit}>
       <TextField
+        autoFocus
         fullWidth
         required
         label="Email"

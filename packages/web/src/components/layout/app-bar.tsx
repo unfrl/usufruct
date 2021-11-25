@@ -44,7 +44,13 @@ export const AppBar = observer((props: AppBarProps) => {
       return <CircularProgress />;
     }
 
-    // TODO: if authenticated, display user menu
+    if (auth.authenticated) {
+      return (
+        <Button variant="text" color="inherit" onClick={() => auth.logout()}>
+          Log out
+        </Button>
+      );
+    }
 
     return (
       <Box>

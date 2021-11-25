@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { CircularProgress, styled } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
@@ -39,15 +39,19 @@ const Authenticate = observer((props: AuthenticateProps) => {
     }
   };
 
-  const renderContent = () => {
-    if (emailSent) {
-      return (
-        <EmailSent description="Please click the link in the email we sent you to finish creating your account." />
-      );
+  const content = () => {
+    if (auth.status === AuthStatus.Initializing) {
+      return <CircularProgress sx={{ display: 'flex', alignSelf: 'center' }} />;
     }
 
     if (auth.authenticated) {
       return <Navigate to="/" replace={true} />;
+    }
+
+    if (emailSent) {
+      return (
+        <EmailSent description="Please click the link in the email we sent you to finish creating your account." />
+      );
     }
 
     return (
@@ -61,7 +65,7 @@ const Authenticate = observer((props: AuthenticateProps) => {
     );
   };
 
-  return <Content maxWidth="sm">{renderContent()}</Content>;
+  return <Content maxWidth="sm">{content()}</Content>;
 });
 
 export default Authenticate;
