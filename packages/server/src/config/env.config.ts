@@ -3,7 +3,7 @@ const isDevelopment = env === 'development';
 const isProduction = env === 'production';
 
 export const envConfig = {
-    env,
-    isDevelopment,
-    isProduction,
+  env,
+  isDevelopment,
+  isProduction,
 };
