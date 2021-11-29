@@ -24,12 +24,13 @@ const Authenticate = observer((props: AuthenticateProps) => {
   const authenticating = auth.status === AuthStatus.Authenticating;
 
   const handleAuthenticate = async ({
+    displayName,
     email,
     password,
   }: AuthenticationPayload) => {
     try {
       if (signUp) {
-        await auth.signUp(email, password);
+        await auth.signUp(displayName, email, password);
         setEmailSent(true);
       } else {
         await auth.signIn(email, password);
@@ -60,6 +61,7 @@ const Authenticate = observer((props: AuthenticateProps) => {
           authenticating={authenticating}
           onAuthenticate={handleAuthenticate}
           submitText={signUp ? 'Sign Up' : 'Login'}
+          includeDisplayName={signUp}
         />
       </FormContainer>
     );

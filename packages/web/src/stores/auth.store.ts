@@ -24,12 +24,16 @@ export class AuthStore {
     this.initialize();
   }
 
-  public signUp = async (email: string, password: string): Promise<void> => {
+  public signUp = async (
+    displayName: string,
+    email: string,
+    password: string,
+  ): Promise<void> => {
     this.setStatus(AuthStatus.Authenticating);
 
     try {
       await this._root.client.signUp({
-        displayName: email,
+        displayName,
         email,
         password,
       });
