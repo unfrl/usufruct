@@ -14,28 +14,28 @@ export const UserMenu = observer(() => {
     return <CircularProgress />;
   }
 
-  if (auth.authenticated) {
+  if (!auth.authenticated) {
     return (
-      <Button variant="text" color="inherit" onClick={() => auth.logout()}>
-        Log out
-      </Button>
+      <Box>
+        <Button
+          component={RouterLink}
+          to="/login"
+          variant="text"
+          color="inherit"
+          sx={{ marginRight: 1 }}
+        >
+          Login
+        </Button>
+        <Button component={RouterLink} to="/sign-up" variant="contained">
+          Sign Up
+        </Button>
+      </Box>
     );
   }
 
   return (
-    <Box>
-      <Button
-        component={RouterLink}
-        to="/login"
-        variant="text"
-        color="inherit"
-        sx={{ marginRight: 1 }}
-      >
-        Login
-      </Button>
-      <Button component={RouterLink} to="/sign-up" variant="contained">
-        Sign Up
-      </Button>
-    </Box>
+    <Button variant="text" color="inherit" onClick={() => auth.logout()}>
+      Log out
+    </Button>
   );
 });
