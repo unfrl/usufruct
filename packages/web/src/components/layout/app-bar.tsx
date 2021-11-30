@@ -1,16 +1,7 @@
-import {
-  AppBar as MuiAppBar,
-  Box,
-  Button,
-  CircularProgress,
-  Link,
-  Toolbar,
-  Typography,
-} from '@mui/material';
+import { AppBar as MuiAppBar, Link, Toolbar, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useStores } from '../../hooks';
-import { AuthStatus } from '../../stores';
+import { UserMenu } from '../user-menu';
 
 export interface AppBarProps {
   title: string;
@@ -18,8 +9,6 @@ export interface AppBarProps {
 }
 
 export const AppBar = observer((props: AppBarProps) => {
-  const { auth } = useStores();
-
   const title = () => {
     if (props.titleLink) {
       return (
@@ -36,40 +25,6 @@ export const AppBar = observer((props: AppBarProps) => {
     return props.title;
   };
 
-  const options = () => {
-    if (
-      auth.status === AuthStatus.Authenticating ||
-      auth.status === AuthStatus.Initializing
-    ) {
-      return <CircularProgress />;
-    }
-
-    if (auth.authenticated) {
-      return (
-        <Button variant="text" color="inherit" onClick={() => auth.logout()}>
-          Log out
-        </Button>
-      );
-    }
-
-    return (
-      <Box>
-        <Button
-          component={RouterLink}
-          to="/login"
-          variant="text"
-          color="inherit"
-          sx={{ marginRight: 1 }}
-        >
-          Login
-        </Button>
-        <Button component={RouterLink} to="/sign-up" variant="contained">
-          Sign Up
-        </Button>
-      </Box>
-    );
-  };
-
   return (
     <MuiAppBar position="sticky">
       <Toolbar
@@ -82,7 +37,7 @@ export const AppBar = observer((props: AppBarProps) => {
         <Typography variant="h6" component="div">
           {title()}
         </Typography>
-        {options()}
+        <UserMenu />
       </Toolbar>
     </MuiAppBar>
   );
