@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import { AppLayout, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
-const Authenticate = React.lazy(() => import('./routes/authenticate'));
+const Authentication = React.lazy(() => import('./routes/authentication'));
 const Verification = React.lazy(() => import('./routes/verification'));
 
 export const App = () => {
@@ -35,8 +35,8 @@ export const App = () => {
               }
             />
           </Route>
-          <Route path="/sign-up" element={<Authenticate signUp={true} />} />
-          <Route path="/login" element={<Authenticate signUp={false} />} />
+          <Route path="/sign-up" element={<Authentication signUp={true} />} />
+          <Route path="/login" element={<Authentication signUp={false} />} />
           <Route path="/verification" element={<Verification />} />
         </Routes>
       </React.Suspense>

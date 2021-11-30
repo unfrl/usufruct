@@ -12,11 +12,11 @@ import { useStores } from '../hooks';
 import { AuthStatus } from '../stores';
 import { tryParseRestError } from '../utils';
 
-export interface AuthenticateProps {
+export interface AuthenticationProps {
   signUp: boolean;
 }
 
-const Authenticate = observer((props: AuthenticateProps) => {
+const Authentication = observer((props: AuthenticationProps) => {
   const { auth, toasts } = useStores();
   const [emailSent, setEmailSent] = React.useState(false);
   const { signUp } = props;
@@ -70,7 +70,7 @@ const Authenticate = observer((props: AuthenticateProps) => {
   return <Content maxWidth="sm">{content()}</Content>;
 });
 
-export default Authenticate;
+export default Authentication;
 
 const FormContainer = styled('div')(({ theme }) => ({
   padding: theme.spacing(2),
