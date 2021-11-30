@@ -1,3 +1,6 @@
+/**
+ * Returns the capitalized first initial of the first and last part of the string.
+ */
 export const getInitials = (name: string) => {
   if (!name) {
     return '';
