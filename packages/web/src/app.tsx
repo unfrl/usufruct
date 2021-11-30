@@ -26,7 +26,6 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<Typography>TODO!</Typography>} />
-
             <Route
               path="*"
               element={
