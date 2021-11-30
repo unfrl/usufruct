@@ -1,14 +1,13 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import React from 'react';
-import { ResponsiveDrawer } from '../components';
+import { InventoryTable, ResponsiveDrawer } from '../components';
 
 const Inventory = () => {
   const [open, setOpen] = React.useState(false);
+
   return (
     <Box>
-      <Button onClick={() => setOpen(true)} variant="outlined" color="inherit">
-        Test the drawer
-      </Button>
+      <InventoryTable onRowClick={() => setOpen(true)} />
       <ResponsiveDrawer
         title="New thing"
         anchor="right"

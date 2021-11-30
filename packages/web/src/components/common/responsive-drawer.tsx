@@ -9,7 +9,7 @@ import {
   useTheme,
 } from '@mui/material';
 
-const DEFAULT_WIDTH = 450;
+const DEFAULT_WIDTH = 600;
 
 export interface ResponsiveDrawerProps {
   title: string;
