@@ -2,19 +2,15 @@ import { RedisModule } from '@nestjs-modules/ioredis';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AuthModule } from './auth';
-import { dbConfig } from './config';
-import { mailModuleConfig } from './config/email.config';
-import { redisConfig } from './config/redis.config';
-import { ItemModule } from './item';
-import { UserModule } from './user';
+import { dbConfig, mailModuleConfig, redisConfig } from './config';
+import { IdentityModule } from './identity';
+import { InventoryModule } from './inventory';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(dbConfig),
-    ItemModule,
-    AuthModule,
-    UserModule,
+    InventoryModule,
+    IdentityModule,
     MailerModule.forRootAsync({
       useFactory: () => mailModuleConfig,
     }),
