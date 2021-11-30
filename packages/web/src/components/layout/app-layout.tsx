@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
-import { AppBar } from './app-bar';
+import { AppHeader } from './app-header';
 import { Content } from './content';
 
 export const AppLayout = () => {
   return (
     <>
-      <AppBar title="Usufruct" titleLink="/" />
+      <AppHeader title="Usufruct" titleLink="/" />
       <Content>
         <Outlet />
       </Content>

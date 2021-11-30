@@ -1,14 +1,14 @@
-import { AppBar as MuiAppBar, Link, Toolbar, Typography } from '@mui/material';
+import { AppBar, Link, Toolbar, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { UserMenu } from '../user-menu';
 
-export interface AppBarProps {
+export interface AppHeaderProps {
   title: string;
   titleLink?: string;
 }
 
-export const AppBar = observer((props: AppBarProps) => {
+export const AppHeader = observer((props: AppHeaderProps) => {
   const title = () => {
     if (props.titleLink) {
       return (
@@ -26,7 +26,7 @@ export const AppBar = observer((props: AppBarProps) => {
   };
 
   return (
-    <MuiAppBar position="sticky">
+    <AppBar position="sticky">
       <Toolbar
         sx={{
           display: 'flex',
@@ -39,6 +39,6 @@ export const AppBar = observer((props: AppBarProps) => {
         </Typography>
         <UserMenu />
       </Toolbar>
-    </MuiAppBar>
+    </AppBar>
   );
 });
