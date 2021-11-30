@@ -1,11 +1,33 @@
-import { Box, Button, CircularProgress } from '@mui/material';
+import Logout from '@mui/icons-material/Logout';
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Tooltip,
+} from '@mui/material';
 import { observer } from 'mobx-react';
+import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { useStores } from '../hooks';
 import { AuthStatus } from '../stores';
+import { getInitials } from '../utils';
 
 export const UserMenu = observer(() => {
   const { auth } = useStores();
+  const [anchorEl, setAnchorEl] = React.useState<Element | undefined>();
+
+  const handleShowMenu = (e: React.MouseEvent) => {
+    setAnchorEl(e.currentTarget);
+  };
+
+  const handleHideMenu = () => {
+    setAnchorEl(undefined);
+  };
 
   if (
     auth.status === AuthStatus.Authenticating ||
@@ -14,7 +36,7 @@ export const UserMenu = observer(() => {
     return <CircularProgress />;
   }
 
-  if (!auth.authenticated) {
+  if (!auth.authenticated || !auth.user) {
     return (
       <Box>
         <Button
@@ -34,8 +56,24 @@ export const UserMenu = observer(() => {
   }
 
   return (
-    <Button variant="text" color="inherit" onClick={() => auth.logout()}>
-      Log out
-    </Button>
+    <Box>
+      <Tooltip title="User menu">
+        <IconButton onClick={handleShowMenu} size="small">
+          <Avatar>{getInitials(auth.user.displayName)}</Avatar>
+        </IconButton>
+      </Tooltip>
+      <Menu
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleHideMenu}
+      >
+        <MenuItem onClick={auth.logout}>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Log out
+        </MenuItem>
+      </Menu>
+    </Box>
   );
 });
