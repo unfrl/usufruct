@@ -2,7 +2,7 @@ import { UserDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
-export const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';
+const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';
 
 export enum AuthStatus {
   Initializing,
@@ -51,7 +51,7 @@ export class AuthStore {
         password,
       });
 
-      this.setAccessToken(accessToken);
+      AuthStore.setAccessToken(accessToken);
 
       await this.loadUser();
     } finally {
@@ -65,11 +65,11 @@ export class AuthStore {
 
   public logout = () => {
     this.clearUser();
-    this.clearAccessToken();
+    AuthStore.clearAccessToken();
   };
 
   private initialize = async () => {
-    if (this.getAccessToken()) {
+    if (AuthStore.getAccessToken()) {
       await this.loadUser();
     }
 
@@ -91,18 +91,6 @@ export class AuthStore {
     this.status = status;
   };
 
-  public getAccessToken = (): string => {
-    return localStorage.getItem(ACCESS_TOKEN_KEY) ?? '';
-  };
-
-  private setAccessToken = (token: string) => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token);
-  };
-
-  private clearAccessToken = () => {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
-  };
-
   private setUser = (user: UserDto) => {
     this.user = user;
   };
@@ -110,4 +98,20 @@ export class AuthStore {
   private clearUser = () => {
     this.user = null;
   };
+
+  //#region Access token
+
+  public static getAccessToken = (): string => {
+    return localStorage.getItem(ACCESS_TOKEN_KEY) ?? '';
+  };
+
+  private static setAccessToken = (token: string) => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+  };
+
+  private static clearAccessToken = () => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  };
+
+  //#endregion
 }
