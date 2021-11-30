@@ -33,7 +33,7 @@ export const ResponsiveDrawer = (props: ResponsiveDrawerProps) => {
       onClose={onClose}
       PaperProps={{ style: { width } }}
     >
-      <AppBar sx={{ position: 'relative' }} color="secondary">
+      <AppBar sx={{ position: 'relative' }} color="default">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h6" noWrap>
             {title}
