@@ -1,11 +1,9 @@
-import Logout from '@mui/icons-material/Logout';
 import {
   Avatar,
   Box,
   Button,
   CircularProgress,
   IconButton,
-  ListItemIcon,
   Menu,
   MenuItem,
   Tooltip,
@@ -67,12 +65,7 @@ export const UserMenu = observer(() => {
         anchorEl={anchorEl}
         onClose={handleHideMenu}
       >
-        <MenuItem onClick={auth.logout}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Log out
-        </MenuItem>
+        <MenuItem onClick={auth.logout}>Log out</MenuItem>
       </Menu>
     </Box>
   );
