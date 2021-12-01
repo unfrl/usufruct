@@ -1,4 +1,8 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
 import { authConfig } from 'src/config';
@@ -18,31 +22,22 @@ export class AuthService {
 
     const existing = await this._userService.findOneByEmail(lowerCaseEmail);
     if (existing) {
-      throw new HttpException(
-        'That email address is already in use.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException('That email address is already in use.');
     }
 
     const trimmedDisplayName = displayName.trim();
     if (!trimmedDisplayName) {
-      throw new HttpException(
-        'Display name cannot be blank.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException('Display name cannot be blank.');
     }
 
     if (await this._userService.displayNameExists(trimmedDisplayName)) {
-      throw new HttpException(
-        'Display name already in use.',
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException('Display name already in use.');
     }
 
-    const hashed = await bcrypt.hash(password, authConfig.rounds);
+    const hashedPassword = await bcrypt.hash(password, authConfig.rounds);
     await this._userService.createUser(
       lowerCaseEmail,
-      hashed,
+      hashedPassword,
       trimmedDisplayName,
     );
   }
@@ -53,25 +48,18 @@ export class AuthService {
 
     const user = await this._userService.findOneByEmail(lowerCaseEmail);
     if (!user) {
-      throw new HttpException(
+      throw new UnauthorizedException(
         "That email doesn't match an existing account.",
-        HttpStatus.UNAUTHORIZED,
       );
     }
 
     const result = await bcrypt.compare(password, user.hashedPassword);
     if (!result) {
-      throw new HttpException(
-        "The email and password don't match.",
-        HttpStatus.UNAUTHORIZED,
-      );
+      throw new UnauthorizedException("The email and password don't match.");
     }
 
     if (!user.isVerified) {
-      throw new HttpException(
-        "Your account hasn't been verified yet.",
-        HttpStatus.UNAUTHORIZED,
-      );
+      throw new UnauthorizedException("Your account hasn't been verified yet.");
     }
 
     return this.generateAccessToken(user.id);
