@@ -26,7 +26,10 @@ export const App = () => {
       <React.Suspense fallback={<Typography>Loading...</Typography>}>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route index element={<Link to="inventory">Inventory test</Link>} />
+            <Route
+              index
+              element={<Link to="inventory">Admin inventory UI</Link>}
+            />
             <Route path="inventory" element={<Inventory />} />
             <Route
               path="*"
