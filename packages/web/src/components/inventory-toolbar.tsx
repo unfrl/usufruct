@@ -1,5 +1,15 @@
 import AddIcon from '@mui/icons-material/Add';
-import { Box, Button } from '@mui/material';
+import AddOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import SearchIcon from '@mui/icons-material/Search';
+import {
+  Box,
+  Button,
+  Hidden,
+  IconButton,
+  InputAdornment,
+  TextField,
+  Typography,
+} from '@mui/material';
 
 export interface InventoryToolbarProps {
   onAdd: () => void;
@@ -11,18 +21,36 @@ export const InventoryToolbar = (props: InventoryToolbarProps) => {
       sx={{
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
       }}
     >
-      <Button
-        startIcon={<AddIcon />}
+      <Hidden smDown>
+        <Button
+          startIcon={<AddIcon />}
+          variant="outlined"
+          color="inherit"
+          onClick={props.onAdd}
+        >
+          <Typography variant="button">Add item</Typography>
+        </Button>
+      </Hidden>
+      <Hidden mdUp>
+        <IconButton aria-label="Add item" onClick={props.onAdd}>
+          <AddOutlineIcon />
+        </IconButton>
+      </Hidden>
+      <TextField
+        placeholder="Search"
         variant="outlined"
         size="small"
-        color="inherit"
-        onClick={props.onAdd}
-      >
-        Add item
-      </Button>
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
     </Box>
   );
 };
