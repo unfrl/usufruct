@@ -38,7 +38,12 @@ export const ResponsiveDrawer = (props: ResponsiveDrawerProps) => {
           <Typography variant="h6" noWrap>
             {title}
           </Typography>
-          <IconButton color="inherit" onClick={onClose} aria-label="close">
+          <IconButton
+            color="inherit"
+            onClick={onClose}
+            aria-label="close"
+            size="small"
+          >
             <CloseIcon />
           </IconButton>
         </Toolbar>
