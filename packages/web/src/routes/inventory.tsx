@@ -1,12 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import React from 'react';
-import { InventoryTable, ResponsiveDrawer } from '../components';
+import {
+  InventoryTable,
+  InventoryToolbar,
+  ResponsiveDrawer,
+} from '../components';
 
 const Inventory = () => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <Box>
+      <InventoryToolbar onAdd={() => setOpen(true)} />
       <InventoryTable onRowClick={() => setOpen(true)} />
       <ResponsiveDrawer
         title="New thing"
