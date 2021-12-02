@@ -1,6 +1,6 @@
 import { Alert, Snackbar } from '@mui/material';
 import { observer } from 'mobx-react';
-import { useStores } from '../../hooks';
+import { useStores } from '../hooks';
 
 export const Toasts = observer(() => {
   const { toasts } = useStores();
