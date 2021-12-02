@@ -39,7 +39,6 @@ export const ResponsiveDrawer = (props: ResponsiveDrawerProps) => {
             {title}
           </Typography>
           <IconButton
-            edge="end"
             color="inherit"
             onClick={onClose}
             aria-label="close"
