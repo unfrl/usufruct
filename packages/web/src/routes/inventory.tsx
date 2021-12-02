@@ -12,6 +12,7 @@ const Inventory = () => {
   return (
     <Box>
       <InventoryToolbar onAdd={() => setOpen(true)} />
+      <Box sx={{ marginBottom: 2 }} />
       <InventoryTable onRowClick={() => setOpen(true)} />
       <ResponsiveDrawer
         title="New thing"

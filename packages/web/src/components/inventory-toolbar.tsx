@@ -12,7 +12,6 @@ export const InventoryToolbar = (props: InventoryToolbarProps) => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
-        marginBottom: 2,
       }}
     >
       <Button
