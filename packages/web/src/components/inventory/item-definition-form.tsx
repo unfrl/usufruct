@@ -6,7 +6,8 @@ import {
   Grid,
   ImageList,
   ImageListItem,
-  TextField,
+  TextField as MuiTextField,
+  TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
 import { UploadButton } from '../common';
 
@@ -24,20 +25,18 @@ const GridItemDivider = (props: { title: string }) => {
   );
 };
 
+const TextField = (props: MuiTextFieldProps) => {
+  return <MuiTextField {...props} size="small" fullWidth />;
+};
+
 export const ItemDefinitionForm = () => {
   return (
     <Grid container spacing={2}>
       <GridItem>
-        <TextField fullWidth label="Name" size="small" />
+        <TextField label="Name" />
       </GridItem>
       <GridItem>
-        <TextField
-          fullWidth
-          multiline
-          minRows={2}
-          label="Description"
-          size="small"
-        />
+        <TextField multiline minRows={2} label="Description" />
       </GridItem>
 
       <GridItemDivider title="Images" />
@@ -66,9 +65,7 @@ export const ItemDefinitionForm = () => {
       <GridItem>
         <Autocomplete
           options={DEMO_CATEGORIES}
-          renderInput={(params) => (
-            <TextField {...params} label="Category" size="small" />
-          )}
+          renderInput={(params) => <TextField {...params} label="Category" />}
         />
       </GridItem>
       <GridItem>
@@ -76,9 +73,7 @@ export const ItemDefinitionForm = () => {
           multiple
           filterSelectedOptions
           options={DEMO_LABELS}
-          renderInput={(params) => (
-            <TextField {...params} label="Labels" size="small" />
-          )}
+          renderInput={(params) => <TextField {...params} label="Labels" />}
         />
       </GridItem>
 
@@ -87,13 +82,11 @@ export const ItemDefinitionForm = () => {
         <Autocomplete
           filterSelectedOptions
           options={DEMO_CUSTOM_FIELDS}
-          renderInput={(params) => (
-            <TextField {...params} label="Field" size="small" />
-          )}
+          renderInput={(params) => <TextField {...params} label="Field" />}
         />
       </GridItem>
       <GridItem width={6}>
-        <TextField fullWidth label="Value" size="small" />
+        <TextField label="Value" />
       </GridItem>
       <GridItem>
         <Button
