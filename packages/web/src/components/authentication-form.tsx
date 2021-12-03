@@ -35,7 +35,6 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
           fullWidth
           required
           label="Display name"
-          variant="outlined"
           margin="normal"
           value={state.displayName}
           onChange={(e) => setState({ ...state, displayName: e.target.value })}
@@ -46,7 +45,6 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
         fullWidth
         required
         label="Email"
-        variant="outlined"
         margin="normal"
         type="email"
         value={state.email}
@@ -56,7 +54,6 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
         fullWidth
         required
         label="Password"
-        variant="outlined"
         margin="normal"
         type="password"
         value={state.password}
