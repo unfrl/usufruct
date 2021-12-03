@@ -15,22 +15,32 @@ const Input = styled('input')({
   display: 'none',
 });
 
-export const ItemDefinitionForm = () => {
-  const divider = (title?: string) => (
-    <Grid item xs={12}>
-      <Divider>{title}</Divider>
-    </Grid>
-  );
+const GridItem = (props: { children: JSX.Element; width?: number }) => (
+  <Grid item xs={props.width ?? 12}>
+    {props.children}
+  </Grid>
+);
 
+const GridItemDivider = (props: { title: string }) => {
+  return (
+    <GridItem>
+      <Divider>{props.title}</Divider>
+    </GridItem>
+  );
+};
+
+export const ItemDefinitionForm = () => {
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
+      <GridItem>
         <TextField fullWidth label="Name" />
-      </Grid>
-      <Grid item xs={12}>
+      </GridItem>
+      <GridItem>
         <TextField fullWidth multiline minRows={2} label="Description" />
-      </Grid>
-      <Grid item xs={12}>
+      </GridItem>
+
+      <GridItemDivider title="Images" />
+      <GridItem>
         <ImageList cols={3} rowHeight={164} sx={{ margin: 0 }}>
           {DEMO_IMAGES.map((item) => (
             <ImageListItem key={item.img}>
@@ -43,8 +53,8 @@ export const ItemDefinitionForm = () => {
             </ImageListItem>
           ))}
         </ImageList>
-      </Grid>
-      <Grid item xs={12}>
+      </GridItem>
+      <GridItem>
         <label htmlFor="upload-file">
           <Input accept="image/*" id="upload-file" type="file" />
           <Button
@@ -57,37 +67,36 @@ export const ItemDefinitionForm = () => {
             Upload
           </Button>
         </label>
-      </Grid>
+      </GridItem>
 
-      {divider('Category')}
-      <Grid item xs={12}>
+      <GridItemDivider title="Category" />
+      <GridItem>
         <Autocomplete
           options={DEMO_CATEGORIES}
           renderInput={(params) => <TextField {...params} label="Category" />}
         />
-      </Grid>
-      <Grid item xs={12}>
+      </GridItem>
+      <GridItem>
         <Autocomplete
           multiple
           filterSelectedOptions
           options={DEMO_LABELS}
-          getOptionLabel={(option) => option.label}
           renderInput={(params) => <TextField {...params} label="Labels" />}
         />
-      </Grid>
+      </GridItem>
 
-      {divider('Custom fields')}
-      <Grid item xs={6}>
+      <GridItemDivider title="Custom fields" />
+      <GridItem width={6}>
         <Autocomplete
           filterSelectedOptions
           options={DEMO_CUSTOM_FIELDS}
           renderInput={(params) => <TextField {...params} label="Field" />}
         />
-      </Grid>
-      <Grid item xs={6}>
+      </GridItem>
+      <GridItem width={6}>
         <TextField fullWidth label="Value" />
-      </Grid>
-      <Grid item xs={12}>
+      </GridItem>
+      <GridItem>
         <Button
           variant="outlined"
           color="inherit"
@@ -96,7 +105,7 @@ export const ItemDefinitionForm = () => {
         >
           Add field
         </Button>
-      </Grid>
+      </GridItem>
     </Grid>
   );
 };
