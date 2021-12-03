@@ -1,5 +1,4 @@
 import AddIcon from '@mui/icons-material/Add';
-import UploadIcon from '@mui/icons-material/Upload';
 import {
   Autocomplete,
   Button,
@@ -7,13 +6,9 @@ import {
   Grid,
   ImageList,
   ImageListItem,
-  styled,
   TextField,
 } from '@mui/material';
-
-const Input = styled('input')({
-  display: 'none',
-});
+import { UploadButton } from '../common';
 
 const GridItem = (props: { children: JSX.Element; width?: number }) => (
   <Grid item xs={props.width ?? 12}>
@@ -55,18 +50,10 @@ export const ItemDefinitionForm = () => {
         </ImageList>
       </GridItem>
       <GridItem>
-        <label htmlFor="upload-file">
-          <Input accept="image/*" id="upload-file" type="file" />
-          <Button
-            variant="outlined"
-            color="inherit"
-            component="span"
-            startIcon={<UploadIcon />}
-            size="small"
-          >
-            Upload
-          </Button>
-        </label>
+        <UploadButton
+          accept="image/*"
+          onUpload={(files) => console.log('todo handle file upload', files)}
+        />
       </GridItem>
 
       <GridItemDivider title="Category" />
