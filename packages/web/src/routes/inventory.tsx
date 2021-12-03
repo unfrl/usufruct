@@ -21,10 +21,11 @@ const Inventory = () => {
       <Box sx={{ marginBottom: 2 }} />
       <InventoryTable onRowClick={handleOpen} />
       <ResponsiveDrawer
+        keepMounted
         title="New item"
         anchor="right"
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={handleClose}
         headerOptions={
           <FormActions onCancel={handleClose} onSave={handleClose} />
         }

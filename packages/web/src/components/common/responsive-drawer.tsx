@@ -2,6 +2,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import {
   AppBar,
   Drawer,
+  DrawerProps,
   IconButton,
   Toolbar,
   Typography,
@@ -11,13 +12,11 @@ import {
 
 const DEFAULT_WIDTH = 450;
 
-export interface ResponsiveDrawerProps {
+export interface ResponsiveDrawerProps extends DrawerProps {
   title: string;
-  anchor: 'left' | 'right';
-  children: JSX.Element;
-  open: boolean;
   onClose: () => void;
   width?: number;
+
   /**
    * By default a close button will be rendered alongside the header title.
    * Provide `headerOptions` to override the close button with your own controls.
@@ -29,15 +28,10 @@ export const ResponsiveDrawer = (props: ResponsiveDrawerProps) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const width = isMobile ? '100vw' : props.width ?? DEFAULT_WIDTH;
-  const { title, anchor, children, open, onClose, headerOptions } = props;
+  const { title, children, onClose, headerOptions, ...rest } = props;
 
   return (
-    <Drawer
-      anchor={anchor}
-      open={open}
-      onClose={onClose}
-      PaperProps={{ style: { width } }}
-    >
+    <Drawer onClose={onClose} PaperProps={{ style: { width } }} {...rest}>
       <AppBar position="sticky" color="default">
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography variant="h6" noWrap>
