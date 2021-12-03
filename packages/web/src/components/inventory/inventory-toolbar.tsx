@@ -41,7 +41,6 @@ export const InventoryToolbar = (props: InventoryToolbarProps) => {
       </Hidden>
       <TextField
         placeholder="Search"
-        variant="outlined"
         size="small"
         InputProps={{
           startAdornment: (
