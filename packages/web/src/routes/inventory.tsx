@@ -1,7 +1,8 @@
-import { Box, Button } from '@mui/material';
+import { Box } from '@mui/material';
 import React from 'react';
 import {
   Content,
+  FormActions,
   InventoryTable,
   InventoryToolbar,
   ItemDefinitionForm,
@@ -11,33 +12,21 @@ import {
 const Inventory = () => {
   const [open, setOpen] = React.useState(false);
 
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   return (
     <Box>
-      <InventoryToolbar onAdd={() => setOpen(true)} />
+      <InventoryToolbar onAdd={handleOpen} />
       <Box sx={{ marginBottom: 2 }} />
-      <InventoryTable onRowClick={() => setOpen(true)} />
+      <InventoryTable onRowClick={handleOpen} />
       <ResponsiveDrawer
         title="New item"
         anchor="right"
         open={open}
         onClose={() => setOpen(false)}
         headerOptions={
-          <Box>
-            <Button
-              color="inherit"
-              sx={{ marginRight: 2 }}
-              onClick={() => setOpen(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              color="success"
-              variant="contained"
-              onClick={() => setOpen(false)}
-            >
-              Save
-            </Button>
-          </Box>
+          <FormActions onCancel={handleClose} onSave={handleClose} />
         }
       >
         <Content>
