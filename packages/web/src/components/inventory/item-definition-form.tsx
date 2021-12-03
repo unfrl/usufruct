@@ -28,10 +28,16 @@ export const ItemDefinitionForm = () => {
   return (
     <Grid container spacing={2}>
       <GridItem>
-        <TextField fullWidth label="Name" />
+        <TextField fullWidth label="Name" size="small" />
       </GridItem>
       <GridItem>
-        <TextField fullWidth multiline minRows={2} label="Description" />
+        <TextField
+          fullWidth
+          multiline
+          minRows={2}
+          label="Description"
+          size="small"
+        />
       </GridItem>
 
       <GridItemDivider title="Images" />
@@ -60,7 +66,9 @@ export const ItemDefinitionForm = () => {
       <GridItem>
         <Autocomplete
           options={DEMO_CATEGORIES}
-          renderInput={(params) => <TextField {...params} label="Category" />}
+          renderInput={(params) => (
+            <TextField {...params} label="Category" size="small" />
+          )}
         />
       </GridItem>
       <GridItem>
@@ -68,7 +76,9 @@ export const ItemDefinitionForm = () => {
           multiple
           filterSelectedOptions
           options={DEMO_LABELS}
-          renderInput={(params) => <TextField {...params} label="Labels" />}
+          renderInput={(params) => (
+            <TextField {...params} label="Labels" size="small" />
+          )}
         />
       </GridItem>
 
@@ -77,11 +87,13 @@ export const ItemDefinitionForm = () => {
         <Autocomplete
           filterSelectedOptions
           options={DEMO_CUSTOM_FIELDS}
-          renderInput={(params) => <TextField {...params} label="Field" />}
+          renderInput={(params) => (
+            <TextField {...params} label="Field" size="small" />
+          )}
         />
       </GridItem>
       <GridItem width={6}>
-        <TextField fullWidth label="Value" />
+        <TextField fullWidth label="Value" size="small" />
       </GridItem>
       <GridItem>
         <Button
