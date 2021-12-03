@@ -34,7 +34,7 @@ export const InventoryToolbar = (props: InventoryToolbarProps) => {
           <Typography variant="button">Add item</Typography>
         </Button>
       </Hidden>
-      <Hidden mdUp>
+      <Hidden smUp>
         <IconButton aria-label="Add item" onClick={props.onAdd}>
           <AddOutlineIcon />
         </IconButton>
