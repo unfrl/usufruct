@@ -31,7 +31,6 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
     <form onSubmit={handleSubmit}>
       {props.includeDisplayName ? (
         <TextField
-          autoFocus
           fullWidth
           required
           label="Display name"
@@ -41,7 +40,6 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
         />
       ) : null}
       <TextField
-        autoFocus={!props.includeDisplayName}
         fullWidth
         required
         label="Email"
