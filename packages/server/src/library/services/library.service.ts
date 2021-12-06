@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Library, LibraryMember } from '../entities';
+import { LibraryMember } from '../entities';
 
 @Injectable()
 export class LibraryService {
@@ -10,13 +10,12 @@ export class LibraryService {
     private readonly _libraryMemberRepository: Repository<LibraryMember>,
   ) {}
 
-  // TODO: method was just for testing, remove if unused
-  public async getLibrariesByUserId(userId: string): Promise<Library[]> {
-    const members = await this._libraryMemberRepository.find({
-      where: { userId },
-      relations: ['library'],
+  public async getLibraryMember(
+    libraryId: string,
+    userId: string,
+  ): Promise<LibraryMember | undefined> {
+    return await this._libraryMemberRepository.findOne({
+      where: { libraryId, userId },
     });
-
-    return members.map((member) => member.library);
   }
 }
