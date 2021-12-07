@@ -1,10 +1,22 @@
-import { OperationURLParameter, OperationParameter } from "@azure/core-http";
+import { OperationParameter, OperationURLParameter } from "@azure/core-http";
 import {
   CreateItemDto as CreateItemDtoMapper,
   SignUpDto as SignUpDtoMapper,
   SignInDto as SignInDtoMapper,
   VerificationDto as VerificationDtoMapper
 } from "../models/mappers";
+
+export const accept: OperationParameter = {
+  parameterPath: "accept",
+  mapper: {
+    defaultValue: "application/json",
+    isConstant: true,
+    serializedName: "Accept",
+    type: {
+      name: "String"
+    }
+  }
+};
 
 export const $host: OperationURLParameter = {
   parameterPath: "$host",
@@ -35,7 +47,7 @@ export const body: OperationParameter = {
   mapper: CreateItemDtoMapper
 };
 
-export const accept: OperationParameter = {
+export const accept1: OperationParameter = {
   parameterPath: "accept",
   mapper: {
     defaultValue: "application/json",
@@ -55,18 +67,6 @@ export const body1: OperationParameter = {
 export const body2: OperationParameter = {
   parameterPath: "body",
   mapper: SignInDtoMapper
-};
-
-export const accept1: OperationParameter = {
-  parameterPath: "accept",
-  mapper: {
-    defaultValue: "application/json",
-    isConstant: true,
-    serializedName: "Accept",
-    type: {
-      name: "String"
-    }
-  }
 };
 
 export const body3: OperationParameter = {

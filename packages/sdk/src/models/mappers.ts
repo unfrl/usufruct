@@ -1,28 +1,5 @@
 import * as coreHttp from "@azure/core-http";
 
-export const CreateItemDto: coreHttp.CompositeMapper = {
-  type: {
-    name: "Composite",
-    className: "CreateItemDto",
-    modelProperties: {
-      name: {
-        serializedName: "name",
-        required: true,
-        type: {
-          name: "String"
-        }
-      },
-      description: {
-        serializedName: "description",
-        required: true,
-        type: {
-          name: "String"
-        }
-      }
-    }
-  }
-};
-
 export const Item: coreHttp.CompositeMapper = {
   type: {
     name: "Composite",
@@ -64,6 +41,29 @@ export const Item: coreHttp.CompositeMapper = {
         serializedName: "description",
         required: true,
         readOnly: true,
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const CreateItemDto: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "CreateItemDto",
+    modelProperties: {
+      name: {
+        serializedName: "name",
+        required: true,
+        type: {
+          name: "String"
+        }
+      },
+      description: {
+        serializedName: "description",
+        required: true,
         type: {
           name: "String"
         }

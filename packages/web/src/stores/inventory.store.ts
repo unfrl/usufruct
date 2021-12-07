@@ -9,8 +9,7 @@ export class InventoryStore {
   public loadAllItems = async () => {
     try {
       const items = await this._rootStore.client.getItems();
-      console.log('wtf items yo', items);
-      // this.setItems(items)
+      this.setItems(items);
     } catch (error) {
       console.error('failed to get items', error);
       throw error;

@@ -61,7 +61,7 @@ export interface UserDto {
 export class Usufruct extends UsufructContext {
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
     createItem(body: CreateItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
-    getItems(options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
+    getItems(options?: coreHttp.OperationOptions): Promise<UsufructGetItemsResponse>;
     getMyProfile(options?: coreHttp.OperationOptions): Promise<UsufructGetMyProfileResponse>;
     signIn(body: SignInDto, options?: coreHttp.OperationOptions): Promise<UsufructSignInResponse>;
     signUp(body: SignUpDto, options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
@@ -80,6 +80,14 @@ export type UsufructCreateItemResponse = Item & {
     _response: coreHttp.HttpResponse & {
         bodyAsText: string;
         parsedBody: Item;
+    };
+};
+
+// @public
+export type UsufructGetItemsResponse = Item[] & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: Item[];
     };
 };
 

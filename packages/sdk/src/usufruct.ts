@@ -4,6 +4,7 @@ import * as Mappers from "./models/mappers";
 import { UsufructContext } from "./usufructContext";
 import {
   UsufructOptionalParams,
+  UsufructGetItemsResponse,
   CreateItemDto,
   UsufructCreateItemResponse,
   SignUpDto,
@@ -34,14 +35,14 @@ export class Usufruct extends UsufructContext {
    */
   getItems(
     options?: coreHttp.OperationOptions
-  ): Promise<coreHttp.RestResponse> {
+  ): Promise<UsufructGetItemsResponse> {
     const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
       options || {}
     );
     return this.sendOperationRequest(
       { options: operationOptions },
       getItemsOperationSpec
-    ) as Promise<coreHttp.RestResponse>;
+    ) as Promise<UsufructGetItemsResponse>;
   }
 
   /**
@@ -139,8 +140,18 @@ const serializer = new coreHttp.Serializer(Mappers, /* isXml */ false);
 const getItemsOperationSpec: coreHttp.OperationSpec = {
   path: "/api/items",
   httpMethod: "GET",
-  responses: { 200: {} },
+  responses: {
+    200: {
+      bodyMapper: {
+        type: {
+          name: "Sequence",
+          element: { type: { name: "Composite", className: "Item" } }
+        }
+      }
+    }
+  },
   urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.accept],
   serializer
 };
 const createItemOperationSpec: coreHttp.OperationSpec = {
@@ -153,7 +164,7 @@ const createItemOperationSpec: coreHttp.OperationSpec = {
   },
   requestBody: Parameters.body,
   urlParameters: [Parameters.$host],
-  headerParameters: [Parameters.contentType, Parameters.accept],
+  headerParameters: [Parameters.contentType, Parameters.accept1],
   mediaType: "json",
   serializer
 };
@@ -177,7 +188,7 @@ const signInOperationSpec: coreHttp.OperationSpec = {
   },
   requestBody: Parameters.body2,
   urlParameters: [Parameters.$host],
-  headerParameters: [Parameters.contentType, Parameters.accept],
+  headerParameters: [Parameters.contentType, Parameters.accept1],
   mediaType: "json",
   serializer
 };
@@ -190,7 +201,7 @@ const getMyProfileOperationSpec: coreHttp.OperationSpec = {
     }
   },
   urlParameters: [Parameters.$host],
-  headerParameters: [Parameters.accept1],
+  headerParameters: [Parameters.accept],
   serializer
 };
 const verifyUserOperationSpec: coreHttp.OperationSpec = {
