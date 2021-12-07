@@ -1,6 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
 import {
-  Autocomplete,
   Button,
   Divider,
   Grid,
@@ -9,7 +8,8 @@ import {
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
-import { UploadButton } from '../common';
+import React from 'react';
+import { ComboBox, ComboBoxValue, UploadButton } from '../common';
 
 const GridItem = (props: { children: JSX.Element; width?: number }) => (
   <Grid item xs={props.width ?? 12}>
@@ -30,6 +30,10 @@ const TextField = (props: MuiTextFieldProps) => {
 };
 
 export const ItemDefinitionForm = () => {
+  const [category, setCategory] = React.useState<ComboBoxValue>(null);
+  const [labels, setLabels] = React.useState<ComboBoxValue>([]);
+  const [field, setField] = React.useState<ComboBoxValue>(null);
+
   return (
     <Grid container spacing={2}>
       <GridItem>
@@ -63,26 +67,32 @@ export const ItemDefinitionForm = () => {
 
       <GridItemDivider title="Category" />
       <GridItem>
-        <Autocomplete
+        <ComboBox
+          label="Category"
           options={DEMO_CATEGORIES}
-          renderInput={(params) => <TextField {...params} label="Category" />}
+          value={category}
+          onChange={setCategory}
         />
       </GridItem>
       <GridItem>
-        <Autocomplete
+        <ComboBox
           multiple
           filterSelectedOptions
           options={DEMO_LABELS}
-          renderInput={(params) => <TextField {...params} label="Labels" />}
+          label="Labels"
+          value={labels}
+          onChange={setLabels}
         />
       </GridItem>
 
       <GridItemDivider title="Custom fields" />
       <GridItem width={6}>
-        <Autocomplete
+        <ComboBox
           filterSelectedOptions
           options={DEMO_CUSTOM_FIELDS}
-          renderInput={(params) => <TextField {...params} label="Field" />}
+          label="Field"
+          value={field}
+          onChange={setField}
         />
       </GridItem>
       <GridItem width={6}>
@@ -118,19 +128,19 @@ const DEMO_IMAGES = [
 ];
 
 const DEMO_CATEGORIES = [
-  { id: 1, label: 'Tools' },
-  { id: 2, label: 'Services' },
+  { id: 1, title: 'Tools' },
+  { id: 2, title: 'Services' },
 ];
 
 const DEMO_LABELS = [
-  { id: 1, label: 'Automotive' },
-  { id: 2, label: 'Electronics' },
-  { id: 3, label: 'Electrical' },
-  { id: 4, label: 'Gardening' },
+  { id: 1, title: 'Automotive' },
+  { id: 2, title: 'Electronics' },
+  { id: 3, title: 'Electrical' },
+  { id: 4, title: 'Gardening' },
 ];
 
 const DEMO_CUSTOM_FIELDS = [
-  { id: 1, label: 'Type' },
-  { id: 2, label: 'Size' },
-  { id: 3, label: 'Color' },
+  { id: 1, title: 'Type' },
+  { id: 2, title: 'Size' },
+  { id: 3, title: 'Color' },
 ];
