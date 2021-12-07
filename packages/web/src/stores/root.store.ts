@@ -1,5 +1,6 @@
 import { Usufruct } from '@unfrl/usufruct-sdk';
 import { AuthStore } from './auth.store';
+import { InventoryStore } from './inventory.store';
 import { ToastStore } from './toast.store';
 
 export class RootStore {
@@ -7,6 +8,7 @@ export class RootStore {
 
   // stores
   public readonly auth: AuthStore;
+  public readonly inventory: InventoryStore;
   public readonly toasts: ToastStore;
 
   public constructor() {
@@ -24,6 +26,7 @@ export class RootStore {
       'http://localhost:1337',
     );
     this.auth = new AuthStore(this);
+    this.inventory = new InventoryStore(this);
     this.toasts = new ToastStore();
   }
 }

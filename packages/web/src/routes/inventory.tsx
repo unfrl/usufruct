@@ -1,16 +1,19 @@
 import { Box } from '@mui/material';
 import { CreateItemDto } from '@unfrl/usufruct-sdk';
+import { observer } from 'mobx-react';
 import React from 'react';
 import {
+  BasicTable,
   Content,
   FormActions,
-  InventoryTable,
   InventoryToolbar,
   ItemForm,
   ResponsiveDrawer,
 } from '../components';
+import { useStores } from '../hooks';
 
-const Inventory = () => {
+const Inventory = observer(() => {
+  const { inventory } = useStores();
   const [item, setItem] = React.useState<CreateItemDto>({
     name: '',
     description: '',
@@ -24,7 +27,27 @@ const Inventory = () => {
     <Box>
       <InventoryToolbar onAdd={handleOpen} />
       <Box sx={{ marginBottom: 2 }} />
-      <InventoryTable onRowClick={handleOpen} />
+      <BasicTable
+        rows={inventory.items}
+        columns={[
+          {
+            key: 'id',
+            title: 'ID',
+          },
+          {
+            key: 'name',
+            title: 'Name',
+          },
+          {
+            key: 'description',
+            title: 'Description',
+          },
+        ]}
+        onRowClick={(row) => {
+          console.log('yooo', row);
+          handleOpen();
+        }}
+      />
       <ResponsiveDrawer
         keepMounted
         title="New item"
@@ -41,6 +64,6 @@ const Inventory = () => {
       </ResponsiveDrawer>
     </Box>
   );
-};
+});
 
 export default Inventory;
