@@ -1,9 +1,10 @@
-import { Box, Typography } from '@mui/material';
-import { CreateItemDto } from '@unfrl/usufruct-sdk';
+import { Box } from '@mui/material';
+import { CreateItemDto, Item } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import {
   BasicTable,
+  Column,
   Content,
   FormActions,
   InventoryToolbar,
@@ -13,14 +14,34 @@ import {
 import { useStores } from '../hooks';
 import { tryParseRestError } from '../utils';
 
+const ITEM_COLUMNS: Column<Item>[] = [
+  {
+    key: 'name',
+    title: 'Name',
+  },
+  {
+    key: 'description',
+    title: 'Description',
+  },
+  {
+    key: 'created',
+    title: 'Created',
+    customRender: (row) => new Date(row.created).toLocaleDateString(),
+  },
+  {
+    key: 'updated',
+    title: 'Updated',
+    customRender: (row) => new Date(row.updated).toLocaleDateString(),
+  },
+];
+
 const Inventory = observer(() => {
   const { inventory, toasts } = useStores();
+  const [open, setOpen] = React.useState(false);
   const [item, setItem] = React.useState<CreateItemDto>({
     name: '',
     description: '',
   });
-  const [open, setOpen] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     const init = async () => {
@@ -29,8 +50,6 @@ const Inventory = observer(() => {
       } catch (error) {
         toasts.error(tryParseRestError(error));
       }
-
-      setLoading(false);
     };
 
     init();
@@ -43,31 +62,14 @@ const Inventory = observer(() => {
     <Box>
       <InventoryToolbar onAdd={handleOpen} />
       <Box sx={{ marginBottom: 2 }} />
-      {loading ? (
-        <Typography>Loading the stuff...</Typography>
-      ) : (
-        <BasicTable
-          rows={inventory.items}
-          columns={[
-            {
-              key: 'id',
-              title: 'ID',
-            },
-            {
-              key: 'name',
-              title: 'Name',
-            },
-            {
-              key: 'description',
-              title: 'Description',
-            },
-          ]}
-          onRowClick={(row) => {
-            console.log('yooo', row);
-            handleOpen();
-          }}
-        />
-      )}
+      <BasicTable
+        rows={inventory.items}
+        columns={ITEM_COLUMNS}
+        onRowClick={(row) => {
+          console.log('yooo', row);
+          handleOpen();
+        }}
+      />
       <ResponsiveDrawer
         keepMounted
         title="New item"

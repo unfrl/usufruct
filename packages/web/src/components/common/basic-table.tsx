@@ -11,6 +11,7 @@ import {
 export interface Column<T> {
   key: keyof T & string;
   title: string;
+  customRender?: (row: T) => JSX.Element | string;
 }
 
 export interface BasicTableProps<T> {
@@ -45,7 +46,9 @@ export const BasicTable = <T extends { id: string | number }>(
             >
               {columns.map((column) => (
                 <TableCell key={`${row.id}-${column.key}`}>
-                  {row[column.key]}
+                  {column.customRender
+                    ? column.customRender(row)
+                    : row[column.key]}
                 </TableCell>
               ))}
             </TableRow>
