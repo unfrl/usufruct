@@ -10,12 +10,15 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
+import { observer } from 'mobx-react';
 
 export interface InventoryToolbarProps {
   onAdd: () => void;
+  searchValue: string;
+  onSearchChange: (newValue: string) => void;
 }
 
-export const InventoryToolbar = (props: InventoryToolbarProps) => {
+export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
   return (
     <Box
       sx={{
@@ -42,6 +45,8 @@ export const InventoryToolbar = (props: InventoryToolbarProps) => {
       <TextField
         placeholder="Search"
         size="small"
+        value={props.searchValue}
+        onChange={(e) => props.onSearchChange(e.target.value)}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -52,4 +57,4 @@ export const InventoryToolbar = (props: InventoryToolbarProps) => {
       />
     </Box>
   );
-};
+});

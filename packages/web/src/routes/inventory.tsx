@@ -58,12 +58,21 @@ const Inventory = observer(() => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
+  // TODO: real impl will want this debounced and maybe could just use autocomplete instead of filtering whole table
+  const handleSearchChange = (value: string) => {
+    inventory.setQuery(value);
+  };
+
   return (
     <Box>
-      <InventoryToolbar onAdd={handleOpen} />
+      <InventoryToolbar
+        onAdd={handleOpen}
+        searchValue={inventory.query}
+        onSearchChange={handleSearchChange}
+      />
       <Box sx={{ marginBottom: 2 }} />
       <BasicTable
-        rows={inventory.items}
+        rows={inventory.filteredItems}
         columns={ITEM_COLUMNS}
         onRowClick={(row) => {
           console.log('yooo', row);

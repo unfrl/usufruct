@@ -3,7 +3,14 @@ import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
 export class InventoryStore {
+  public query: string = '';
+
   public items: Item[] = [];
+
+  public get filteredItems() {
+    const query = this.query.trim().toLowerCase();
+    return this.items.filter((item) => item.name.search(query) > -1);
+  }
 
   public constructor(private readonly _rootStore: RootStore) {
     makeAutoObservable(this);
@@ -18,6 +25,10 @@ export class InventoryStore {
       console.error('failed to get items', error);
       throw error;
     }
+  };
+
+  public setQuery = (query: string) => {
+    this.query = query;
   };
 
   private setItems = (items: Item[]) => {
