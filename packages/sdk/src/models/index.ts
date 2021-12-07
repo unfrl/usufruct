@@ -1,5 +1,33 @@
 import * as coreHttp from "@azure/core-http";
 
+export interface CreateItemDto {
+  name: string;
+  description: string;
+}
+
+export interface Item {
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly id: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly created: Date;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly updated: Date;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly name: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly description: string;
+}
+
 export interface SignUpDto {
   email: string;
   password: string;
@@ -25,6 +53,26 @@ export interface VerificationDto {
   email: string;
   token: string;
 }
+
+/**
+ * Contains response data for the createItem operation.
+ */
+export type UsufructCreateItemResponse = Item & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: coreHttp.HttpResponse & {
+    /**
+     * The response body as text (string format)
+     */
+    bodyAsText: string;
+
+    /**
+     * The response body as parsed JSON or XML
+     */
+    parsedBody: Item;
+  };
+};
 
 /**
  * Contains response data for the signIn operation.

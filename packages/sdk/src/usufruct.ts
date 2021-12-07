@@ -4,6 +4,8 @@ import * as Mappers from "./models/mappers";
 import { UsufructContext } from "./usufructContext";
 import {
   UsufructOptionalParams,
+  CreateItemDto,
+  UsufructCreateItemResponse,
   SignUpDto,
   SignInDto,
   UsufructSignInResponse,
@@ -40,6 +42,24 @@ export class Usufruct extends UsufructContext {
       { options: operationOptions },
       getItemsOperationSpec
     ) as Promise<coreHttp.RestResponse>;
+  }
+
+  /**
+   * Create a new item definition
+   * @param body
+   * @param options The options parameters.
+   */
+  createItem(
+    body: CreateItemDto,
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructCreateItemResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { body, options: operationOptions },
+      createItemOperationSpec
+    ) as Promise<UsufructCreateItemResponse>;
   }
 
   /**
@@ -123,11 +143,25 @@ const getItemsOperationSpec: coreHttp.OperationSpec = {
   urlParameters: [Parameters.$host],
   serializer
 };
+const createItemOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/items",
+  httpMethod: "POST",
+  responses: {
+    200: {
+      bodyMapper: Mappers.Item
+    }
+  },
+  requestBody: Parameters.body,
+  urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.contentType, Parameters.accept],
+  mediaType: "json",
+  serializer
+};
 const signUpOperationSpec: coreHttp.OperationSpec = {
   path: "/api/auth/sign-up",
   httpMethod: "POST",
   responses: { 200: {} },
-  requestBody: Parameters.body,
+  requestBody: Parameters.body1,
   urlParameters: [Parameters.$host],
   headerParameters: [Parameters.contentType],
   mediaType: "json",
@@ -141,7 +175,7 @@ const signInOperationSpec: coreHttp.OperationSpec = {
       bodyMapper: Mappers.AuthDto
     }
   },
-  requestBody: Parameters.body1,
+  requestBody: Parameters.body2,
   urlParameters: [Parameters.$host],
   headerParameters: [Parameters.contentType, Parameters.accept],
   mediaType: "json",
@@ -163,7 +197,7 @@ const verifyUserOperationSpec: coreHttp.OperationSpec = {
   path: "/api/verification",
   httpMethod: "POST",
   responses: { 200: {}, 401: {} },
-  requestBody: Parameters.body2,
+  requestBody: Parameters.body3,
   urlParameters: [Parameters.$host],
   headerParameters: [Parameters.contentType],
   mediaType: "json",
