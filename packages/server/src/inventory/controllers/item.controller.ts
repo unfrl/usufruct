@@ -29,6 +29,7 @@ export class ItemController {
     operationId: 'getItems',
     summary: 'Get items',
   })
+  @ApiResponse({ status: HttpStatus.OK, type: Item, isArray: true })
   @Get()
   public async getItems(): Promise<Item[]> {
     return await this._itemService.getItems();
