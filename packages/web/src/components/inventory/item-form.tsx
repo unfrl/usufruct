@@ -8,6 +8,7 @@ import {
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
+import { CreateItemDto } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { ComboBox, ComboBoxValue, UploadButton } from '../common';
 
@@ -29,7 +30,12 @@ const TextField = (props: MuiTextFieldProps) => {
   return <MuiTextField {...props} size="small" fullWidth />;
 };
 
-export const ItemDefinitionForm = () => {
+export interface ItemFormProps {
+  item: CreateItemDto;
+  onChange: (item: CreateItemDto) => void;
+}
+
+export const ItemForm = (props: ItemFormProps) => {
   const [category, setCategory] = React.useState<ComboBoxValue>(null);
   const [labels, setLabels] = React.useState<ComboBoxValue>([]);
   const [field, setField] = React.useState<ComboBoxValue>(null);
@@ -37,10 +43,24 @@ export const ItemDefinitionForm = () => {
   return (
     <Grid container spacing={2}>
       <GridItem>
-        <TextField label="Name" />
+        <TextField
+          label="Name"
+          value={props.item.name}
+          onChange={(e) =>
+            props.onChange({ ...props.item, name: e.target.value })
+          }
+        />
       </GridItem>
       <GridItem>
-        <TextField multiline minRows={2} label="Description" />
+        <TextField
+          multiline
+          minRows={2}
+          label="Description"
+          value={props.item.description}
+          onChange={(e) =>
+            props.onChange({ ...props.item, description: e.target.value })
+          }
+        />
       </GridItem>
 
       <GridItemDivider title="Images" />

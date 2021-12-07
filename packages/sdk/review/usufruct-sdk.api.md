@@ -13,6 +13,23 @@ export interface AuthDto {
 }
 
 // @public (undocumented)
+export interface CreateItemDto {
+    // (undocumented)
+    description: string;
+    // (undocumented)
+    name: string;
+}
+
+// @public (undocumented)
+export interface Item {
+    readonly created: Date;
+    readonly description: string;
+    readonly id: string;
+    readonly name: string;
+    readonly updated: Date;
+}
+
+// @public (undocumented)
 export interface SignInDto {
     // (undocumented)
     email: string;
@@ -31,12 +48,21 @@ export interface SignUpDto {
 }
 
 // @public (undocumented)
+export interface UserDto {
+    // (undocumented)
+    displayName: string;
+    // (undocumented)
+    email: string;
+    // (undocumented)
+    id: string;
+}
+
+// @public (undocumented)
 export class Usufruct extends UsufructContext {
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
-    // Warning: (ae-forgotten-export) The symbol "ItemController" needs to be exported by the entry point index.d.ts
-    //
-    // (undocumented)
-    itemController: ItemController;
+    createItem(body: CreateItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
+    getItems(options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
+    getMyProfile(options?: coreHttp.OperationOptions): Promise<UsufructGetMyProfileResponse>;
     signIn(body: SignInDto, options?: coreHttp.OperationOptions): Promise<UsufructSignInResponse>;
     signUp(body: SignUpDto, options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
     verifyUser(body: VerificationDto, options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
@@ -48,6 +74,22 @@ export class UsufructContext extends coreHttp.ServiceClient {
     $host: string;
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
 }
+
+// @public
+export type UsufructCreateItemResponse = Item & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: Item;
+    };
+};
+
+// @public
+export type UsufructGetMyProfileResponse = UserDto & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: UserDto;
+    };
+};
 
 // @public
 export interface UsufructOptionalParams extends coreHttp.ServiceClientOptions {

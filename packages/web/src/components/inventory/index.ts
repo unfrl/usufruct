@@ -1,3 +1,3 @@
 export * from './inventory-table';
 export * from './inventory-toolbar';
-export * from './item-definition-form';
+export * from './item-form';

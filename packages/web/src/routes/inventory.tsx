@@ -1,15 +1,20 @@
 import { Box } from '@mui/material';
+import { CreateItemDto } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import {
   Content,
   FormActions,
   InventoryTable,
   InventoryToolbar,
-  ItemDefinitionForm,
+  ItemForm,
   ResponsiveDrawer,
 } from '../components';
 
 const Inventory = () => {
+  const [item, setItem] = React.useState<CreateItemDto>({
+    name: '',
+    description: '',
+  });
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => setOpen(true);
@@ -31,7 +36,7 @@ const Inventory = () => {
         }
       >
         <Content>
-          <ItemDefinitionForm />
+          <ItemForm item={item} onChange={setItem} />
         </Content>
       </ResponsiveDrawer>
     </Box>
