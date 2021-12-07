@@ -23,7 +23,7 @@ export const getThemeOptions = (mode: 'dark' | 'light') => ({
     secondary: secondaryColor,
   },
   shape: {
-    borderRadius: 8,
+    borderRadius: 6,
   },
   typography: {
     fontFamily: SYSTEM_FONT,
