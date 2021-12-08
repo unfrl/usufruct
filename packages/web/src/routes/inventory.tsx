@@ -61,7 +61,7 @@ const Inventory = observer(() => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  // TODO: real impl will want this debounced and maybe could just use autocomplete instead of filtering whole table
+  // TODO: just for testing, moving search to autocomplete component
   const handleSearchChange = (value: string) => {
     inventory.setQuery(value);
   };
@@ -70,7 +70,6 @@ const Inventory = observer(() => {
     try {
       setSaving(true);
 
-      // TODO: will need to handle create or update & display appropriate toast message
       const newItem = await inventory.createItem(item);
 
       toasts.success(`${newItem.name} added!`);
