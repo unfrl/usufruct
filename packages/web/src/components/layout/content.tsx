@@ -1,4 +1,6 @@
 import { Container, styled } from '@mui/material';
+import React from 'react';
+import { Spinner } from '../common';
 
 export interface ContentProps {
   children: any;
@@ -7,9 +9,11 @@ export interface ContentProps {
 
 export const Content = (props: ContentProps) => {
   return (
-    <Container maxWidth={props.maxWidth || 'lg'} style={{ padding: 0 }}>
-      <StyledContent>{props.children}</StyledContent>
-    </Container>
+    <React.Suspense fallback={<Spinner />}>
+      <Container maxWidth={props.maxWidth || 'lg'} style={{ padding: 0 }}>
+        <StyledContent>{props.children}</StyledContent>
+      </Container>
+    </React.Suspense>
   );
 };
 
