@@ -35,13 +35,16 @@ const ITEM_COLUMNS: Column<Item>[] = [
   },
 ];
 
+const DEFAULT_ITEM_DTO: CreateItemDto = {
+  name: '',
+  description: '',
+};
+
 const Inventory = observer(() => {
   const { inventory, toasts } = useStores();
   const [open, setOpen] = React.useState(false);
-  const [item, setItem] = React.useState<CreateItemDto>({
-    name: '',
-    description: '',
-  });
+  const [item, setItem] = React.useState<CreateItemDto>(DEFAULT_ITEM_DTO);
+  const [saving, setSaving] = React.useState(false);
 
   React.useEffect(() => {
     const init = async () => {
@@ -61,6 +64,23 @@ const Inventory = observer(() => {
   // TODO: real impl will want this debounced and maybe could just use autocomplete instead of filtering whole table
   const handleSearchChange = (value: string) => {
     inventory.setQuery(value);
+  };
+
+  const handleSave = async () => {
+    try {
+      setSaving(true);
+
+      await inventory.createItem(item);
+
+      toasts.success('Item created!');
+
+      setItem(DEFAULT_ITEM_DTO);
+      setOpen(false);
+    } catch (error) {
+      toasts.error(tryParseRestError(error));
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -86,7 +106,11 @@ const Inventory = observer(() => {
         open={open}
         onClose={handleClose}
         headerOptions={
-          <FormActions onCancel={handleClose} onSave={handleClose} />
+          <FormActions
+            onCancel={handleClose}
+            onSave={handleSave}
+            canSave={!!item.name && !saving}
+          />
         }
       >
         <Content>

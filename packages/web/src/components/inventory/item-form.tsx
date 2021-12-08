@@ -44,6 +44,7 @@ export const ItemForm = (props: ItemFormProps) => {
     <Grid container spacing={2}>
       <GridItem>
         <TextField
+          required
           label="Name"
           value={props.item.name}
           onChange={(e) =>

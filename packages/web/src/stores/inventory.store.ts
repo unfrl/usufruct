@@ -1,4 +1,4 @@
-import { Item } from '@unfrl/usufruct-sdk';
+import { CreateItemDto, Item } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
@@ -27,11 +27,25 @@ export class InventoryStore {
     }
   };
 
+  public createItem = async (itemDto: CreateItemDto) => {
+    try {
+      const item = await this._rootStore.client.createItem(itemDto);
+      this.addItem(item);
+    } catch (error) {
+      console.error('failed to create item', error);
+      throw error;
+    }
+  };
+
   public setQuery = (query: string) => {
     this.query = query;
   };
 
   private setItems = (items: Item[]) => {
     this.items = items;
+  };
+
+  private addItem = (item: Item) => {
+    this.items.push(item);
   };
 }

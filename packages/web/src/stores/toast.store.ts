@@ -24,6 +24,10 @@ export class ToastStore {
     this.open({ message, type: 'error' });
   };
 
+  public success = (message: string) => {
+    this.open({ message, type: 'success' });
+  };
+
   public close = () => {
     this.toast = null;
   };
