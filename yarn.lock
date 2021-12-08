@@ -1020,6 +1020,16 @@
     prop-types "^15.7.2"
     react-is "^17.0.2"
 
+"@mui/x-data-grid@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-5.1.0.tgz#837e51be256fb5a3316bfe1c73ef6f537788785a"
+  integrity sha512-Pj6/FM+fmGjUYqQ26CC0fRiiLENWMfTyp8nOjEm95eqOPbyFM1BMLsZrCU78TR+jUMsE7nc2Y4lYkWlAPcvIgQ==
+  dependencies:
+    "@mui/utils" "^5.1.1"
+    clsx "^1.1.1"
+    prop-types "^15.7.2"
+    reselect "^4.1.4"
+
 "@nestjs-modules/ioredis@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@nestjs-modules/ioredis/-/ioredis-1.0.0.tgz#4b2560f450047ea6cb044ebce5dd4363a24cc416"
@@ -6438,6 +6448,11 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
+
+reselect@^4.1.4:
+  version "4.1.5"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-4.1.5.tgz#852c361247198da6756d07d9296c2b51eddb79f6"
+  integrity sha512-uVdlz8J7OO+ASpBYoz1Zypgx0KasCY20H+N8JD13oUMtPvSHQuscrHop4KbXrbsBcdB9Ds7lVK7eRkBIfO43vQ==
 
 resolve-cwd@^3.0.0:
   version "3.0.0"

@@ -1,10 +1,16 @@
 import { Box } from '@mui/material';
-import { CreateItemDto, Item } from '@unfrl/usufruct-sdk';
+import {
+  DataGrid,
+  GridColDef,
+  GridToolbarColumnsButton,
+  GridToolbarContainer,
+  GridToolbarExport,
+  GridToolbarFilterButton,
+} from '@mui/x-data-grid';
+import { CreateItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import {
-  BasicTable,
-  Column,
   Content,
   FormActions,
   InventoryToolbar,
@@ -14,25 +20,21 @@ import {
 import { useStores } from '../hooks';
 import { tryParseRestError } from '../utils';
 
-const ITEM_COLUMNS: Column<Item>[] = [
-  {
-    key: 'name',
-    title: 'Name',
-  },
-  {
-    key: 'description',
-    title: 'Description',
-  },
-  {
-    key: 'created',
-    title: 'Created',
-    customRender: (row) => new Date(row.created).toLocaleDateString(),
-  },
-  {
-    key: 'updated',
-    title: 'Updated',
-    customRender: (row) => new Date(row.updated).toLocaleDateString(),
-  },
+const GridToolbar = () => {
+  return (
+    <GridToolbarContainer>
+      <GridToolbarColumnsButton />
+      <GridToolbarFilterButton />
+      <GridToolbarExport />
+    </GridToolbarContainer>
+  );
+};
+
+const COLUMNS: GridColDef[] = [
+  { field: 'name', headerName: 'Name', minWidth: 150, flex: 0.5 },
+  { field: 'description', headerName: 'Description', minWidth: 150, flex: 2 },
+  { field: 'created', headerName: 'Created', type: 'dateTime', minWidth: 150 },
+  { field: 'updated', headerName: 'Updated', type: 'dateTime', minWidth: 150 },
 ];
 
 const DEFAULT_ITEM_DTO: CreateItemDto = {
@@ -44,14 +46,19 @@ const Inventory = observer(() => {
   const { inventory, toasts } = useStores();
   const [open, setOpen] = React.useState(false);
   const [item, setItem] = React.useState<CreateItemDto>(DEFAULT_ITEM_DTO);
+  const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState(false);
 
   React.useEffect(() => {
     const init = async () => {
       try {
+        setLoading(true);
+
         await inventory.loadAllItems();
       } catch (error) {
         toasts.error(tryParseRestError(error));
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -90,15 +97,14 @@ const Inventory = observer(() => {
         searchValue={inventory.query}
         onSearchChange={handleSearchChange}
       />
-      <Box sx={{ marginBottom: 2 }} />
-      <BasicTable
-        rows={inventory.filteredItems}
-        columns={ITEM_COLUMNS}
-        onRowClick={(row) => {
-          console.log('yooo', row);
-          handleOpen();
-        }}
-      />
+      <Box sx={{ marginTop: 2, height: '70vh', width: '100%' }}>
+        <DataGrid
+          rows={inventory.filteredItems}
+          columns={COLUMNS}
+          components={{ Toolbar: GridToolbar }}
+          loading={loading}
+        />
+      </Box>
       <ResponsiveDrawer
         keepMounted
         title="New item"

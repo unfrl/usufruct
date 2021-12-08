@@ -24,15 +24,16 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
     <Box
       sx={{
         display: 'flex',
-        alignItems: 'center',
+        alignItems: 'flex-end',
         justifyContent: 'space-between',
       }}
     >
       <Hidden smDown>
         <Button
           startIcon={<AddIcon />}
-          variant="outlined"
-          color="inherit"
+          variant="contained"
+          size="small"
+          color="primary"
           onClick={props.onAdd}
         >
           <Typography variant="button">Add item</Typography>

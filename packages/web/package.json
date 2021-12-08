@@ -12,6 +12,7 @@
     "@mui/icons-material": "^5.1.0",
     "@mui/lab": "^5.0.0-alpha.55",
     "@mui/material": "^5.1.0",
+    "@mui/x-data-grid": "^5.1.0",
     "@unfrl/usufruct-sdk": "file:../sdk",
     "mobx": "^6.3.7",
     "mobx-react": "^7.2.1",

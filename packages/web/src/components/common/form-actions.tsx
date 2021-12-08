@@ -20,7 +20,7 @@ export const FormActions = (props: FormActionsProps) => {
         {cancelText ?? 'Cancel'}
       </Button>
       <LoadingButton
-        color="success"
+        color="primary"
         variant="contained"
         onClick={onSave}
         disabled={saveDisabled}

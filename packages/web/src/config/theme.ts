@@ -1,6 +1,6 @@
 import ArrowDropDownRounded from '@mui/icons-material/ArrowDropDownRounded';
-import secondaryColor from '@mui/material/colors/amber';
-import primaryColor from '@mui/material/colors/indigo';
+import secondaryColor from '@mui/material/colors/deepPurple';
+import primaryColor from '@mui/material/colors/teal';
 import { Theme } from '@mui/material/styles';
 
 const SYSTEM_FONT = [
