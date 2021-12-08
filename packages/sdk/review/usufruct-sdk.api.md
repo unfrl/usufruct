@@ -13,7 +13,17 @@ export interface AuthDto {
 }
 
 // @public (undocumented)
+export interface Category {
+    readonly created: Date;
+    readonly id: string;
+    readonly name: string;
+    readonly updated: Date;
+}
+
+// @public (undocumented)
 export interface CreateItemDto {
+    // (undocumented)
+    categoryNames: string[];
     // (undocumented)
     description: string;
     // (undocumented)
@@ -22,12 +32,16 @@ export interface CreateItemDto {
 
 // @public (undocumented)
 export interface Item {
+    readonly categories: Category;
     readonly created: Date;
     readonly description: string;
     readonly id: string;
     readonly name: string;
     readonly updated: Date;
 }
+
+// @public (undocumented)
+export type ItemCategories = Category & {};
 
 // @public (undocumented)
 export interface SignInDto {
@@ -61,6 +75,7 @@ export interface UserDto {
 export class Usufruct extends UsufructContext {
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
     createItem(body: CreateItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
+    getCategories(options?: coreHttp.OperationOptions): Promise<UsufructGetCategoriesResponse>;
     getItems(options?: coreHttp.OperationOptions): Promise<UsufructGetItemsResponse>;
     getMyProfile(options?: coreHttp.OperationOptions): Promise<UsufructGetMyProfileResponse>;
     signIn(body: SignInDto, options?: coreHttp.OperationOptions): Promise<UsufructSignInResponse>;
@@ -80,6 +95,14 @@ export type UsufructCreateItemResponse = Item & {
     _response: coreHttp.HttpResponse & {
         bodyAsText: string;
         parsedBody: Item;
+    };
+};
+
+// @public
+export type UsufructGetCategoriesResponse = Category[] & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: Category[];
     };
 };
 

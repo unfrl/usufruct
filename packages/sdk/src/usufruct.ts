@@ -4,6 +4,7 @@ import * as Mappers from "./models/mappers";
 import { UsufructContext } from "./usufructContext";
 import {
   UsufructOptionalParams,
+  UsufructGetCategoriesResponse,
   UsufructGetItemsResponse,
   CreateItemDto,
   UsufructCreateItemResponse,
@@ -27,6 +28,22 @@ export class Usufruct extends UsufructContext {
     options?: UsufructOptionalParams
   ) {
     super(credentials, $host, options);
+  }
+
+  /**
+   * Get all categories
+   * @param options The options parameters.
+   */
+  getCategories(
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructGetCategoriesResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { options: operationOptions },
+      getCategoriesOperationSpec
+    ) as Promise<UsufructGetCategoriesResponse>;
   }
 
   /**
@@ -137,6 +154,23 @@ export class Usufruct extends UsufructContext {
 
 const serializer = new coreHttp.Serializer(Mappers, /* isXml */ false);
 
+const getCategoriesOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/categories",
+  httpMethod: "GET",
+  responses: {
+    200: {
+      bodyMapper: {
+        type: {
+          name: "Sequence",
+          element: { type: { name: "Composite", className: "Category" } }
+        }
+      }
+    }
+  },
+  urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.accept],
+  serializer
+};
 const getItemsOperationSpec: coreHttp.OperationSpec = {
   path: "/api/items",
   httpMethod: "GET",

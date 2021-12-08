@@ -1,5 +1,46 @@
 import * as coreHttp from "@azure/core-http";
 
+export const Category: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "Category",
+    modelProperties: {
+      id: {
+        serializedName: "id",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      created: {
+        serializedName: "created",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      updated: {
+        serializedName: "updated",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      name: {
+        serializedName: "name",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
 export const Item: coreHttp.CompositeMapper = {
   type: {
     name: "Composite",
@@ -44,6 +85,13 @@ export const Item: coreHttp.CompositeMapper = {
         type: {
           name: "String"
         }
+      },
+      categories: {
+        serializedName: "categories",
+        type: {
+          name: "Composite",
+          className: "Category"
+        }
       }
     }
   }
@@ -66,6 +114,18 @@ export const CreateItemDto: coreHttp.CompositeMapper = {
         required: true,
         type: {
           name: "String"
+        }
+      },
+      categoryNames: {
+        serializedName: "categoryNames",
+        required: true,
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "String"
+            }
+          }
         }
       }
     }
@@ -190,6 +250,16 @@ export const VerificationDto: coreHttp.CompositeMapper = {
           name: "String"
         }
       }
+    }
+  }
+};
+
+export const ItemCategories: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "ItemCategories",
+    modelProperties: {
+      ...Category.type.modelProperties
     }
   }
 };
