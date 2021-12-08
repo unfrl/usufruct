@@ -2,7 +2,6 @@ import { Box } from '@mui/material';
 import {
   DataGrid,
   GridColDef,
-  GridToolbarColumnsButton,
   GridToolbarContainer,
   GridToolbarExport,
   GridToolbarFilterButton,
@@ -23,7 +22,6 @@ import { tryParseRestError } from '../utils';
 const GridToolbar = () => {
   return (
     <GridToolbarContainer>
-      <GridToolbarColumnsButton />
       <GridToolbarFilterButton />
       <GridToolbarExport />
     </GridToolbarContainer>
