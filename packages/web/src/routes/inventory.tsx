@@ -99,10 +99,15 @@ const Inventory = observer(() => {
       />
       <Box sx={{ marginTop: 2, height: '70vh', width: '100%' }}>
         <DataGrid
+          hideFooterSelectedRowCount
           rows={inventory.filteredItems}
           columns={COLUMNS}
           components={{ Toolbar: GridToolbar }}
           loading={loading}
+          onSelectionModelChange={(model) => {
+            console.log('todo: impl selection', model);
+            handleOpen();
+          }}
         />
       </Box>
       <ResponsiveDrawer
