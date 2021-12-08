@@ -52,8 +52,6 @@ const Inventory = observer(() => {
   React.useEffect(() => {
     const init = async () => {
       try {
-        setLoading(true);
-
         await inventory.loadAllItems();
       } catch (error) {
         toasts.error(tryParseRestError(error));
