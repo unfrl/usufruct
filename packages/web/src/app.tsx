@@ -7,7 +7,7 @@ import {
 import { createTheme } from '@mui/material/styles';
 import React from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import { AppLayout, Toasts } from './components';
+import { AppLayout, Spinner, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
 const Authentication = React.lazy(() => import('./routes/authentication'));
@@ -23,7 +23,7 @@ export const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <React.Suspense fallback={<Typography>Loading...</Typography>}>
+      <React.Suspense fallback={<Spinner />}>
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route

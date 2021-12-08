@@ -38,6 +38,7 @@ const COLUMNS: GridColDef[] = [
 const DEFAULT_ITEM_DTO: CreateItemDto = {
   name: '',
   description: '',
+  categoryNames: [],
 };
 
 const Inventory = observer(() => {
