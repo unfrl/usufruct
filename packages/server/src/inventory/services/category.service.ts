@@ -10,6 +10,10 @@ export class CategoryService {
     private readonly _categoryRepository: Repository<Category>,
   ) {}
 
+  public async getAll(): Promise<Category[]> {
+    return await this._categoryRepository.find();
+  }
+
   public async findOneByName(name: string): Promise<Category | undefined> {
     return await this._categoryRepository.findOne({
       where: { name },

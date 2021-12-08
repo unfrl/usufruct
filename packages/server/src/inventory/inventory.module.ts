@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ItemController } from './controllers';
+import { CategoryController, ItemController } from './controllers';
 import {
   Category,
   Item,
@@ -20,7 +20,7 @@ import { CategoryService, ItemService } from './services';
       LendableItem,
     ]),
   ],
-  controllers: [ItemController],
+  controllers: [CategoryController, ItemController],
   providers: [CategoryService, ItemService],
   exports: [ItemService],
 })
