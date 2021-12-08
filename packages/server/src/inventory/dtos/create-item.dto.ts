@@ -8,4 +8,7 @@ export class CreateItemDto {
 
   @ApiProperty()
   public description: string;
+
+  @ApiProperty()
+  public categoryNames: string[];
 }

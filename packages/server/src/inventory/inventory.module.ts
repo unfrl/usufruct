@@ -2,16 +2,18 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ItemController } from './controllers';
 import {
+  Category,
   Item,
   ItemAttribute,
   ItemAttributeValue,
   LendableItem,
 } from './entities';
-import { ItemService } from './services';
+import { CategoryService, ItemService } from './services';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
+      Category,
       Item,
       ItemAttribute,
       ItemAttributeValue,
@@ -19,7 +21,7 @@ import { ItemService } from './services';
     ]),
   ],
   controllers: [ItemController],
-  providers: [ItemService],
+  providers: [CategoryService, ItemService],
   exports: [ItemService],
 })
 export class InventoryModule {}
