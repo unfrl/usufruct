@@ -27,10 +27,13 @@ export class InventoryStore {
     }
   };
 
-  public createItem = async (itemDto: CreateItemDto) => {
+  public createItem = async (itemDto: CreateItemDto): Promise<Item> => {
     try {
       const item = await this._rootStore.client.createItem(itemDto);
+
       this.addItem(item);
+
+      return item;
     } catch (error) {
       console.error('failed to create item', error);
       throw error;

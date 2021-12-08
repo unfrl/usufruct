@@ -70,9 +70,10 @@ const Inventory = observer(() => {
     try {
       setSaving(true);
 
-      await inventory.createItem(item);
+      // TODO: will need to handle create or update & display appropriate toast message
+      const newItem = await inventory.createItem(item);
 
-      toasts.success('Item created!');
+      toasts.success(`${newItem.name} added!`);
 
       setItem(DEFAULT_ITEM_DTO);
       setOpen(false);
