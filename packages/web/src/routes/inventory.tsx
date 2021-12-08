@@ -109,7 +109,8 @@ const Inventory = observer(() => {
           <FormActions
             onCancel={handleClose}
             onSave={handleSave}
-            canSave={!!item.name && !saving}
+            saveDisabled={!item.name}
+            saving={saving}
           />
         }
       >
