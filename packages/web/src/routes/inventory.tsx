@@ -51,7 +51,10 @@ const Inventory = observer(() => {
   React.useEffect(() => {
     const init = async () => {
       try {
-        await inventory.loadAllItems();
+        await Promise.all([
+          inventory.loadAllItems(),
+          inventory.loadCategories(),
+        ]);
       } catch (error) {
         toasts.error(tryParseRestError(error));
       } finally {
@@ -123,7 +126,11 @@ const Inventory = observer(() => {
         }
       >
         <Content>
-          <ItemForm item={item} onChange={setItem} />
+          <ItemForm
+            categories={inventory.categories}
+            item={item}
+            onChange={setItem}
+          />
         </Content>
       </ResponsiveDrawer>
     </Box>

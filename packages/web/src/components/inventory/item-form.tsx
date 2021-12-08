@@ -8,7 +8,8 @@ import {
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
-import { CreateItemDto } from '@unfrl/usufruct-sdk';
+import { Category, CreateItemDto } from '@unfrl/usufruct-sdk';
+import { observer } from 'mobx-react';
 import React from 'react';
 import { ComboBox, ComboBoxValue, UploadButton } from '../common';
 
@@ -33,12 +34,34 @@ const TextField = (props: MuiTextFieldProps) => {
 export interface ItemFormProps {
   item: CreateItemDto;
   onChange: (item: CreateItemDto) => void;
+  categories: Category[];
 }
 
-export const ItemForm = (props: ItemFormProps) => {
-  const [category, setCategory] = React.useState<ComboBoxValue>(null);
+export const ItemForm = observer((props: ItemFormProps) => {
+  const { item, onChange, categories } = props;
   const [labels, setLabels] = React.useState<ComboBoxValue>([]);
   const [field, setField] = React.useState<ComboBoxValue>(null);
+
+  // TODO: update the createitem dto to only accept a single string for category, since that's what we want to enforce anyway
+  const selectedCategory = item.categoryNames?.length
+    ? { title: item.categoryNames[0] }
+    : null;
+  const categoryOptions = categories.map((c) => ({ title: c.name }));
+
+  const handleSelectCategory = (value: ComboBoxValue) => {
+    if (!value) {
+      return onChange({ ...item, categoryNames: [] });
+    }
+
+    if (Array.isArray(value)) {
+      return onChange({
+        ...item,
+        categoryNames: value.map((v) => v.title),
+      });
+    }
+
+    onChange({ ...item, categoryNames: [value.title] });
+  };
 
   return (
     <Grid container spacing={2}>
@@ -90,9 +113,9 @@ export const ItemForm = (props: ItemFormProps) => {
       <GridItem>
         <ComboBox
           label="Category"
-          options={DEMO_CATEGORIES}
-          value={category}
-          onChange={setCategory}
+          options={categoryOptions}
+          value={selectedCategory}
+          onChange={handleSelectCategory}
         />
       </GridItem>
       <GridItem>
@@ -131,7 +154,7 @@ export const ItemForm = (props: ItemFormProps) => {
       </GridItem>
     </Grid>
   );
-};
+});
 
 const DEMO_IMAGES = [
   {
@@ -146,11 +169,6 @@ const DEMO_IMAGES = [
     img: 'https://images.unsplash.com/photo-1586187543416-b1e5669978b3',
     title: 'Small screwdriver',
   },
-];
-
-const DEMO_CATEGORIES = [
-  { id: 1, title: 'Tools' },
-  { id: 2, title: 'Services' },
 ];
 
 const DEMO_LABELS = [

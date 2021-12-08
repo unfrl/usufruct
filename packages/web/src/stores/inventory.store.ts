@@ -1,9 +1,11 @@
-import { CreateItemDto, Item } from '@unfrl/usufruct-sdk';
+import { Category, CreateItemDto, Item } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
 export class InventoryStore {
   public query: string = '';
+
+  public categories: Category[] = [];
 
   public items: Item[] = [];
 
@@ -27,6 +29,16 @@ export class InventoryStore {
     }
   };
 
+  public loadCategories = async () => {
+    try {
+      console.log('loading categories...');
+      const categories = await this._rootStore.client.getCategories();
+      this.setCategories(categories);
+    } catch (error) {
+      console.error('failed to load categories', error);
+    }
+  };
+
   public createItem = async (itemDto: CreateItemDto): Promise<Item> => {
     try {
       const item = await this._rootStore.client.createItem(itemDto);
@@ -42,6 +54,10 @@ export class InventoryStore {
 
   public setQuery = (query: string) => {
     this.query = query;
+  };
+
+  private setCategories = (categories: Category[]) => {
+    this.categories = categories;
   };
 
   private setItems = (items: Item[]) => {
