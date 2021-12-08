@@ -8,6 +8,7 @@ import {
   IconButton,
   InputAdornment,
   TextField,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import { observer } from 'mobx-react';
@@ -38,9 +39,11 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
         </Button>
       </Hidden>
       <Hidden smUp>
-        <IconButton aria-label="Add item" onClick={props.onAdd}>
-          <AddOutlineIcon />
-        </IconButton>
+        <Tooltip title="Add item">
+          <IconButton aria-label="Add item" onClick={props.onAdd}>
+            <AddOutlineIcon />
+          </IconButton>
+        </Tooltip>
       </Hidden>
       <TextField
         placeholder="Search"
