@@ -33,8 +33,8 @@ const GridToolbar = () => {
 const COLUMNS: GridColDef[] = [
   { field: 'name', headerName: 'Name', minWidth: 150, flex: 0.5 },
   { field: 'description', headerName: 'Description', minWidth: 150, flex: 2 },
-  { field: 'created', headerName: 'Created', type: 'dateTime', minWidth: 150 },
-  { field: 'updated', headerName: 'Updated', type: 'dateTime', minWidth: 150 },
+  { field: 'created', headerName: 'Created', type: 'dateTime', minWidth: 175 },
+  { field: 'updated', headerName: 'Updated', type: 'dateTime', minWidth: 175 },
 ];
 
 const DEFAULT_ITEM_DTO: CreateItemDto = {
