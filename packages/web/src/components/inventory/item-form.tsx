@@ -76,10 +76,8 @@ export const ItemForm = observer((props: ItemFormProps) => {
         <TextField
           required
           label="Name"
-          value={props.item.name}
-          onChange={(e) =>
-            props.onChange({ ...props.item, name: e.target.value })
-          }
+          value={item.name}
+          onChange={(e) => emitChange('name', e.target.value)}
         />
       </GridItem>
       <GridItem>
@@ -87,10 +85,8 @@ export const ItemForm = observer((props: ItemFormProps) => {
           multiline
           minRows={2}
           label="Description"
-          value={props.item.description}
-          onChange={(e) =>
-            props.onChange({ ...props.item, description: e.target.value })
-          }
+          value={item.description}
+          onChange={(e) => emitChange('description', e.target.value)}
         />
       </GridItem>
 
