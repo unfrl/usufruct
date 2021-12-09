@@ -22,7 +22,7 @@ import { tryParseRestError } from '../utils';
 const GridToolbar = () => {
   return (
     <GridToolbarContainer>
-      <GridToolbarFilterButton />
+      <GridToolbarFilterButton sx={{ marginRight: 1 }} />
       <GridToolbarExport />
     </GridToolbarContainer>
   );
