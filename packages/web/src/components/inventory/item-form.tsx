@@ -42,25 +42,32 @@ export const ItemForm = observer((props: ItemFormProps) => {
   const [labels, setLabels] = React.useState<ComboBoxValue>([]);
   const [field, setField] = React.useState<ComboBoxValue>(null);
 
-  // TODO: update the createitem dto to only accept a single string for category, since that's what we want to enforce anyway
+  // items can have multiple categories, but restricting selection just to one right now
   const selectedCategory = item.categoryNames?.length
     ? { title: item.categoryNames[0] }
     : null;
   const categoryOptions = categories.map((c) => ({ title: c.name }));
 
-  const handleSelectCategory = (value: ComboBoxValue) => {
+  const emitChange = <K extends keyof CreateItemDto>(
+    key: K,
+    value: CreateItemDto[K],
+  ) => {
+    onChange({ ...item, [key]: value });
+  };
+
+  const handleSelect = (key: keyof CreateItemDto) => (value: ComboBoxValue) => {
     if (!value) {
-      return onChange({ ...item, categoryNames: [] });
+      return emitChange(key, []);
     }
 
     if (Array.isArray(value)) {
-      return onChange({
-        ...item,
-        categoryNames: value.map((v) => v.title),
-      });
+      return emitChange(
+        key,
+        value.map((v) => v.title),
+      );
     }
 
-    onChange({ ...item, categoryNames: [value.title] });
+    emitChange(key, [value.title]);
   };
 
   return (
@@ -115,7 +122,7 @@ export const ItemForm = observer((props: ItemFormProps) => {
           label="Category"
           options={categoryOptions}
           value={selectedCategory}
-          onChange={handleSelectCategory}
+          onChange={handleSelect('categoryNames')}
         />
       </GridItem>
       <GridItem>
