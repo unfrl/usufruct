@@ -36,7 +36,9 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
           color="primary"
           onClick={props.onAdd}
         >
-          <Typography variant="button">Add item</Typography>
+          <Typography variant="button" sx={{ textTransform: 'none' }}>
+            Add item
+          </Typography>
         </Button>
       </Hidden>
       <Hidden smUp>

@@ -52,6 +52,11 @@ export function getThemedComponents(theme: Theme) {
         defaultProps: {
           disableElevation: true,
         },
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
+        },
       },
       MuiLink: {
         defaultProps: {
