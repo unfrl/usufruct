@@ -22,8 +22,11 @@ import { tryParseRestError } from '../utils';
 const GridToolbar = () => {
   return (
     <GridToolbarContainer>
-      <GridToolbarFilterButton sx={{ marginRight: 1 }} />
-      <GridToolbarExport />
+      <GridToolbarFilterButton
+        sx={{ marginRight: 1 }}
+        componentsProps={{ button: { color: 'inherit' } }}
+      />
+      <GridToolbarExport color="inherit" />
     </GridToolbarContainer>
   );
 };
