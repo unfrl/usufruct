@@ -33,7 +33,7 @@ const GridToolbar = () => {
 
 const COLUMNS: GridColDef[] = [
   { field: 'name', headerName: 'Name', minWidth: 100 },
-  { field: 'description', headerName: 'Description', minWidth: 200 },
+  { field: 'description', headerName: 'Description', minWidth: 150, flex: 1 },
   {
     field: 'categories',
     headerName: 'Category',
@@ -54,7 +54,7 @@ const COLUMNS: GridColDef[] = [
   {
     field: 'labels',
     headerName: 'Labels',
-    minWidth: 200,
+    minWidth: 150,
     flex: 1,
     filterable: false,
     sortable: false,
@@ -75,6 +75,8 @@ const COLUMNS: GridColDef[] = [
       );
     },
   },
+  { field: 'created', headerName: 'Created', minWidth: 175, type: 'date' },
+  { field: 'updated', headerName: 'Updated', minWidth: 175, type: 'date' },
 ];
 
 const DEFAULT_ITEM_DTO: UpsertItemDto = {
@@ -130,6 +132,21 @@ const Inventory = observer(() => {
     }
   };
 
+  const handleSelect = (itemId: string) => {
+    const inventoryItem = inventory.items.find((item) => item.id === itemId);
+    if (!inventoryItem) {
+      return;
+    }
+
+    const { categories, labels, ...rest } = inventoryItem;
+
+    setItem({
+      categoryNames: categories.map((c) => c.name),
+      labelNames: labels.map((l) => l.name),
+      ...rest,
+    });
+  };
+
   return (
     <Box>
       <InventoryToolbar
@@ -139,14 +156,18 @@ const Inventory = observer(() => {
       />
       <Box sx={{ marginTop: 2, height: '70vh', width: '100%' }}>
         <DataGrid
-          hideFooterSelectedRowCount
+          disableSelectionOnClick
           rows={inventory.filteredItems}
           columns={COLUMNS}
           components={{ Toolbar: GridToolbar }}
           loading={loading}
           onSelectionModelChange={(model) => {
-            console.log('todo: impl selection', model);
-            handleOpen();
+            // TODO: need to handle creating vs updating vs duplicating & creating new
+            // maybe the creation step needs to be distinct from the form being shown in the drawer?
+            if (model.length) {
+              handleSelect(String(model[0]));
+              handleOpen();
+            }
           }}
         />
       </Box>
