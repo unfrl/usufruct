@@ -44,9 +44,36 @@ export interface Item {
    * NOTE: This property will not be serialized. It can only be populated by the server.
    */
   readonly categories: Category;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly labels: Label;
 }
 
-export interface CreateItemDto {
+export interface Label {
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly id: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly created: Date;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly updated: Date;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly name: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly description: string;
+}
+
+export interface UpsertItemDto {
   name: string;
   description: string;
   categoryNames: string[];
@@ -79,6 +106,8 @@ export interface VerificationDto {
 }
 
 export type ItemCategories = Category & {};
+
+export type ItemLabels = Label & {};
 
 /**
  * Contains response data for the getCategories operation.
@@ -137,6 +166,26 @@ export type UsufructCreateItemResponse = Item & {
      * The response body as parsed JSON or XML
      */
     parsedBody: Item;
+  };
+};
+
+/**
+ * Contains response data for the getLabels operation.
+ */
+export type UsufructGetLabelsResponse = Label[] & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: coreHttp.HttpResponse & {
+    /**
+     * The response body as text (string format)
+     */
+    bodyAsText: string;
+
+    /**
+     * The response body as parsed JSON or XML
+     */
+    parsedBody: Label[];
   };
 };
 

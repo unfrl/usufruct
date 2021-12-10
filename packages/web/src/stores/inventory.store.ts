@@ -1,4 +1,4 @@
-import { Category, CreateItemDto, Item } from '@unfrl/usufruct-sdk';
+import { Category, Item, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
@@ -39,7 +39,7 @@ export class InventoryStore {
     }
   };
 
-  public createItem = async (itemDto: CreateItemDto): Promise<Item> => {
+  public createItem = async (itemDto: UpsertItemDto): Promise<Item> => {
     try {
       const item = await this._rootStore.client.createItem(itemDto);
 

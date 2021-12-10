@@ -92,15 +92,71 @@ export const Item: coreHttp.CompositeMapper = {
           name: "Composite",
           className: "Category"
         }
+      },
+      labels: {
+        serializedName: "labels",
+        type: {
+          name: "Composite",
+          className: "Label"
+        }
       }
     }
   }
 };
 
-export const CreateItemDto: coreHttp.CompositeMapper = {
+export const Label: coreHttp.CompositeMapper = {
   type: {
     name: "Composite",
-    className: "CreateItemDto",
+    className: "Label",
+    modelProperties: {
+      id: {
+        serializedName: "id",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      created: {
+        serializedName: "created",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      updated: {
+        serializedName: "updated",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      name: {
+        serializedName: "name",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      description: {
+        serializedName: "description",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const UpsertItemDto: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "UpsertItemDto",
     modelProperties: {
       name: {
         serializedName: "name",
@@ -260,6 +316,16 @@ export const ItemCategories: coreHttp.CompositeMapper = {
     className: "ItemCategories",
     modelProperties: {
       ...Category.type.modelProperties
+    }
+  }
+};
+
+export const ItemLabels: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "ItemLabels",
+    modelProperties: {
+      ...Label.type.modelProperties
     }
   }
 };

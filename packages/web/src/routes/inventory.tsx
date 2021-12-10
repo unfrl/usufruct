@@ -6,7 +6,7 @@ import {
   GridToolbarExport,
   GridToolbarFilterButton,
 } from '@mui/x-data-grid';
-import { CreateItemDto } from '@unfrl/usufruct-sdk';
+import { UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import {
@@ -38,7 +38,7 @@ const COLUMNS: GridColDef[] = [
   { field: 'updated', headerName: 'Updated', type: 'dateTime', minWidth: 175 },
 ];
 
-const DEFAULT_ITEM_DTO: CreateItemDto = {
+const DEFAULT_ITEM_DTO: UpsertItemDto = {
   name: '',
   description: '',
   categoryNames: [],
@@ -47,7 +47,7 @@ const DEFAULT_ITEM_DTO: CreateItemDto = {
 const Inventory = observer(() => {
   const { inventory, toasts } = useStores();
   const [open, setOpen] = React.useState(false);
-  const [item, setItem] = React.useState<CreateItemDto>(DEFAULT_ITEM_DTO);
+  const [item, setItem] = React.useState<UpsertItemDto>(DEFAULT_ITEM_DTO);
   const [loading, setLoading] = React.useState(true);
   const [saving, setSaving] = React.useState(false);
 

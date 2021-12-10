@@ -1,6 +1,6 @@
 import { OperationParameter, OperationURLParameter } from "@azure/core-http";
 import {
-  CreateItemDto as CreateItemDtoMapper,
+  UpsertItemDto as UpsertItemDtoMapper,
   SignUpDto as SignUpDtoMapper,
   SignInDto as SignInDtoMapper,
   VerificationDto as VerificationDtoMapper
@@ -44,7 +44,7 @@ export const contentType: OperationParameter = {
 
 export const body: OperationParameter = {
   parameterPath: "body",
-  mapper: CreateItemDtoMapper
+  mapper: UpsertItemDtoMapper
 };
 
 export const accept1: OperationParameter = {

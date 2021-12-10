@@ -8,7 +8,7 @@ import {
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
-import { Category, CreateItemDto } from '@unfrl/usufruct-sdk';
+import { Category, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { ComboBox, ComboBoxValue, UploadButton } from '../common';
@@ -32,8 +32,8 @@ const TextField = (props: MuiTextFieldProps) => {
 };
 
 export interface ItemFormProps {
-  item: CreateItemDto;
-  onChange: (item: CreateItemDto) => void;
+  item: UpsertItemDto;
+  onChange: (item: UpsertItemDto) => void;
   categories: Category[];
 }
 
@@ -48,14 +48,14 @@ export const ItemForm = observer((props: ItemFormProps) => {
     : null;
   const categoryOptions = categories.map((c) => ({ title: c.name }));
 
-  const emitChange = <K extends keyof CreateItemDto>(
+  const emitChange = <K extends keyof UpsertItemDto>(
     key: K,
-    value: CreateItemDto[K],
+    value: UpsertItemDto[K],
   ) => {
     onChange({ ...item, [key]: value });
   };
 
-  const handleSelect = (key: keyof CreateItemDto) => (value: ComboBoxValue) => {
+  const handleSelect = (key: keyof UpsertItemDto) => (value: ComboBoxValue) => {
     if (!value) {
       return emitChange(key, []);
     }

@@ -21,27 +21,30 @@ export interface Category {
 }
 
 // @public (undocumented)
-export interface CreateItemDto {
-    // (undocumented)
-    categoryNames: string[];
-    // (undocumented)
-    description: string;
-    // (undocumented)
-    name: string;
-}
-
-// @public (undocumented)
 export interface Item {
     readonly categories: Category;
     readonly created: Date;
     readonly description: string;
     readonly id: string;
+    readonly labels: Label;
     readonly name: string;
     readonly updated: Date;
 }
 
 // @public (undocumented)
 export type ItemCategories = Category & {};
+
+// @public (undocumented)
+export type ItemLabels = Label & {};
+
+// @public (undocumented)
+export interface Label {
+    readonly created: Date;
+    readonly description: string;
+    readonly id: string;
+    readonly name: string;
+    readonly updated: Date;
+}
 
 // @public (undocumented)
 export interface SignInDto {
@@ -62,6 +65,16 @@ export interface SignUpDto {
 }
 
 // @public (undocumented)
+export interface UpsertItemDto {
+    // (undocumented)
+    categoryNames: string[];
+    // (undocumented)
+    description: string;
+    // (undocumented)
+    name: string;
+}
+
+// @public (undocumented)
 export interface UserDto {
     // (undocumented)
     displayName: string;
@@ -74,9 +87,10 @@ export interface UserDto {
 // @public (undocumented)
 export class Usufruct extends UsufructContext {
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
-    createItem(body: CreateItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
+    createItem(body: UpsertItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
     getCategories(options?: coreHttp.OperationOptions): Promise<UsufructGetCategoriesResponse>;
     getItems(options?: coreHttp.OperationOptions): Promise<UsufructGetItemsResponse>;
+    getLabels(options?: coreHttp.OperationOptions): Promise<UsufructGetLabelsResponse>;
     getMyProfile(options?: coreHttp.OperationOptions): Promise<UsufructGetMyProfileResponse>;
     signIn(body: SignInDto, options?: coreHttp.OperationOptions): Promise<UsufructSignInResponse>;
     signUp(body: SignUpDto, options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
@@ -111,6 +125,14 @@ export type UsufructGetItemsResponse = Item[] & {
     _response: coreHttp.HttpResponse & {
         bodyAsText: string;
         parsedBody: Item[];
+    };
+};
+
+// @public
+export type UsufructGetLabelsResponse = Label[] & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: Label[];
     };
 };
 
