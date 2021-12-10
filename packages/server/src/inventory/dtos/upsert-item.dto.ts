@@ -1,4 +1,4 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDefined } from 'class-validator';
 
 export class UpsertItemDto {
@@ -6,9 +6,12 @@ export class UpsertItemDto {
   @IsDefined()
   public name: string;
 
-  @ApiProperty()
+  @ApiPropertyOptional()
   public description: string;
 
   @ApiProperty()
   public categoryNames: string[];
+
+  @ApiPropertyOptional()
+  public labelNames: string[];
 }

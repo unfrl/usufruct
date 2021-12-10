@@ -22,4 +22,10 @@ export class LabelService {
 
     return await this._labelRepository.save(new Label({ name }));
   }
+
+  public async findOrCreateMany(names: string[]): Promise<Label[]> {
+    return await Promise.all(
+      [...new Set(names)].map((name) => this.findOrCreate(name)),
+    );
+  }
 }
