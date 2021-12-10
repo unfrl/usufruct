@@ -43,11 +43,11 @@ export interface Item {
   /**
    * NOTE: This property will not be serialized. It can only be populated by the server.
    */
-  readonly categories: Category;
+  readonly categories: Category[];
   /**
    * NOTE: This property will not be serialized. It can only be populated by the server.
    */
-  readonly labels: Label;
+  readonly labels: Label[];
 }
 
 export interface Label {
@@ -105,10 +105,6 @@ export interface VerificationDto {
   email: string;
   token: string;
 }
-
-export type ItemCategories = Category & {};
-
-export type ItemLabels = Label & {};
 
 /**
  * Contains response data for the getCategories operation.

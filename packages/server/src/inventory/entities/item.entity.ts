@@ -14,12 +14,12 @@ export class Item extends BaseEntity {
   @Column()
   public description: string;
 
-  @ApiResponseProperty({ type: Category })
+  @ApiResponseProperty({ type: [Category] })
   @ManyToMany(() => Category, { eager: true })
   @JoinTable()
   categories: Category[];
 
-  @ApiResponseProperty({ type: Label })
+  @ApiResponseProperty({ type: [Label] })
   @ManyToMany(() => Label, { eager: true })
   @JoinTable()
   labels: Label[];

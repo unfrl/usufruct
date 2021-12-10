@@ -32,8 +32,7 @@ export class InventoryStore {
   public loadAllItems = async () => {
     try {
       const items = await this._rootStore.client.getItems();
-      // TODO: should _not_ need to call Object.values -- for some reason it's not respecting the & Item[] type
-      this.setItems(Object.values(items));
+      this.setItems(items);
     } catch (error) {
       console.error('failed to get items', error);
       throw error;

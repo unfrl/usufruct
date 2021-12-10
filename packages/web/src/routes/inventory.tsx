@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import {
   DataGrid,
   GridColDef,
@@ -6,7 +6,7 @@ import {
   GridToolbarExport,
   GridToolbarFilterButton,
 } from '@mui/x-data-grid';
-import { UpsertItemDto } from '@unfrl/usufruct-sdk';
+import { Category, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import {
@@ -33,9 +33,21 @@ const GridToolbar = () => {
 
 const COLUMNS: GridColDef[] = [
   { field: 'name', headerName: 'Name', minWidth: 150, flex: 0.5 },
-  { field: 'description', headerName: 'Description', minWidth: 150, flex: 2 },
+  { field: 'description', headerName: 'Description', minWidth: 150, flex: 1 },
+  {
+    field: 'categories',
+    headerName: 'Category',
+    renderCell: (params) => {
+      return (
+        <Typography>
+          {params.row.categories
+            .map((category: Category) => category.name)
+            .join(', ')}
+        </Typography>
+      );
+    },
+  },
   { field: 'created', headerName: 'Created', type: 'dateTime', minWidth: 175 },
-  { field: 'updated', headerName: 'Updated', type: 'dateTime', minWidth: 175 },
 ];
 
 const DEFAULT_ITEM_DTO: UpsertItemDto = {

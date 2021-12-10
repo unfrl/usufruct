@@ -88,16 +88,30 @@ export const Item: coreHttp.CompositeMapper = {
       },
       categories: {
         serializedName: "categories",
+        required: true,
+        readOnly: true,
         type: {
-          name: "Composite",
-          className: "Category"
+          name: "Sequence",
+          element: {
+            type: {
+              name: "Composite",
+              className: "Category"
+            }
+          }
         }
       },
       labels: {
         serializedName: "labels",
+        required: true,
+        readOnly: true,
         type: {
-          name: "Composite",
-          className: "Label"
+          name: "Sequence",
+          element: {
+            type: {
+              name: "Composite",
+              className: "Label"
+            }
+          }
         }
       }
     }
@@ -317,26 +331,6 @@ export const VerificationDto: coreHttp.CompositeMapper = {
           name: "String"
         }
       }
-    }
-  }
-};
-
-export const ItemCategories: coreHttp.CompositeMapper = {
-  type: {
-    name: "Composite",
-    className: "ItemCategories",
-    modelProperties: {
-      ...Category.type.modelProperties
-    }
-  }
-};
-
-export const ItemLabels: coreHttp.CompositeMapper = {
-  type: {
-    name: "Composite",
-    className: "ItemLabels",
-    modelProperties: {
-      ...Label.type.modelProperties
     }
   }
 };

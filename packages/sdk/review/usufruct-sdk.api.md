@@ -22,20 +22,14 @@ export interface Category {
 
 // @public (undocumented)
 export interface Item {
-    readonly categories: Category;
+    readonly categories: Category[];
     readonly created: Date;
     readonly description: string;
     readonly id: string;
-    readonly labels: Label;
+    readonly labels: Label[];
     readonly name: string;
     readonly updated: Date;
 }
-
-// @public (undocumented)
-export type ItemCategories = Category & {};
-
-// @public (undocumented)
-export type ItemLabels = Label & {};
 
 // @public (undocumented)
 export interface Label {
