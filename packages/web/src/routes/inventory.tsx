@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Chip, ListItem, Typography } from '@mui/material';
 import {
   DataGrid,
   GridColDef,
@@ -6,7 +6,7 @@ import {
   GridToolbarExport,
   GridToolbarFilterButton,
 } from '@mui/x-data-grid';
-import { Category, UpsertItemDto } from '@unfrl/usufruct-sdk';
+import { Category, Label, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import {
@@ -32,11 +32,15 @@ const GridToolbar = () => {
 };
 
 const COLUMNS: GridColDef[] = [
-  { field: 'name', headerName: 'Name', minWidth: 150, flex: 0.5 },
-  { field: 'description', headerName: 'Description', minWidth: 150, flex: 1 },
+  { field: 'name', headerName: 'Name', minWidth: 100 },
+  { field: 'description', headerName: 'Description', minWidth: 200 },
   {
     field: 'categories',
     headerName: 'Category',
+    minWidth: 150,
+    // TODO: disabling these two on categories & labels until they're implemented
+    filterable: false,
+    sortable: false,
     renderCell: (params) => {
       return (
         <Typography>
@@ -47,7 +51,30 @@ const COLUMNS: GridColDef[] = [
       );
     },
   },
-  { field: 'created', headerName: 'Created', type: 'dateTime', minWidth: 175 },
+  {
+    field: 'labels',
+    headerName: 'Labels',
+    minWidth: 200,
+    flex: 1,
+    filterable: false,
+    sortable: false,
+    renderCell: (params) => {
+      return (
+        <Box
+          sx={{
+            display: 'flex',
+            listStyle: 'none',
+          }}
+        >
+          {params.row.labels.map((label: Label) => (
+            <ListItem key={label.id} sx={{ padding: 0, marginRight: 1 }}>
+              <Chip label={label.name} size="small" />
+            </ListItem>
+          ))}
+        </Box>
+      );
+    },
+  },
 ];
 
 const DEFAULT_ITEM_DTO: UpsertItemDto = {
