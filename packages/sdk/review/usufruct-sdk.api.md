@@ -71,7 +71,7 @@ export interface UpsertItemDto {
     // (undocumented)
     description?: string;
     // (undocumented)
-    labelNames?: string[];
+    labelNames: string[];
     // (undocumented)
     name: string;
 }

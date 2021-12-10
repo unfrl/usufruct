@@ -42,6 +42,7 @@ const DEFAULT_ITEM_DTO: UpsertItemDto = {
   name: '',
   description: '',
   categoryNames: [],
+  labelNames: [],
 };
 
 const Inventory = observer(() => {
@@ -54,10 +55,7 @@ const Inventory = observer(() => {
   React.useEffect(() => {
     const init = async () => {
       try {
-        await Promise.all([
-          inventory.loadAllItems(),
-          inventory.loadCategories(),
-        ]);
+        await inventory.loadAll();
       } catch (error) {
         toasts.error(tryParseRestError(error));
       } finally {
@@ -130,9 +128,10 @@ const Inventory = observer(() => {
       >
         <Content>
           <ItemForm
-            categories={inventory.categories}
             item={item}
             onChange={setItem}
+            categories={inventory.categories}
+            labels={inventory.labels}
           />
         </Content>
       </ResponsiveDrawer>

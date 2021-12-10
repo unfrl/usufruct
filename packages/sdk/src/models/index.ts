@@ -77,7 +77,7 @@ export interface UpsertItemDto {
   name: string;
   description?: string;
   categoryNames: string[];
-  labelNames?: string[];
+  labelNames: string[];
 }
 
 export interface SignUpDto {

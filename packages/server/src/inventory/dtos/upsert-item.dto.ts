@@ -12,6 +12,6 @@ export class UpsertItemDto {
   @ApiProperty()
   public categoryNames: string[];
 
-  @ApiPropertyOptional()
+  @ApiProperty()
   public labelNames: string[];
 }

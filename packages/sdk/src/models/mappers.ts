@@ -185,6 +185,7 @@ export const UpsertItemDto: coreHttp.CompositeMapper = {
       },
       labelNames: {
         serializedName: "labelNames",
+        required: true,
         type: {
           name: "Sequence",
           element: {

@@ -8,7 +8,7 @@ import {
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
-import { Category, UpsertItemDto } from '@unfrl/usufruct-sdk';
+import { Category, Label, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { ComboBox, ComboBoxValue, UploadButton } from '../common';
@@ -35,11 +35,11 @@ export interface ItemFormProps {
   item: UpsertItemDto;
   onChange: (item: UpsertItemDto) => void;
   categories: Category[];
+  labels: Label[];
 }
 
 export const ItemForm = observer((props: ItemFormProps) => {
-  const { item, onChange, categories } = props;
-  const [labels, setLabels] = React.useState<ComboBoxValue>([]);
+  const { item, onChange, categories, labels } = props;
   const [field, setField] = React.useState<ComboBoxValue>(null);
 
   // items can have multiple categories, but restricting selection just to one right now
@@ -47,6 +47,9 @@ export const ItemForm = observer((props: ItemFormProps) => {
     ? { title: item.categoryNames[0] }
     : null;
   const categoryOptions = categories.map((c) => ({ title: c.name }));
+
+  const selectedLabels = item.labelNames?.map((l) => ({ title: l })) ?? [];
+  const labelOptions = labels.map((l) => ({ title: l.name }));
 
   const emitChange = <K extends keyof UpsertItemDto>(
     key: K,
@@ -125,10 +128,10 @@ export const ItemForm = observer((props: ItemFormProps) => {
         <ComboBox
           multiple
           filterSelectedOptions
-          options={DEMO_LABELS}
           label="Labels"
-          value={labels}
-          onChange={setLabels}
+          options={labelOptions}
+          value={selectedLabels}
+          onChange={handleSelect('labelNames')}
         />
       </GridItem>
 
