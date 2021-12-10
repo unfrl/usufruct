@@ -177,13 +177,6 @@ const DEMO_IMAGES = [
   },
 ];
 
-const DEMO_LABELS = [
-  { id: 1, title: 'Automotive' },
-  { id: 2, title: 'Electronics' },
-  { id: 3, title: 'Electrical' },
-  { id: 4, title: 'Gardening' },
-];
-
 const DEMO_CUSTOM_FIELDS = [
   { id: 1, title: 'Type' },
   { id: 2, title: 'Size' },
