@@ -71,7 +71,7 @@ export const ComboBox = (props: ComboBoxProps) => {
           (option) => inputValue === option.title,
         );
 
-        if (inputValue !== '' && !isExisting) {
+        if (inputValue && !isExisting) {
           filtered.push({
             inputValue,
             title: `Add "${inputValue}"`,
