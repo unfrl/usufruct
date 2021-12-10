@@ -167,7 +167,6 @@ export const UpsertItemDto: coreHttp.CompositeMapper = {
       },
       description: {
         serializedName: "description",
-        required: true,
         type: {
           name: "String"
         }
@@ -175,6 +174,17 @@ export const UpsertItemDto: coreHttp.CompositeMapper = {
       categoryNames: {
         serializedName: "categoryNames",
         required: true,
+        type: {
+          name: "Sequence",
+          element: {
+            type: {
+              name: "String"
+            }
+          }
+        }
+      },
+      labelNames: {
+        serializedName: "labelNames",
         type: {
           name: "Sequence",
           element: {

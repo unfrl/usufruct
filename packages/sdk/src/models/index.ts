@@ -75,8 +75,9 @@ export interface Label {
 
 export interface UpsertItemDto {
   name: string;
-  description: string;
+  description?: string;
   categoryNames: string[];
+  labelNames?: string[];
 }
 
 export interface SignUpDto {
