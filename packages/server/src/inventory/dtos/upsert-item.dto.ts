@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDefined } from 'class-validator';
 
-export class CreateItemDto {
+export class UpsertItemDto {
   @ApiProperty()
   @IsDefined()
   public name: string;

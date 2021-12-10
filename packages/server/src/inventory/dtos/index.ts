@@ -1,1 +1,1 @@
-export * from './create-item.dto';
+export * from './upsert-item.dto';

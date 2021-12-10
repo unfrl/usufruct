@@ -14,7 +14,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { CreateItemDto } from '../dtos';
+import { UpsertItemDto } from '../dtos';
 import { Item } from '../entities';
 import { ItemService } from '../services';
 
@@ -42,7 +42,7 @@ export class ItemController {
   @ApiResponse({ status: HttpStatus.OK, type: Item })
   @HttpCode(HttpStatus.OK)
   @Post()
-  public async createItem(@Body() createItemDto: CreateItemDto): Promise<Item> {
-    return await this._itemService.createItem(createItemDto);
+  public async createItem(@Body() itemDto: UpsertItemDto): Promise<Item> {
+    return await this._itemService.createItem(itemDto);
   }
 }
