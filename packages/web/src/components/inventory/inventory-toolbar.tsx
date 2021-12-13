@@ -1,17 +1,21 @@
 import AddIcon from '@mui/icons-material/Add';
-import AddOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SearchIcon from '@mui/icons-material/Search';
 import {
   Box,
   Button,
-  Hidden,
-  IconButton,
   InputAdornment,
-  TextField,
-  Tooltip,
+  OutlinedInput,
+  styled,
   Typography,
 } from '@mui/material';
 import { observer } from 'mobx-react';
+
+const SearchField = styled(OutlinedInput)(({ theme }) => ({
+  '& .MuiInputBase-input': {
+    paddingTop: 7,
+    paddingBottom: 6.5,
+  },
+}));
 
 export interface InventoryToolbarProps {
   onAdd: () => void;
@@ -28,38 +32,27 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
         justifyContent: 'space-between',
       }}
     >
-      <TextField
+      <SearchField
         placeholder="Search"
         size="small"
         value={props.searchValue}
         onChange={(e) => props.onSearchChange(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
+        startAdornment={
+          <InputAdornment position="start">
+            <SearchIcon />
+          </InputAdornment>
+        }
       />
-      <Hidden smDown>
-        <Button
-          startIcon={<AddIcon />}
-          variant="contained"
-          color="primary"
-          onClick={props.onAdd}
-        >
-          <Typography variant="button" sx={{ textTransform: 'none' }}>
-            Add item
-          </Typography>
-        </Button>
-      </Hidden>
-      <Hidden smUp>
-        <Tooltip title="Add item">
-          <IconButton aria-label="Add item" onClick={props.onAdd}>
-            <AddOutlineIcon />
-          </IconButton>
-        </Tooltip>
-      </Hidden>
+      <Button
+        startIcon={<AddIcon />}
+        variant="contained"
+        color="primary"
+        onClick={props.onAdd}
+      >
+        <Typography variant="button" sx={{ textTransform: 'none' }}>
+          Add item
+        </Typography>
+      </Button>
     </Box>
   );
 });
