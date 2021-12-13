@@ -1,5 +1,5 @@
 import { LoadingButton } from '@mui/lab';
-import { Box, Button } from '@mui/material';
+import { Button, Stack } from '@mui/material';
 
 export interface FormActionsProps {
   cancelText?: string;
@@ -15,8 +15,8 @@ export const FormActions = (props: FormActionsProps) => {
     props;
 
   return (
-    <Box>
-      <Button color="inherit" sx={{ marginRight: 2 }} onClick={onCancel}>
+    <Stack direction="row" spacing={2}>
+      <Button color="inherit" onClick={onCancel}>
         {cancelText ?? 'Cancel'}
       </Button>
       <LoadingButton
@@ -28,6 +28,6 @@ export const FormActions = (props: FormActionsProps) => {
       >
         {saveText ?? 'Save'}
       </LoadingButton>
-    </Box>
+    </Stack>
   );
 };
