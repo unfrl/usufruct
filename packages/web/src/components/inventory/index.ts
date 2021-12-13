@@ -1,2 +1,2 @@
 export * from './inventory-toolbar';
-export * from './item-form';
+export * from './new-item-drawer';
