@@ -76,7 +76,7 @@ export interface InventoryDataGridProps {
   onItemSelect: (itemId: string) => void;
 }
 
-export const InventoryDataGrid = observer((props: InventoryDataGridProps) => {
+const InventoryDataGrid = observer((props: InventoryDataGridProps) => {
   const { onItemSelect } = props;
   const { inventory, toasts } = useStores();
   const [loading, setLoading] = React.useState(false);
@@ -111,3 +111,5 @@ export const InventoryDataGrid = observer((props: InventoryDataGridProps) => {
     />
   );
 });
+
+export default InventoryDataGrid;

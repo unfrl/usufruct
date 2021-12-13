@@ -1,12 +1,12 @@
 import { Box } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
-import {
-  InventoryDataGrid,
-  InventoryToolbar,
-  NewItemDrawer,
-} from '../components';
+import { InventoryToolbar, NewItemDrawer } from '../components';
 import { useStores } from '../hooks';
+
+const InventoryDataGrid = React.lazy(
+  () => import('../components/inventory/inventory-data-grid'),
+);
 
 const Inventory = observer(() => {
   const { inventory } = useStores();
