@@ -4,13 +4,13 @@
  */
 export const tryParseRestError = (error: any) => {
   if (!error?.message) {
-    return '';
+    return error ?? '';
   }
 
   try {
     const json = JSON.parse(error.message);
-    return json?.message ?? '';
+    return json?.message ?? error.message;
   } catch {
-    return '';
+    return error.message;
   }
 };
