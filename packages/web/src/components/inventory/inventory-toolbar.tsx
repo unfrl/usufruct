@@ -28,11 +28,23 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
         justifyContent: 'space-between',
       }}
     >
+      <TextField
+        placeholder="Search"
+        size="small"
+        value={props.searchValue}
+        onChange={(e) => props.onSearchChange(e.target.value)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
       <Hidden smDown>
         <Button
           startIcon={<AddIcon />}
           variant="contained"
-          size="small"
           color="primary"
           onClick={props.onAdd}
         >
@@ -48,19 +60,6 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
           </IconButton>
         </Tooltip>
       </Hidden>
-      <TextField
-        placeholder="Search"
-        size="small"
-        value={props.searchValue}
-        onChange={(e) => props.onSearchChange(e.target.value)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <SearchIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
     </Box>
   );
 });
