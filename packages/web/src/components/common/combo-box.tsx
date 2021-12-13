@@ -22,6 +22,7 @@ export interface ComboBoxProps {
   textFieldProps?: TextFieldProps;
   multiple?: boolean;
   filterSelectedOptions?: boolean;
+  loading?: boolean;
 }
 
 export const ComboBox = (props: ComboBoxProps) => {
@@ -31,6 +32,7 @@ export const ComboBox = (props: ComboBoxProps) => {
     value,
     onChange,
     textFieldProps,
+    loading,
     multiple,
     filterSelectedOptions,
   } = props;
@@ -41,6 +43,7 @@ export const ComboBox = (props: ComboBoxProps) => {
       clearOnBlur
       handleHomeEndKeys
       freeSolo
+      loading={loading}
       multiple={multiple}
       filterSelectedOptions={filterSelectedOptions}
       value={value}

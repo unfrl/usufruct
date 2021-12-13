@@ -20,15 +20,6 @@ export class InventoryStore {
     makeAutoObservable(this);
   }
 
-  // TODO: refactor this - UI that relies on these arrays should just call API directly & store in component state
-  public loadAll = async () => {
-    await Promise.all([
-      this.loadAllItems(),
-      this.loadCategories(),
-      this.loadLabels(),
-    ]);
-  };
-
   public loadAllItems = async () => {
     try {
       const items = await this._rootStore.client.getItems();

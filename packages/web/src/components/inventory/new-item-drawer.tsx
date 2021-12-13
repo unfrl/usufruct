@@ -21,6 +21,8 @@ import {
   UploadButton,
 } from '../common';
 import { Content } from '../layout';
+import { CategorySelection } from './category-selection';
+import { LabelSelection } from './label-selection';
 
 const GridItem = (props: { children: JSX.Element; width?: number }) => (
   <Grid item xs={props.width ?? 12}>
@@ -66,10 +68,7 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
   const selectedCategory = item.categoryNames?.length
     ? { title: item.categoryNames[0] }
     : null;
-  const categoryOptions = inventory.categories.map((c) => ({ title: c.name }));
-
   const selectedLabels = item.labelNames?.map((l) => ({ title: l })) ?? [];
-  const labelOptions = inventory.labels.map((l) => ({ title: l.name }));
 
   const handleSave = async () => {
     try {
@@ -112,7 +111,6 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
 
   return (
     <ResponsiveDrawer
-      keepMounted
       open={open}
       onClose={onClose}
       title="New item"
@@ -172,20 +170,14 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
 
           <GridItemDivider title="Category" />
           <GridItem>
-            <ComboBox
-              label="Category"
-              options={categoryOptions}
-              value={selectedCategory}
+            <CategorySelection
+              selected={selectedCategory}
               onChange={handleSelect('categoryNames')}
             />
           </GridItem>
           <GridItem>
-            <ComboBox
-              multiple
-              filterSelectedOptions
-              label="Labels"
-              options={labelOptions}
-              value={selectedLabels}
+            <LabelSelection
+              selected={selectedLabels}
               onChange={handleSelect('labelNames')}
             />
           </GridItem>
