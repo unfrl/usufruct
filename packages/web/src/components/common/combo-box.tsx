@@ -23,6 +23,7 @@ export interface ComboBoxProps {
   multiple?: boolean;
   filterSelectedOptions?: boolean;
   loading?: boolean;
+  fullWidth?: boolean;
 }
 
 export const ComboBox = (props: ComboBoxProps) => {
@@ -35,6 +36,7 @@ export const ComboBox = (props: ComboBoxProps) => {
     loading,
     multiple,
     filterSelectedOptions,
+    fullWidth,
   } = props;
 
   return (
@@ -43,6 +45,7 @@ export const ComboBox = (props: ComboBoxProps) => {
       clearOnBlur
       handleHomeEndKeys
       freeSolo
+      fullWidth={fullWidth}
       loading={loading}
       multiple={multiple}
       filterSelectedOptions={filterSelectedOptions}

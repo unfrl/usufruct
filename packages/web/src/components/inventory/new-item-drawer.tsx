@@ -2,9 +2,9 @@ import AddIcon from '@mui/icons-material/Add';
 import {
   Button,
   Divider,
-  Grid,
   ImageList,
   ImageListItem,
+  Stack,
   TextField as MuiTextField,
   TextFieldProps as MuiTextFieldProps,
 } from '@mui/material';
@@ -24,22 +24,8 @@ import { Content } from '../layout';
 import { CategorySelection } from './category-selection';
 import { LabelSelection } from './label-selection';
 
-const GridItem = (props: { children: JSX.Element; width?: number }) => (
-  <Grid item xs={props.width ?? 12}>
-    {props.children}
-  </Grid>
-);
-
-const GridItemDivider = (props: { title: string }) => {
-  return (
-    <GridItem>
-      <Divider>{props.title}</Divider>
-    </GridItem>
-  );
-};
-
 const TextField = (props: MuiTextFieldProps) => {
-  return <MuiTextField {...props} size="small" fullWidth />;
+  return <MuiTextField fullWidth size="small" {...props} />;
 };
 
 const DEFAULT_ITEM_DTO: UpsertItemDto = {
@@ -125,87 +111,71 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
       }
     >
       <Content>
-        <Grid container spacing={2}>
-          <GridItem>
-            <TextField
-              required
-              label="Name"
-              value={item.name}
-              onChange={(e) => handleChange('name', e.target.value)}
-            />
-          </GridItem>
-          <GridItem>
-            <TextField
-              multiline
-              minRows={2}
-              label="Description"
-              value={item.description}
-              onChange={(e) => handleChange('description', e.target.value)}
-            />
-          </GridItem>
+        <Stack spacing={2}>
+          <TextField
+            required
+            label="Name"
+            value={item.name}
+            onChange={(e) => handleChange('name', e.target.value)}
+          />
+          <TextField
+            multiline
+            minRows={2}
+            label="Description"
+            value={item.description}
+            onChange={(e) => handleChange('description', e.target.value)}
+          />
 
-          <GridItemDivider title="Images" />
-          <GridItem>
-            <ImageList cols={3} rowHeight={164} sx={{ margin: 0 }}>
-              {DEMO_IMAGES.map((item) => (
-                <ImageListItem key={item.img}>
-                  <img
-                    src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </GridItem>
-          <GridItem>
-            <UploadButton
-              accept="image/*"
-              onUpload={(files) =>
-                console.log('todo handle file upload', files)
-              }
-            />
-          </GridItem>
+          <Divider>Images</Divider>
+          <ImageList cols={3} rowHeight={164} sx={{ margin: 0 }}>
+            {DEMO_IMAGES.map((item) => (
+              <ImageListItem key={item.img}>
+                <img
+                  src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                  srcSet={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
+          <UploadButton
+            accept="image/*"
+            onUpload={(files) => console.log('todo handle file upload', files)}
+          />
 
-          <GridItemDivider title="Category" />
-          <GridItem>
-            <CategorySelection
-              selected={selectedCategory}
-              onChange={handleSelect('categoryNames')}
-            />
-          </GridItem>
-          <GridItem>
-            <LabelSelection
-              selected={selectedLabels}
-              onChange={handleSelect('labelNames')}
-            />
-          </GridItem>
+          <Divider>Category</Divider>
+          <CategorySelection
+            selected={selectedCategory}
+            onChange={handleSelect('categoryNames')}
+          />
+          <LabelSelection
+            selected={selectedLabels}
+            onChange={handleSelect('labelNames')}
+          />
 
-          <GridItemDivider title="Custom fields" />
-          <GridItem width={6}>
+          <Divider>Custom fields</Divider>
+          <Stack direction="row" spacing={2}>
             <ComboBox
               filterSelectedOptions
+              fullWidth
               options={DEMO_CUSTOM_FIELDS}
               label="Field"
               value={field}
               onChange={setField}
             />
-          </GridItem>
-          <GridItem width={6}>
             <TextField label="Value" />
-          </GridItem>
-          <GridItem>
-            <Button
-              variant="outlined"
-              color="inherit"
-              startIcon={<AddIcon />}
-              size="small"
-            >
-              Add field
-            </Button>
-          </GridItem>
-        </Grid>
+          </Stack>
+          <Button
+            variant="outlined"
+            color="inherit"
+            startIcon={<AddIcon />}
+            size="small"
+            sx={{ alignSelf: 'flex-start' }}
+          >
+            Add field
+          </Button>
+        </Stack>
       </Content>
     </ResponsiveDrawer>
   );
