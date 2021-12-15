@@ -1,5 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsDefined } from 'class-validator';
+import { CustomFieldDto } from './custom-field.dto';
 
 export class UpsertItemDto {
   @ApiProperty()
@@ -14,4 +15,7 @@ export class UpsertItemDto {
 
   @ApiProperty()
   public labelNames: string[];
+
+  @ApiProperty({ type: CustomFieldDto })
+  public customFields: CustomFieldDto[];
 }

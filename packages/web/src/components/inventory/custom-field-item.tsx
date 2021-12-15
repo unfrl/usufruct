@@ -1,16 +1,12 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Stack, TextField, Tooltip } from '@mui/material';
+import { CustomFieldDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import { ComboBox } from '../common';
 
-export interface CustomField {
-  name: string;
-  value: string;
-}
-
 export interface CustomFieldItemProps {
-  field: CustomField;
-  onChange: (field: CustomField) => void;
+  field: CustomFieldDto;
+  onChange: (field: CustomFieldDto) => void;
   onRemove: () => void;
   attributes: { title: string }[];
 }

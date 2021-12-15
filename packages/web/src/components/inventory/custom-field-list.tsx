@@ -1,16 +1,16 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Stack } from '@mui/material';
-import { ItemAttribute } from '@unfrl/usufruct-sdk';
+import { CustomFieldDto, ItemAttribute } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
 import { tryParseRestError } from '../../utils';
-import { CustomField, CustomFieldItem } from './custom-field-item';
+import { CustomFieldItem } from './custom-field-item';
 
 export const CustomFieldList = observer(() => {
   const { client, toasts } = useStores();
   const [attributes, setAttributes] = React.useState<ItemAttribute[]>([]);
-  const [fields, setFields] = React.useState<CustomField[]>([]);
+  const [fields, setFields] = React.useState<CustomFieldDto[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
@@ -39,7 +39,7 @@ export const CustomFieldList = observer(() => {
     setFields(copy);
   };
 
-  const handleUpdateField = (index: number, updatedField: CustomField) => {
+  const handleUpdateField = (index: number, updatedField: CustomFieldDto) => {
     const copy = fields.slice();
     copy[index] = updatedField;
     setFields(copy);

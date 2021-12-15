@@ -21,6 +21,14 @@ export interface Category {
 }
 
 // @public (undocumented)
+export interface CustomFieldDto {
+    // (undocumented)
+    name: string;
+    // (undocumented)
+    value: string;
+}
+
+// @public (undocumented)
 export interface Item {
     readonly categories: Category[];
     readonly created: Date;
@@ -72,6 +80,8 @@ export interface SignUpDto {
 export interface UpsertItemDto {
     // (undocumented)
     categoryNames: string[];
+    // (undocumented)
+    customFields: CustomFieldDto;
     // (undocumented)
     description?: string;
     // (undocumented)

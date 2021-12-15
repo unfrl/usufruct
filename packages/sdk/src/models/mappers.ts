@@ -208,6 +208,36 @@ export const UpsertItemDto: coreHttp.CompositeMapper = {
             }
           }
         }
+      },
+      customFields: {
+        serializedName: "customFields",
+        type: {
+          name: "Composite",
+          className: "CustomFieldDto"
+        }
+      }
+    }
+  }
+};
+
+export const CustomFieldDto: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "CustomFieldDto",
+    modelProperties: {
+      name: {
+        serializedName: "name",
+        required: true,
+        type: {
+          name: "String"
+        }
+      },
+      value: {
+        serializedName: "value",
+        required: true,
+        type: {
+          name: "String"
+        }
       }
     }
   }
