@@ -39,6 +39,18 @@ export const ComboBox = (props: ComboBoxProps) => {
     fullWidth,
   } = props;
 
+  const normalizeNewValue = (value: any) => {
+    if (typeof value === 'string') {
+      return { title: value };
+    }
+
+    if (value?.inputValue) {
+      return { title: value.inputValue };
+    }
+
+    return value;
+  };
+
   return (
     <Autocomplete
       selectOnFocus
@@ -52,23 +64,10 @@ export const ComboBox = (props: ComboBoxProps) => {
       value={value}
       onChange={(_event, newValue) => {
         if (Array.isArray(newValue)) {
-          const values = newValue.map((val) =>
-            typeof val === 'string' ? { title: val } : val,
-          );
-
-          return onChange(values);
+          return onChange(newValue.map(normalizeNewValue));
         }
 
-        if (typeof newValue === 'string') {
-          return onChange({ title: newValue });
-        }
-
-        if (newValue?.inputValue) {
-          // Create a new value from the user input
-          return onChange({ title: newValue.inputValue });
-        }
-
-        onChange(newValue);
+        onChange(normalizeNewValue(newValue));
       }}
       filterOptions={(options, params) => {
         const { inputValue } = params;
