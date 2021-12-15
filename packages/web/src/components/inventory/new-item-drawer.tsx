@@ -1,6 +1,4 @@
-import AddIcon from '@mui/icons-material/Add';
 import {
-  Button,
   Divider,
   ImageList,
   ImageListItem,
@@ -14,7 +12,6 @@ import React from 'react';
 import { useStores } from '../../hooks';
 import { tryParseRestError } from '../../utils';
 import {
-  ComboBox,
   ComboBoxValue,
   FormActions,
   ResponsiveDrawer,
@@ -22,6 +19,7 @@ import {
 } from '../common';
 import { Content } from '../layout';
 import { CategorySelection } from './category-selection';
+import { CustomFields } from './custom-fields';
 import { LabelSelection } from './label-selection';
 
 const TextField = (props: MuiTextFieldProps) => {
@@ -45,7 +43,6 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
   const { inventory, toasts } = useStores();
   const { open, onClose, initialItem } = props;
   const [saving, setSaving] = React.useState(false);
-  const [field, setField] = React.useState<ComboBoxValue>(null);
   const [item, setItem] = React.useState<UpsertItemDto>(
     initialItem ?? DEFAULT_ITEM_DTO,
   );
@@ -155,26 +152,7 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
           />
 
           <Divider>Custom fields</Divider>
-          <Stack direction="row" spacing={2}>
-            <ComboBox
-              filterSelectedOptions
-              fullWidth
-              options={DEMO_CUSTOM_FIELDS}
-              label="Field"
-              value={field}
-              onChange={setField}
-            />
-            <TextField label="Value" />
-          </Stack>
-          <Button
-            variant="outlined"
-            color="inherit"
-            startIcon={<AddIcon />}
-            size="small"
-            sx={{ alignSelf: 'flex-start' }}
-          >
-            Add field
-          </Button>
+          <CustomFields />
         </Stack>
       </Content>
     </ResponsiveDrawer>
@@ -194,10 +172,4 @@ const DEMO_IMAGES = [
     img: 'https://images.unsplash.com/photo-1586187543416-b1e5669978b3',
     title: 'Small screwdriver',
   },
-];
-
-const DEMO_CUSTOM_FIELDS = [
-  { id: 1, title: 'Type' },
-  { id: 2, title: 'Size' },
-  { id: 3, title: 'Color' },
 ];
