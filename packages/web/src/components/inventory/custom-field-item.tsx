@@ -15,7 +15,7 @@ export const CustomFieldItem = observer((props: CustomFieldItemProps) => {
   const { field, onChange, onRemove, attributes } = props;
 
   return (
-    <Stack direction="row" alignItems="center" spacing={1}>
+    <Stack direction="row" alignItems="center" spacing={2}>
       <ComboBox
         filterSelectedOptions
         fullWidth
