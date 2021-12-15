@@ -16,6 +16,6 @@ export class UpsertItemDto {
   @ApiProperty()
   public labelNames: string[];
 
-  @ApiProperty({ type: CustomFieldDto })
+  @ApiProperty({ type: CustomFieldDto, isArray: true })
   public customFields: CustomFieldDto[];
 }

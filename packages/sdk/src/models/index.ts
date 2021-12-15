@@ -78,7 +78,7 @@ export interface UpsertItemDto {
   description?: string;
   categoryNames: string[];
   labelNames: string[];
-  customFields: CustomFieldDto;
+  customFields: CustomFieldDto[];
 }
 
 export interface CustomFieldDto {

@@ -7,10 +7,15 @@ import { useStores } from '../../hooks';
 import { tryParseRestError } from '../../utils';
 import { CustomFieldItem } from './custom-field-item';
 
-export const CustomFieldList = observer(() => {
+export interface CustomFieldListProps {
+  fields: CustomFieldDto[];
+  onChange: (fields: CustomFieldDto[]) => void;
+}
+
+export const CustomFieldList = observer((props: CustomFieldListProps) => {
+  const { fields, onChange } = props;
   const { client, toasts } = useStores();
   const [attributes, setAttributes] = React.useState<ItemAttribute[]>([]);
-  const [fields, setFields] = React.useState<CustomFieldDto[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
@@ -30,19 +35,19 @@ export const CustomFieldList = observer(() => {
     .map((attr) => ({ title: attr.name }));
 
   const handleAddField = () => {
-    setFields([...fields, { name: '', value: '' }]);
+    onChange([...fields, { name: '', value: '' }]);
   };
 
   const handleRemoveField = (index: number) => {
     const copy = fields.slice();
     copy.splice(index, 1);
-    setFields(copy);
+    onChange(copy);
   };
 
   const handleUpdateField = (index: number, updatedField: CustomFieldDto) => {
     const copy = fields.slice();
     copy[index] = updatedField;
-    setFields(copy);
+    onChange(copy);
   };
 
   return (

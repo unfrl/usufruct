@@ -81,7 +81,7 @@ export interface UpsertItemDto {
     // (undocumented)
     categoryNames: string[];
     // (undocumented)
-    customFields: CustomFieldDto;
+    customFields: CustomFieldDto[];
     // (undocumented)
     description?: string;
     // (undocumented)

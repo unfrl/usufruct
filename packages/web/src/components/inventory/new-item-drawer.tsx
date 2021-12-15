@@ -3,8 +3,7 @@ import {
   ImageList,
   ImageListItem,
   Stack,
-  TextField as MuiTextField,
-  TextFieldProps as MuiTextFieldProps,
+  TextField,
 } from '@mui/material';
 import { UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
@@ -22,15 +21,12 @@ import { CategorySelection } from './category-selection';
 import { CustomFieldList } from './custom-field-list';
 import { LabelSelection } from './label-selection';
 
-const TextField = (props: MuiTextFieldProps) => {
-  return <MuiTextField fullWidth size="small" {...props} />;
-};
-
 const DEFAULT_ITEM_DTO: UpsertItemDto = {
   name: '',
   description: '',
   categoryNames: [],
   labelNames: [],
+  customFields: [],
 };
 
 export interface NewItemDrawerProps {
@@ -58,7 +54,6 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
       setSaving(true);
 
       const newItem = await inventory.createItem(item);
-
       toasts.success(`${newItem.name} added!`);
 
       setItem(DEFAULT_ITEM_DTO);
@@ -111,12 +106,16 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
         <Stack spacing={2}>
           <TextField
             required
+            fullWidth
+            size="small"
             label="Name"
             value={item.name}
             onChange={(e) => handleChange('name', e.target.value)}
           />
           <TextField
             multiline
+            fullWidth
+            size="small"
             minRows={2}
             label="Description"
             value={item.description}
@@ -152,7 +151,10 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
           />
 
           <Divider>Custom fields</Divider>
-          <CustomFieldList />
+          <CustomFieldList
+            fields={item.customFields}
+            onChange={(fields) => handleChange('customFields', fields)}
+          />
         </Stack>
       </Content>
     </ResponsiveDrawer>
