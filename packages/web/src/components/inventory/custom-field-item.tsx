@@ -34,7 +34,13 @@ export const CustomFieldItem = observer((props: CustomFieldItemProps) => {
           });
         }}
       />
-      <TextField fullWidth label="Value" size="small" />
+      <TextField
+        fullWidth
+        label="Value"
+        size="small"
+        value={field.value}
+        onChange={(e) => onChange({ ...field, value: e.target.value })}
+      />
       <Tooltip title="Remove field">
         <IconButton
           onClick={onRemove}
