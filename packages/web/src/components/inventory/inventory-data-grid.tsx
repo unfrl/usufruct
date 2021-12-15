@@ -1,28 +1,10 @@
 import { Box, Chip, ListItem, Typography } from '@mui/material';
-import {
-  DataGrid,
-  GridColDef,
-  GridToolbarContainer,
-  GridToolbarExport,
-  GridToolbarFilterButton,
-} from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Category, Label } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
 import { tryParseRestError } from '../../utils';
-
-const GridToolbar = () => {
-  return (
-    <GridToolbarContainer>
-      <GridToolbarFilterButton
-        sx={{ marginRight: 1 }}
-        componentsProps={{ button: { color: 'inherit' } }}
-      />
-      <GridToolbarExport color="inherit" />
-    </GridToolbarContainer>
-  );
-};
 
 const COLUMNS: GridColDef[] = [
   { field: 'name', headerName: 'Name', minWidth: 100 },
@@ -101,7 +83,6 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
       disableSelectionOnClick
       rows={inventory.filteredItems}
       columns={COLUMNS}
-      components={{ Toolbar: GridToolbar }}
       loading={loading}
       onSelectionModelChange={(model) => {
         if (model.length) {
