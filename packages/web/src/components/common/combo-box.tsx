@@ -74,7 +74,7 @@ export const ComboBox = (props: ComboBoxProps) => {
         const { inputValue } = params;
         const filtered = filter(options, params);
         const isExisting = options.some(
-          (option) => inputValue === option.title,
+          (option) => option.title === inputValue,
         );
 
         if (inputValue && !isExisting) {
