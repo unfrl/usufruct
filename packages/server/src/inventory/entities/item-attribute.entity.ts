@@ -10,7 +10,7 @@ export enum ItemAttributeDataType {
 @Entity()
 export class ItemAttribute extends BaseEntity {
   @ApiResponseProperty()
-  @Column()
+  @Column({ unique: true })
   public name: string;
 
   @ApiResponseProperty()

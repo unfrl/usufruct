@@ -19,7 +19,7 @@ import {
 } from '../common';
 import { Content } from '../layout';
 import { CategorySelection } from './category-selection';
-import { CustomFields } from './custom-fields';
+import { CustomFieldList } from './custom-field-list';
 import { LabelSelection } from './label-selection';
 
 const TextField = (props: MuiTextFieldProps) => {
@@ -152,7 +152,7 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
           />
 
           <Divider>Custom fields</Divider>
-          <CustomFields />
+          <CustomFieldList />
         </Stack>
       </Content>
     </ResponsiveDrawer>
