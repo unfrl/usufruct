@@ -19,4 +19,9 @@ export class ItemAttributeValue extends BaseEntity {
 
   @Column()
   public value: string;
+
+  public constructor(itemAttributeValue: Partial<ItemAttributeValue>) {
+    super();
+    Object.assign(this, itemAttributeValue);
+  }
 }

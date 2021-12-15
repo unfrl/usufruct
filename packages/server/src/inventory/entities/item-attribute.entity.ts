@@ -21,6 +21,12 @@ export class ItemAttribute extends BaseEntity {
   @Column({
     type: 'enum',
     enum: ItemAttributeDataType,
+    default: ItemAttributeDataType.String,
   })
   public dataType: ItemAttributeDataType;
+
+  public constructor(itemAttribute: Partial<ItemAttribute>) {
+    super();
+    Object.assign(this, itemAttribute);
+  }
 }

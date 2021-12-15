@@ -32,7 +32,7 @@ export class ItemController {
   @ApiResponse({ status: HttpStatus.OK, type: Item, isArray: true })
   @Get()
   public async getItems(): Promise<Item[]> {
-    return await this._itemService.getItems();
+    return await this._itemService.getAll();
   }
 
   @ApiOperation({
