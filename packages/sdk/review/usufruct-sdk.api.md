@@ -32,6 +32,16 @@ export interface Item {
 }
 
 // @public (undocumented)
+export interface ItemAttribute {
+    readonly created: Date;
+    readonly dataType: string;
+    readonly description: string;
+    readonly id: string;
+    readonly name: string;
+    readonly updated: Date;
+}
+
+// @public (undocumented)
 export interface Label {
     readonly created: Date;
     readonly description: string;
@@ -85,6 +95,7 @@ export class Usufruct extends UsufructContext {
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
     createItem(body: UpsertItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
     getCategories(options?: coreHttp.OperationOptions): Promise<UsufructGetCategoriesResponse>;
+    getItemAttributes(options?: coreHttp.OperationOptions): Promise<UsufructGetItemAttributesResponse>;
     getItems(options?: coreHttp.OperationOptions): Promise<UsufructGetItemsResponse>;
     getLabels(options?: coreHttp.OperationOptions): Promise<UsufructGetLabelsResponse>;
     getMyProfile(options?: coreHttp.OperationOptions): Promise<UsufructGetMyProfileResponse>;
@@ -113,6 +124,14 @@ export type UsufructGetCategoriesResponse = Category[] & {
     _response: coreHttp.HttpResponse & {
         bodyAsText: string;
         parsedBody: Category[];
+    };
+};
+
+// @public
+export type UsufructGetItemAttributesResponse = ItemAttribute[] & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: ItemAttribute[];
     };
 };
 

@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UpsertItemDto } from '../dtos';
-import { Item } from '../entities';
+import { Item, ItemAttribute } from '../entities';
 import { CategoryService } from './category.service';
 import { LabelService } from './label.service';
 
@@ -11,6 +11,8 @@ export class ItemService {
   public constructor(
     @InjectRepository(Item)
     private readonly _itemRepository: Repository<Item>,
+    @InjectRepository(ItemAttribute)
+    private readonly _attributeRepository: Repository<ItemAttribute>,
     private readonly _categoryService: CategoryService,
     private readonly _labelService: LabelService,
   ) {}
@@ -28,5 +30,9 @@ export class ItemService {
     ]);
 
     return await this._itemRepository.save({ categories, labels, ...rest });
+  }
+
+  public async getAttributes(): Promise<ItemAttribute[]> {
+    return await this._attributeRepository.find();
   }
 }

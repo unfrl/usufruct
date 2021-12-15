@@ -213,6 +213,63 @@ export const UpsertItemDto: coreHttp.CompositeMapper = {
   }
 };
 
+export const ItemAttribute: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "ItemAttribute",
+    modelProperties: {
+      id: {
+        serializedName: "id",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      created: {
+        serializedName: "created",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      updated: {
+        serializedName: "updated",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      name: {
+        serializedName: "name",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      description: {
+        serializedName: "description",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      dataType: {
+        serializedName: "dataType",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
 export const SignUpDto: coreHttp.CompositeMapper = {
   type: {
     name: "Composite",

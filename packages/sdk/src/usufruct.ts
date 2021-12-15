@@ -8,6 +8,7 @@ import {
   UsufructGetItemsResponse,
   UpsertItemDto,
   UsufructCreateItemResponse,
+  UsufructGetItemAttributesResponse,
   UsufructGetLabelsResponse,
   SignUpDto,
   SignInDto,
@@ -79,6 +80,22 @@ export class Usufruct extends UsufructContext {
       { body, options: operationOptions },
       createItemOperationSpec
     ) as Promise<UsufructCreateItemResponse>;
+  }
+
+  /**
+   * Get item attributes
+   * @param options The options parameters.
+   */
+  getItemAttributes(
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructGetItemAttributesResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { options: operationOptions },
+      getItemAttributesOperationSpec
+    ) as Promise<UsufructGetItemAttributesResponse>;
   }
 
   /**
@@ -217,6 +234,23 @@ const createItemOperationSpec: coreHttp.OperationSpec = {
   urlParameters: [Parameters.$host],
   headerParameters: [Parameters.contentType, Parameters.accept1],
   mediaType: "json",
+  serializer
+};
+const getItemAttributesOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/items/attributes",
+  httpMethod: "GET",
+  responses: {
+    200: {
+      bodyMapper: {
+        type: {
+          name: "Sequence",
+          element: { type: { name: "Composite", className: "ItemAttribute" } }
+        }
+      }
+    }
+  },
+  urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.accept],
   serializer
 };
 const getLabelsOperationSpec: coreHttp.OperationSpec = {

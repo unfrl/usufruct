@@ -15,7 +15,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { UpsertItemDto } from '../dtos';
-import { Item } from '../entities';
+import { Item, ItemAttribute } from '../entities';
 import { ItemService } from '../services';
 
 @ApiTags('Items')
@@ -44,5 +44,15 @@ export class ItemController {
   @Post()
   public async createItem(@Body() itemDto: UpsertItemDto): Promise<Item> {
     return await this._itemService.createItem(itemDto);
+  }
+
+  @ApiOperation({
+    operationId: 'getItemAttributes',
+    summary: 'Get item attributes',
+  })
+  @ApiResponse({ status: HttpStatus.OK, type: ItemAttribute, isArray: true })
+  @Get('attributes')
+  public async getItemAttributes(): Promise<ItemAttribute[]> {
+    return await this._itemService.getAttributes();
   }
 }
