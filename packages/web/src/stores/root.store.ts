@@ -24,6 +24,7 @@ export class RootStore {
       },
       // TODO: move to config and pull from env variable
       'http://localhost:1337',
+      { noRetryPolicy: true },
     );
     this.auth = new AuthStore(this);
     this.inventory = new InventoryStore(this);

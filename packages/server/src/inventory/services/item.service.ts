@@ -49,6 +49,10 @@ export class ItemService {
     itemId: string,
     customFields: CustomFieldDto[],
   ): Promise<void> {
+    if (!customFields?.length) {
+      return;
+    }
+
     await Promise.all(
       customFields.map((customField) =>
         this.processCustomField(itemId, customField),
