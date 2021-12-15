@@ -29,7 +29,7 @@ export const LabelSelection = observer((props: LabelSelectionProps) => {
 
     load();
   }, []);
-
+  // TODO: shouldn't be able to select the same label multiple times -- filterSelectedOptions impl might be wonky
   return (
     <ComboBox
       multiple

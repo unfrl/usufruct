@@ -27,28 +27,18 @@ export interface ComboBoxProps {
 }
 
 export const ComboBox = (props: ComboBoxProps) => {
-  const {
-    label,
-    options,
-    value,
-    onChange,
-    textFieldProps,
-    loading,
-    multiple,
-    filterSelectedOptions,
-    fullWidth,
-  } = props;
+  const { label, options, value, onChange, textFieldProps, ...rest } = props;
 
-  const normalizeNewValue = (value: any) => {
-    if (typeof value === 'string') {
-      return { title: value };
+  const normalizeNewValue = (newValue: any) => {
+    if (typeof newValue === 'string') {
+      return { title: newValue };
     }
 
-    if (value?.inputValue) {
-      return { title: value.inputValue };
+    if (newValue?.inputValue) {
+      return { title: newValue.inputValue };
     }
 
-    return value;
+    return newValue;
   };
 
   return (
@@ -57,10 +47,7 @@ export const ComboBox = (props: ComboBoxProps) => {
       clearOnBlur
       handleHomeEndKeys
       freeSolo
-      fullWidth={fullWidth}
-      loading={loading}
-      multiple={multiple}
-      filterSelectedOptions={filterSelectedOptions}
+      {...rest}
       value={value}
       onChange={(_event, newValue) => {
         if (Array.isArray(newValue)) {
