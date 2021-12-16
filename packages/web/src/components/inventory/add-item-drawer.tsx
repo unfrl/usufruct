@@ -29,13 +29,13 @@ const DEFAULT_ITEM_DTO: UpsertItemDto = {
   customFields: [],
 };
 
-export interface NewItemDrawerProps {
+export interface AddItemDrawerProps {
   open: boolean;
   onClose: () => void;
   initialItem?: UpsertItemDto;
 }
 
-export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
+export const AddItemDrawer = observer((props: AddItemDrawerProps) => {
   const { inventory, toasts } = useStores();
   const { open, onClose, initialItem } = props;
   const [saving, setSaving] = React.useState(false);
@@ -92,7 +92,7 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
       hideBackdrop
       open={open}
       onClose={onClose}
-      title="New item"
+      title="Add item"
       anchor="right"
       headerOptions={
         <FormActions

@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { InventoryToolbar, NewItemDrawer } from '../components';
+import { AddItemDrawer, InventoryToolbar } from '../components';
 import { useStores } from '../hooks';
 
 const InventoryDataGrid = React.lazy(
@@ -37,7 +37,7 @@ const Inventory = observer(() => {
       <Box sx={{ marginTop: 2, height: '70vh', width: '100%' }}>
         <InventoryDataGrid onItemSelect={handleItemSelect} />
       </Box>
-      <NewItemDrawer open={open} onClose={handleClose} />
+      <AddItemDrawer open={open} onClose={handleClose} />
     </Box>
   );
 });
