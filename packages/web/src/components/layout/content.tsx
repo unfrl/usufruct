@@ -26,8 +26,7 @@ const StyledContent = styled('div')(({ theme }) => ({
     padding: theme.spacing(3),
   },
   [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(1),
-    paddingTop: theme.spacing(2),
+    padding: theme.spacing(2),
   },
   transition: theme.transitions.create(['margin', 'padding'], {
     easing: theme.transitions.easing.sharp,
