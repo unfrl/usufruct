@@ -6,11 +6,11 @@ import { Column, Entity } from 'typeorm';
 export class Label extends BaseEntity {
   @ApiResponseProperty()
   @Column({ unique: true })
-  name: string;
+  public name: string;
 
   @ApiResponseProperty()
   @Column({ nullable: true })
-  description?: string;
+  public description?: string;
 
   public constructor(label: Partial<Label>) {
     super();

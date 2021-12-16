@@ -17,12 +17,12 @@ export class Item extends BaseEntity {
   @ApiResponseProperty({ type: [Category] })
   @ManyToMany(() => Category, { eager: true })
   @JoinTable()
-  categories: Category[];
+  public categories: Category[];
 
   @ApiResponseProperty({ type: [Label] })
   @ManyToMany(() => Label, { eager: true })
   @JoinTable()
-  labels: Label[];
+  public labels: Label[];
 
   public constructor(item: Partial<Item>) {
     super();
