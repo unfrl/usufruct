@@ -45,7 +45,7 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
         }
       />
       <Stack direction="row" spacing={2}>
-        <Tooltip title="Refresh table">
+        <Tooltip title="Refresh items">
           <IconButton onClick={onRefresh}>
             <RefreshIcon />
           </IconButton>
