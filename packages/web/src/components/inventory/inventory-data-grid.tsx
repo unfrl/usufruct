@@ -61,17 +61,13 @@ export interface InventoryDataGridProps {
 const InventoryDataGrid = (props: InventoryDataGridProps) => {
   const { onItemSelect } = props;
   const { inventory, toasts } = useStores();
-  const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     const init = async () => {
       try {
-        setLoading(true);
         await inventory.loadAllItems();
       } catch (error) {
         toasts.error(tryParseRestError(error));
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -83,7 +79,7 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
       disableSelectionOnClick
       rows={inventory.filteredItems}
       columns={COLUMNS}
-      loading={loading}
+      loading={inventory.loading}
       onSelectionModelChange={(model) => {
         if (model.length) {
           onItemSelect(String(model[0]));

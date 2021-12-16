@@ -3,6 +3,8 @@ import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
 export class InventoryStore {
+  public loading: boolean = false;
+
   public query: string = '';
 
   public items: Item[] = [];
@@ -22,11 +24,14 @@ export class InventoryStore {
 
   public loadAllItems = async () => {
     try {
+      this.setLoading(true);
       const items = await this._rootStore.client.getItems();
       this.setItems(items);
     } catch (error) {
       console.error('failed to get items', error);
       throw error;
+    } finally {
+      this.setLoading(false);
     }
   };
 
@@ -67,6 +72,10 @@ export class InventoryStore {
 
   public setQuery = (query: string) => {
     this.query = query;
+  };
+
+  private setLoading = (loading: boolean) => {
+    this.loading = loading;
   };
 
   private setItems = (items: Item[]) => {

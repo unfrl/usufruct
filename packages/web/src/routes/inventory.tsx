@@ -33,6 +33,7 @@ const Inventory = observer(() => {
         onAdd={handleOpen}
         searchValue={inventory.query}
         onSearchChange={handleSearchChange}
+        onRefresh={inventory.loadAllItems}
       />
       <Box sx={{ marginTop: 2, height: '70vh', width: '100%' }}>
         <InventoryDataGrid onItemSelect={handleItemSelect} />
