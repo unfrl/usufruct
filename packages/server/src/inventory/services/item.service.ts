@@ -35,6 +35,7 @@ export class ItemService {
       this._labelService.findOrCreateMany(labelNames),
     ]);
 
+    // TODO: since we create item first _and then_ process fields, we should probably wrap this in a transaction
     const item = await this._itemRepository.save(
       new Item({ categories, labels, ...rest }),
     );
@@ -85,7 +86,7 @@ export class ItemService {
       return existing;
     }
 
-    // TODO: right now, we're letting the datatype default to string
+    // TODO: right now, we're letting the datatype default to string b/c we don't have a creation flow for speciying type yet
     return await this._attributeRepository.save(
       new ItemAttribute({
         name,
