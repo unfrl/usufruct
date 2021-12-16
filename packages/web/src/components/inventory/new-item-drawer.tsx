@@ -89,6 +89,7 @@ export const NewItemDrawer = observer((props: NewItemDrawerProps) => {
 
   return (
     <ResponsiveDrawer
+      hideBackdrop
       open={open}
       onClose={onClose}
       title="New item"
