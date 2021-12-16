@@ -77,9 +77,10 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
   return (
     <DataGrid
       disableSelectionOnClick
-      rows={inventory.filteredItems}
-      columns={COLUMNS}
       loading={inventory.loading}
+      rows={inventory.filteredItems}
+      rowsPerPageOptions={[100]}
+      columns={COLUMNS}
       onSelectionModelChange={(model) => {
         if (model.length) {
           onItemSelect(String(model[0]));
