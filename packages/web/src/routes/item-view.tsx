@@ -67,7 +67,8 @@ const ItemView = () => {
                 <Chip
                   key={category.id}
                   label={category.name}
-                  variant="outlined"
+                  color="primary"
+                  size="small"
                 />
               ))}
             </Stack>

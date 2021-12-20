@@ -1,4 +1,4 @@
-import { Box, Chip, ListItem, Typography } from '@mui/material';
+import { Box, Chip, ListItem } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { Category, Label } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
@@ -18,11 +18,18 @@ const COLUMNS: GridColDef[] = [
     sortable: false,
     renderCell: (params) => {
       return (
-        <Typography>
-          {params.row.categories
-            .map((category: Category) => category.name)
-            .join(', ')}
-        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            listStyle: 'none',
+          }}
+        >
+          {params.row.categories.map((category: Category) => (
+            <ListItem key={category.id} sx={{ padding: 0, marginRight: 1 }}>
+              <Chip label={category.name} color="primary" size="small" />
+            </ListItem>
+          ))}
+        </Box>
       );
     },
   },
