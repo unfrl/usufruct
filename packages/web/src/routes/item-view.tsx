@@ -1,8 +1,8 @@
-import { Chip, Stack, Typography } from '@mui/material';
+import { Chip, Container, Stack, Typography } from '@mui/material';
 import { Item } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Content, Spinner } from '../components';
+import { Spinner } from '../components';
 import { useStores } from '../hooks';
 import { tryParseRestError } from '../utils';
 
@@ -39,7 +39,7 @@ const ItemView = () => {
   const { name, description, categories, labels } = item;
 
   return (
-    <Content maxWidth="md">
+    <Container maxWidth="md">
       <Stack spacing={2}>
         <Stack spacing={1}>
           <Typography variant="h4">{name}</Typography>
@@ -56,7 +56,7 @@ const ItemView = () => {
           ))}
         </Stack>
       </Stack>
-    </Content>
+    </Container>
   );
 };
 
