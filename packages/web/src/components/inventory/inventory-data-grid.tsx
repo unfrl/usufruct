@@ -1,10 +1,9 @@
-import { Box, Chip, ListItem } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
-import { Category, Label } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
 import { tryParseRestError } from '../../utils';
+import { ChipList } from '../common';
 
 const COLUMNS: GridColDef[] = [
   { field: 'name', headerName: 'Name', minWidth: 100 },
@@ -12,49 +11,23 @@ const COLUMNS: GridColDef[] = [
   {
     field: 'categories',
     headerName: 'Category',
-    minWidth: 150,
+    minWidth: 100,
     // TODO: disabling these two on categories & labels until they're implemented
     filterable: false,
     sortable: false,
     renderCell: (params) => {
-      return (
-        <Box
-          sx={{
-            display: 'flex',
-            listStyle: 'none',
-          }}
-        >
-          {params.row.categories.map((category: Category) => (
-            <ListItem key={category.id} sx={{ padding: 0, marginRight: 1 }}>
-              <Chip label={category.name} color="primary" size="small" />
-            </ListItem>
-          ))}
-        </Box>
-      );
+      return <ChipList chips={params.row.categories} color="primary" />;
     },
   },
   {
     field: 'labels',
     headerName: 'Labels',
-    minWidth: 150,
+    minWidth: 200,
     flex: 1,
     filterable: false,
     sortable: false,
     renderCell: (params) => {
-      return (
-        <Box
-          sx={{
-            display: 'flex',
-            listStyle: 'none',
-          }}
-        >
-          {params.row.labels.map((label: Label) => (
-            <ListItem key={label.id} sx={{ padding: 0, marginRight: 1 }}>
-              <Chip label={label.name} size="small" />
-            </ListItem>
-          ))}
-        </Box>
-      );
+      return <ChipList chips={params.row.labels} />;
     },
   },
   { field: 'created', headerName: 'Created', minWidth: 175, type: 'date' },

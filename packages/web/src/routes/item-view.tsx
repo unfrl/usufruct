@@ -1,15 +1,8 @@
-import {
-  Chip,
-  Container,
-  Grid,
-  Stack,
-  styled,
-  Typography,
-} from '@mui/material';
+import { Container, Grid, Stack, styled, Typography } from '@mui/material';
 import { Item } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Spinner } from '../components';
+import { ChipList, Spinner } from '../components';
 import { useStores } from '../hooks';
 import voidImage from '../images/void.svg';
 import { tryParseRestError } from '../utils';
@@ -62,21 +55,8 @@ const ItemView = () => {
           <Stack spacing={1}>
             <Typography variant="h4">{name}</Typography>
             <Typography variant="body1">{description}</Typography>
-            <Stack direction="row" spacing={1}>
-              {categories.map((category) => (
-                <Chip
-                  key={category.id}
-                  label={category.name}
-                  color="primary"
-                  size="small"
-                />
-              ))}
-            </Stack>
-            <Stack direction="row" spacing={1} flexWrap="wrap">
-              {labels.map((label) => (
-                <Chip key={label.id} label={label.name} size="small" />
-              ))}
-            </Stack>
+            <ChipList chips={categories} color="primary" />
+            <ChipList chips={labels} wrap={true} />
           </Stack>
         </Grid>
       </Grid>
