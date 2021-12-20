@@ -63,7 +63,7 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
   const { inventory, toasts } = useStores();
 
   React.useEffect(() => {
-    const init = async () => {
+    const load = async () => {
       try {
         await inventory.loadAllItems();
       } catch (error) {
@@ -71,7 +71,7 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
       }
     };
 
-    init();
+    load();
   }, []);
 
   return (
