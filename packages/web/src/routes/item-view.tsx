@@ -4,7 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ChipList, Spinner } from '../components';
 import { useStores } from '../hooks';
-import voidImage from '../images/void.svg';
+import noData from '../images/no-data.svg';
 import { tryParseRestError } from '../utils';
 
 const ItemImage = styled('img')(({ theme }) => ({
@@ -49,7 +49,7 @@ const ItemView = () => {
     <Container maxWidth="md">
       <Grid container spacing={2}>
         <Grid item xs={12} sm={4}>
-          <ItemImage src={voidImage} alt={name} />
+          <ItemImage src={noData} alt={name} />
         </Grid>
         <Grid item xs={12} sm={8}>
           <Stack spacing={1}>
