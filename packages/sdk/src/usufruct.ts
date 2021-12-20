@@ -8,8 +8,8 @@ import {
   UsufructGetItemsResponse,
   UpsertItemDto,
   UsufructCreateItemResponse,
-  UsufructGetItemResponse,
   UsufructGetItemAttributesResponse,
+  UsufructGetItemResponse,
   UsufructGetLabelsResponse,
   SignUpDto,
   SignInDto,
@@ -84,6 +84,22 @@ export class Usufruct extends UsufructContext {
   }
 
   /**
+   * Get item attributes
+   * @param options The options parameters.
+   */
+  getItemAttributes(
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructGetItemAttributesResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { options: operationOptions },
+      getItemAttributesOperationSpec
+    ) as Promise<UsufructGetItemAttributesResponse>;
+  }
+
+  /**
    * Get an item by its ID
    * @param id
    * @param options The options parameters.
@@ -99,22 +115,6 @@ export class Usufruct extends UsufructContext {
       { id, options: operationOptions },
       getItemOperationSpec
     ) as Promise<UsufructGetItemResponse>;
-  }
-
-  /**
-   * Get item attributes
-   * @param options The options parameters.
-   */
-  getItemAttributes(
-    options?: coreHttp.OperationOptions
-  ): Promise<UsufructGetItemAttributesResponse> {
-    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
-      options || {}
-    );
-    return this.sendOperationRequest(
-      { options: operationOptions },
-      getItemAttributesOperationSpec
-    ) as Promise<UsufructGetItemAttributesResponse>;
   }
 
   /**
@@ -255,18 +255,6 @@ const createItemOperationSpec: coreHttp.OperationSpec = {
   mediaType: "json",
   serializer
 };
-const getItemOperationSpec: coreHttp.OperationSpec = {
-  path: "/api/items/{id}",
-  httpMethod: "GET",
-  responses: {
-    200: {
-      bodyMapper: Mappers.Item
-    }
-  },
-  urlParameters: [Parameters.$host, Parameters.id],
-  headerParameters: [Parameters.accept],
-  serializer
-};
 const getItemAttributesOperationSpec: coreHttp.OperationSpec = {
   path: "/api/items/attributes",
   httpMethod: "GET",
@@ -281,6 +269,18 @@ const getItemAttributesOperationSpec: coreHttp.OperationSpec = {
     }
   },
   urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.accept],
+  serializer
+};
+const getItemOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/items/{id}",
+  httpMethod: "GET",
+  responses: {
+    200: {
+      bodyMapper: Mappers.Item
+    }
+  },
+  urlParameters: [Parameters.$host, Parameters.id],
   headerParameters: [Parameters.accept],
   serializer
 };

@@ -37,6 +37,16 @@ export class ItemController {
   }
 
   @ApiOperation({
+    operationId: 'getItemAttributes',
+    summary: 'Get item attributes',
+  })
+  @ApiResponse({ status: HttpStatus.OK, type: ItemAttribute, isArray: true })
+  @Get('attributes')
+  public async getItemAttributes(): Promise<ItemAttribute[]> {
+    return await this._itemService.getAttributes();
+  }
+
+  @ApiOperation({
     operationId: 'getItem',
     summary: 'Get an item by its ID',
   })
@@ -55,15 +65,5 @@ export class ItemController {
   @Post()
   public async createItem(@Body() itemDto: UpsertItemDto): Promise<Item> {
     return await this._itemService.createItem(itemDto);
-  }
-
-  @ApiOperation({
-    operationId: 'getItemAttributes',
-    summary: 'Get item attributes',
-  })
-  @ApiResponse({ status: HttpStatus.OK, type: ItemAttribute, isArray: true })
-  @Get('attributes')
-  public async getItemAttributes(): Promise<ItemAttribute[]> {
-    return await this._itemService.getAttributes();
   }
 }
