@@ -65,6 +65,7 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
   React.useEffect(() => {
     const load = async () => {
       try {
+        // TODO: ideally dont wanna load all items every item this component is rendered
         await inventory.loadAllItems();
       } catch (error) {
         toasts.error(tryParseRestError(error));
