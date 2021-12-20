@@ -59,6 +59,17 @@ export const accept1: OperationParameter = {
   }
 };
 
+export const id: OperationURLParameter = {
+  parameterPath: "id",
+  mapper: {
+    serializedName: "id",
+    required: true,
+    type: {
+      name: "String"
+    }
+  }
+};
+
 export const body1: OperationParameter = {
   parameterPath: "body",
   mapper: SignUpDtoMapper

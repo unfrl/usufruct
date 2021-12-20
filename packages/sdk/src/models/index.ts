@@ -200,6 +200,26 @@ export type UsufructCreateItemResponse = Item & {
 };
 
 /**
+ * Contains response data for the getItem operation.
+ */
+export type UsufructGetItemResponse = Item & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: coreHttp.HttpResponse & {
+    /**
+     * The response body as text (string format)
+     */
+    bodyAsText: string;
+
+    /**
+     * The response body as parsed JSON or XML
+     */
+    parsedBody: Item;
+  };
+};
+
+/**
  * Contains response data for the getItemAttributes operation.
  */
 export type UsufructGetItemAttributesResponse = ItemAttribute[] & {

@@ -105,6 +105,7 @@ export class Usufruct extends UsufructContext {
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
     createItem(body: UpsertItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
     getCategories(options?: coreHttp.OperationOptions): Promise<UsufructGetCategoriesResponse>;
+    getItem(id: string, options?: coreHttp.OperationOptions): Promise<UsufructGetItemResponse>;
     getItemAttributes(options?: coreHttp.OperationOptions): Promise<UsufructGetItemAttributesResponse>;
     getItems(options?: coreHttp.OperationOptions): Promise<UsufructGetItemsResponse>;
     getLabels(options?: coreHttp.OperationOptions): Promise<UsufructGetLabelsResponse>;
@@ -142,6 +143,14 @@ export type UsufructGetItemAttributesResponse = ItemAttribute[] & {
     _response: coreHttp.HttpResponse & {
         bodyAsText: string;
         parsedBody: ItemAttribute[];
+    };
+};
+
+// @public
+export type UsufructGetItemResponse = Item & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: Item;
     };
 };
 

@@ -8,6 +8,7 @@ import {
   UsufructGetItemsResponse,
   UpsertItemDto,
   UsufructCreateItemResponse,
+  UsufructGetItemResponse,
   UsufructGetItemAttributesResponse,
   UsufructGetLabelsResponse,
   SignUpDto,
@@ -80,6 +81,24 @@ export class Usufruct extends UsufructContext {
       { body, options: operationOptions },
       createItemOperationSpec
     ) as Promise<UsufructCreateItemResponse>;
+  }
+
+  /**
+   * Get an item by its ID
+   * @param id
+   * @param options The options parameters.
+   */
+  getItem(
+    id: string,
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructGetItemResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { id, options: operationOptions },
+      getItemOperationSpec
+    ) as Promise<UsufructGetItemResponse>;
   }
 
   /**
@@ -234,6 +253,18 @@ const createItemOperationSpec: coreHttp.OperationSpec = {
   urlParameters: [Parameters.$host],
   headerParameters: [Parameters.contentType, Parameters.accept1],
   mediaType: "json",
+  serializer
+};
+const getItemOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/items/{id}",
+  httpMethod: "GET",
+  responses: {
+    200: {
+      bodyMapper: Mappers.Item
+    }
+  },
+  urlParameters: [Parameters.$host, Parameters.id],
+  headerParameters: [Parameters.accept],
   serializer
 };
 const getItemAttributesOperationSpec: coreHttp.OperationSpec = {
