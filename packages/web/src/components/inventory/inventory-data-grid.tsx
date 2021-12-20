@@ -76,7 +76,6 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
 
   return (
     <DataGrid
-      disableSelectionOnClick
       loading={inventory.loading}
       rows={inventory.filteredItems}
       rowsPerPageOptions={[100]}

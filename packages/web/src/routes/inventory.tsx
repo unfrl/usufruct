@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AddItemDrawer, InventoryToolbar } from '../components';
 import { useStores } from '../hooks';
 
@@ -11,6 +12,7 @@ const InventoryDataGrid = React.lazy(
 const Inventory = observer(() => {
   const { inventory } = useStores();
   const [open, setOpen] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleOpen = () => setOpen(true);
 
@@ -21,10 +23,9 @@ const Inventory = observer(() => {
     inventory.setQuery(value);
   };
 
-  const handleItemSelect = (_itemId: string) => {
-    // TODO: need to handle creating vs updating vs duplicating & creating new
-    // maybe the creation step needs to be distinct from the form being shown in the drawer?
-    handleOpen();
+  const handleItemSelect = (itemId: string) => {
+    // TODO: temp just for testing, this is the public item page
+    navigate(`/inventory/${itemId}`);
   };
 
   return (
