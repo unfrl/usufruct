@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -33,6 +34,16 @@ export class ItemController {
   @Get()
   public async getItems(): Promise<Item[]> {
     return await this._itemService.getAll();
+  }
+
+  @ApiOperation({
+    operationId: 'getItem',
+    summary: 'Get an item by its ID',
+  })
+  @ApiResponse({ status: HttpStatus.OK, type: Item })
+  @Get(':id')
+  public async getItem(@Param('id') id: string): Promise<Item> {
+    return await this._itemService.getById(id);
   }
 
   @ApiOperation({

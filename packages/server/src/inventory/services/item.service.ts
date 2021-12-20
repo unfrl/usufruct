@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CustomFieldDto, UpsertItemDto } from '../dtos';
@@ -18,6 +18,15 @@ export class ItemService {
     private readonly _categoryService: CategoryService,
     private readonly _labelService: LabelService,
   ) {}
+
+  public async getById(id: string): Promise<Item> {
+    const item = await this._itemRepository.findOne(id);
+    if (!item) {
+      throw new NotFoundException();
+    }
+
+    return item;
+  }
 
   public async getAll(): Promise<Item[]> {
     return await this._itemRepository.find();
