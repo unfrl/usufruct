@@ -78,6 +78,14 @@ export const Item: coreHttp.CompositeMapper = {
           name: "String"
         }
       },
+      shortId: {
+        serializedName: "shortId",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
       description: {
         serializedName: "description",
         required: true,

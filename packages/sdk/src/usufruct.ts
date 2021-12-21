@@ -100,7 +100,7 @@ export class Usufruct extends UsufructContext {
   }
 
   /**
-   * Get an item by its ID
+   * Get an item by its short ID
    * @param id
    * @param options The options parameters.
    */

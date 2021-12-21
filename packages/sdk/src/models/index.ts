@@ -39,6 +39,10 @@ export interface Item {
   /**
    * NOTE: This property will not be serialized. It can only be populated by the server.
    */
+  readonly shortId: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
   readonly description: string;
   /**
    * NOTE: This property will not be serialized. It can only be populated by the server.

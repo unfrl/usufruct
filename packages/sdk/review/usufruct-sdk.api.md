@@ -36,6 +36,7 @@ export interface Item {
     readonly id: string;
     readonly labels: Label[];
     readonly name: string;
+    readonly shortId: string;
     readonly updated: Date;
 }
 
