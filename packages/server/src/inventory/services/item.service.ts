@@ -19,8 +19,8 @@ export class ItemService {
     private readonly _labelService: LabelService,
   ) {}
 
-  public async getById(id: string): Promise<Item> {
-    const item = await this._itemRepository.findOne(id);
+  public async getByShortId(shortId: string): Promise<Item> {
+    const item = await this._itemRepository.findOne({ where: { shortId } });
     if (!item) {
       throw new NotFoundException();
     }

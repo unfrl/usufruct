@@ -1,6 +1,7 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { BaseEntity } from 'src/common';
-import { Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import { getShortId } from 'src/utils';
+import { BeforeInsert, Column, Entity, JoinTable, ManyToMany } from 'typeorm';
 import { Category } from './category.entity';
 import { Label } from './label.entity';
 
@@ -9,6 +10,15 @@ export class Item extends BaseEntity {
   @ApiResponseProperty()
   @Column()
   public name: string;
+
+  @ApiResponseProperty()
+  @Column({ unique: true })
+  public shortId: string;
+
+  @BeforeInsert()
+  private befortInsert() {
+    this.shortId = getShortId();
+  }
 
   @ApiResponseProperty()
   @Column()

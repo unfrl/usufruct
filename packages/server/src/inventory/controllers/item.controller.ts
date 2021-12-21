@@ -48,12 +48,12 @@ export class ItemController {
 
   @ApiOperation({
     operationId: 'getItem',
-    summary: 'Get an item by its ID',
+    summary: 'Get an item by its short ID',
   })
   @ApiResponse({ status: HttpStatus.OK, type: Item })
   @Get(':id')
   public async getItem(@Param('id') id: string): Promise<Item> {
-    return await this._itemService.getById(id);
+    return await this._itemService.getByShortId(id);
   }
 
   @ApiOperation({
