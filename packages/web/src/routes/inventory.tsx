@@ -24,8 +24,11 @@ const Inventory = observer(() => {
   };
 
   const handleItemSelect = (itemId: string) => {
-    // TODO: temp just for testing, this is the public item page
-    navigate(`/inventory/${itemId}`);
+    // note: this is the item's GUID, but we want to route by the shortId
+    const item = inventory.items.find((i) => i.id === itemId);
+    if (item) {
+      navigate(`/inventory/${item.shortId}`);
+    }
   };
 
   return (
