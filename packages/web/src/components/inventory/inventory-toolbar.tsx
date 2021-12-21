@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { observer } from 'mobx-react';
 
-const SearchField = styled(OutlinedInput)(({ theme }) => ({
+const SearchField = styled(OutlinedInput)(() => ({
   '& .MuiInputBase-input': {
     paddingTop: 7,
     paddingBottom: 6.5,
