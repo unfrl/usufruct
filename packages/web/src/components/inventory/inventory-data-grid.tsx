@@ -6,7 +6,7 @@ import { tryParseRestError } from '../../utils';
 import { ChipList } from '../common';
 
 const COLUMNS: GridColDef[] = [
-  { field: 'name', headerName: 'Name', minWidth: 100 },
+  { field: 'name', headerName: 'Name', minWidth: 150, flex: 1 },
   { field: 'description', headerName: 'Description', minWidth: 150, flex: 1 },
   {
     field: 'categories',
@@ -30,8 +30,8 @@ const COLUMNS: GridColDef[] = [
       return <ChipList chips={params.row.labels} />;
     },
   },
-  { field: 'created', headerName: 'Created', minWidth: 175, type: 'date' },
-  { field: 'updated', headerName: 'Updated', minWidth: 175, type: 'date' },
+  { field: 'created', headerName: 'Created', minWidth: 100, type: 'date' },
+  { field: 'updated', headerName: 'Updated', minWidth: 100, type: 'date' },
 ];
 
 export interface InventoryDataGridProps {
