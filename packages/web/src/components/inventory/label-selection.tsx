@@ -1,3 +1,4 @@
+import { Label } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
@@ -10,20 +11,16 @@ export interface LabelSelectionProps {
 }
 
 export const LabelSelection = observer((props: LabelSelectionProps) => {
-  const { inventory, toasts } = useStores();
+  const { client, toasts } = useStores();
   const { selected, onChange } = props;
-  const [loading, setLoading] = React.useState(false);
-  const options = inventory.labels.map((c) => ({ title: c.name }));
+  const [labels, setLabels] = React.useState<Label[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setLoading(true);
-        await inventory.loadLabels();
+        setLabels(await client.getLabels());
       } catch (error) {
         toasts.error(tryParseRestError(error));
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -35,10 +32,9 @@ export const LabelSelection = observer((props: LabelSelectionProps) => {
       multiple
       filterSelectedOptions
       label="Labels"
-      options={options}
+      options={labels.map((c) => ({ title: c.name }))}
       value={selected}
       onChange={onChange}
-      loading={loading}
     />
   );
 });

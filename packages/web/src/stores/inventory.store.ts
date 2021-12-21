@@ -1,4 +1,4 @@
-import { Category, Item, Label, UpsertItemDto } from '@unfrl/usufruct-sdk';
+import { Item, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { RootStore } from './root.store';
 
@@ -8,10 +8,6 @@ export class InventoryStore {
   public query: string = '';
 
   public items: Item[] = [];
-
-  public categories: Category[] = [];
-
-  public labels: Label[] = [];
 
   public get filteredItems() {
     const query = this.query.trim().toLowerCase();
@@ -32,28 +28,6 @@ export class InventoryStore {
       throw error;
     } finally {
       this.setLoading(false);
-    }
-  };
-
-  public loadCategories = async () => {
-    try {
-      console.log('loading categories...');
-      const categories = await this._rootStore.client.getCategories();
-      this.setCategories(categories);
-    } catch (error) {
-      console.error('failed to load categories', error);
-      throw error;
-    }
-  };
-
-  public loadLabels = async () => {
-    try {
-      console.log('loading labels...');
-      const labels = await this._rootStore.client.getLabels();
-      this.setLabels(labels);
-    } catch (error) {
-      console.error('failed to load labels', error);
-      throw error;
     }
   };
 
@@ -84,14 +58,6 @@ export class InventoryStore {
 
   private addItem = (item: Item) => {
     this.items.push(item);
-  };
-
-  private setCategories = (categories: Category[]) => {
-    this.categories = categories;
-  };
-
-  private setLabels = (labels: Label[]) => {
-    this.labels = labels;
   };
 
   //#endregion

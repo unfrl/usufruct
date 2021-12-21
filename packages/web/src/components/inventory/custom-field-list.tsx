@@ -19,7 +19,6 @@ export const CustomFieldList = observer((props: CustomFieldListProps) => {
 
   React.useEffect(() => {
     const load = async () => {
-      console.log('loading attributes...');
       try {
         setAttributes(await client.getItemAttributes());
       } catch (error) {
