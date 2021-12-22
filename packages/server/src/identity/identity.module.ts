@@ -13,13 +13,13 @@ import { User } from './entities';
 import { AuthService, UserService, VerificationService } from './services';
 import { JwtStrategy } from './strategies';
 
+const { secret, expiresIn } = authConfig;
+
 @Module({
   imports: [
     JwtModule.register({
-      secret: authConfig.secret,
-      signOptions: {
-        expiresIn: '7d',
-      },
+      secret,
+      signOptions: { expiresIn },
     }),
     PassportModule,
     TypeOrmModule.forFeature([User]),

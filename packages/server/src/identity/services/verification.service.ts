@@ -12,6 +12,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { VerificationDto } from '../dtos';
 import { User } from '../entities';
 
+const TOKEN_EXPIRATION_SECONDS = 60 * 60 * 24; // 1 day
+
 @Injectable()
 export class VerificationService {
   constructor(
@@ -26,7 +28,7 @@ export class VerificationService {
     const token = uuidv4();
     const redisKey = this.getVerificationTokenRedisKey(token, user.email);
 
-    await this._redisClient.setex(redisKey, 86400, ''); // Currently this sets the key to expire in 1 day (86400 seconds)
+    await this._redisClient.setex(redisKey, TOKEN_EXPIRATION_SECONDS, '');
 
     const { host, scheme } = appConfig;
     const verificationUrl = `${scheme}://${host}/verification?token=${token}&email=${user.email}`;
