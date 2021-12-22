@@ -49,17 +49,19 @@ export class AuthService {
     const user = await this._userService.findOneByEmail(lowerCaseEmail);
     if (!user) {
       throw new UnauthorizedException(
-        "That email doesn't match an existing account.",
+        'That email does not match an existing account.',
       );
     }
 
     const result = await bcrypt.compare(password, user.hashedPassword);
     if (!result) {
-      throw new UnauthorizedException("The email and password don't match.");
+      throw new UnauthorizedException('The email and password do not match.');
     }
 
     if (!user.isVerified) {
-      throw new UnauthorizedException("Your account hasn't been verified yet.");
+      throw new UnauthorizedException(
+        'Your account has not been verified yet.',
+      );
     }
 
     return this.generateAccessToken(user.id);
