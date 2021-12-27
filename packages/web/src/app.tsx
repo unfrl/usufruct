@@ -6,10 +6,11 @@ import {
 } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import React from 'react';
-import { Link, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppLayout, Spinner, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
+const Home = React.lazy(() => import('./routes/home'));
 const Authentication = React.lazy(() => import('./routes/authentication'));
 const Verification = React.lazy(() => import('./routes/verification'));
 const Inventory = React.lazy(() => import('./routes/inventory'));
@@ -27,10 +28,7 @@ export const App = () => {
       <React.Suspense fallback={<Spinner />}>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route
-              index
-              element={<Link to="inventory">Admin inventory UI</Link>}
-            />
+            <Route index element={<Home />} />
             <Route path="inventory" element={<Inventory />} />
             <Route path="inventory/:id" element={<ItemView />} />
             <Route
