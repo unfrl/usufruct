@@ -3,5 +3,6 @@ export * from './common';
 export * from './email-sent';
 export * from './inventory';
 export * from './layout';
+export * from './not-found';
 export * from './toasts';
 export * from './user-menu';

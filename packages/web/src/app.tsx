@@ -1,13 +1,8 @@
-import {
-  CssBaseline,
-  ThemeProvider,
-  Typography,
-  useMediaQuery,
-} from '@mui/material';
+import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppLayout, Spinner, Toasts } from './components';
+import { AppLayout, NotFound, Spinner, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
 const Home = React.lazy(() => import('./routes/home'));
@@ -31,14 +26,7 @@ export const App = () => {
             <Route index element={<Home />} />
             <Route path="inventory" element={<Inventory />} />
             <Route path="inventory/:id" element={<ItemView />} />
-            <Route
-              path="*"
-              element={
-                <Typography align="center" variant="h3">
-                  Not found!
-                </Typography>
-              }
-            />
+            <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="sign-up" element={<Authentication signUp={true} />} />
           <Route path="login" element={<Authentication signUp={false} />} />
