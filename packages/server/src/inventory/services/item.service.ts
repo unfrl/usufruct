@@ -49,7 +49,6 @@ export class ItemService {
       new Item({ categories, labels, ...rest }),
     );
 
-    // TODO: refactor this so its useable in the Promise.all(...)
     await this.processCustomFields(item.id, customFields);
 
     return item;
