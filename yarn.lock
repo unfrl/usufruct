@@ -1720,12 +1720,6 @@
     "@typescript-eslint/types" "5.4.0"
     eslint-visitor-keys "^3.0.0"
 
-"@unfrl/usufruct-sdk@file:packages/sdk":
-  version "1.0.0"
-  dependencies:
-    "@azure/core-http" "^1.1.4"
-    tslib "^1.9.3"
-
 "@vitejs/plugin-react@^1.0.0":
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-1.0.9.tgz#3166e82cc986512c2e0411138305468488704e86"
