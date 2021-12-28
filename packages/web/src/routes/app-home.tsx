@@ -5,9 +5,7 @@ import {
   CardMedia,
   Grid,
   Link,
-  Paper,
   Stack,
-  styled,
   Typography,
 } from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
@@ -17,14 +15,6 @@ import { Link as RouterLink } from 'react-router-dom';
 import { useStores } from '../hooks';
 import noData from '../images/no-data.svg';
 import { tryParseRestError } from '../utils';
-
-const LibraryItem = styled(Paper)(({ theme }) => ({
-  padding: theme.spacing(2),
-  height: 175,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'flex-end',
-}));
 
 const AppHome = () => {
   const [libraries, setLibraries] = React.useState<Library[]>([]);
@@ -43,6 +33,8 @@ const AppHome = () => {
   }, []);
 
   // TODO: handle case where it's first time and there's no libraries, prob toggle walk through or something
+
+  // TODO: refactor library grid list into own component(s)
 
   return (
     <Stack>
