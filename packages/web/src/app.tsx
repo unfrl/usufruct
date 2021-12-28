@@ -5,7 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 import { AppLayout, NotFound, Spinner, Toasts } from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
-const Home = React.lazy(() => import('./routes/home'));
+const AppHome = React.lazy(() => import('./routes/app-home'));
+const LibraryHome = React.lazy(() => import('./routes/library-home'));
 const Authentication = React.lazy(() => import('./routes/authentication'));
 const Verification = React.lazy(() => import('./routes/verification'));
 const Inventory = React.lazy(() => import('./routes/inventory'));
@@ -23,9 +24,10 @@ export const App = () => {
       <React.Suspense fallback={<Spinner />}>
         <Routes>
           <Route path="/" element={<AppLayout />}>
-            <Route index element={<Home />} />
+            <Route index element={<AppHome />} />
             <Route path="inventory" element={<Inventory />} />
             <Route path="inventory/:id" element={<ItemView />} />
+            <Route path="l/:slug" element={<LibraryHome />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="sign-up" element={<Authentication signUp={true} />} />

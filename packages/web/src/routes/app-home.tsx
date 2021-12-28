@@ -3,7 +3,6 @@ import { Library } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { Spinner } from '../components';
 import { useStores } from '../hooks';
 import { tryParseRestError } from '../utils';
 
@@ -15,29 +14,21 @@ const LibraryItem = styled(Paper)(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
-const Home = () => {
-  const [loading, setLoading] = React.useState(false);
+const AppHome = () => {
   const [libraries, setLibraries] = React.useState<Library[]>([]);
   const { client, toasts } = useStores();
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setLoading(true);
         setLibraries(await client.getLibraries());
       } catch (error) {
         toasts.error(tryParseRestError(error));
-      } finally {
-        setLoading(false);
       }
     };
 
     load();
   }, []);
-
-  if (loading) {
-    return <Spinner />;
-  }
 
   // TODO: handle case where it's first time and there's no libraries, prob toggle walk through or something
 
@@ -47,7 +38,7 @@ const Home = () => {
         to="inventory"
         component={RouterLink}
         sx={{ color: 'inherit' }}
-        underline="hover"
+        underline="always"
       >
         Admin inventory UI
       </Link>
@@ -74,4 +65,4 @@ const Home = () => {
   );
 };
 
-export default observer(Home);
+export default observer(AppHome);
