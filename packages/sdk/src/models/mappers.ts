@@ -435,3 +435,148 @@ export const VerificationDto: coreHttp.CompositeMapper = {
     }
   }
 };
+
+export const Library: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "Library",
+    modelProperties: {
+      id: {
+        serializedName: "id",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      created: {
+        serializedName: "created",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      updated: {
+        serializedName: "updated",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      name: {
+        serializedName: "name",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      description: {
+        serializedName: "description",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      slug: {
+        serializedName: "slug",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const UpsertLibraryDto: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "UpsertLibraryDto",
+    modelProperties: {
+      name: {
+        serializedName: "name",
+        required: true,
+        type: {
+          name: "String"
+        }
+      },
+      description: {
+        serializedName: "description",
+        type: {
+          name: "String"
+        }
+      }
+    }
+  }
+};
+
+export const LibraryMember: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "LibraryMember",
+    modelProperties: {
+      libraryId: {
+        serializedName: "libraryId",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      userId: {
+        serializedName: "userId",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      role: {
+        serializedName: "role",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "String"
+        }
+      },
+      library: {
+        serializedName: "library",
+        type: {
+          name: "Composite",
+          className: "Library"
+        }
+      },
+      created: {
+        serializedName: "created",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      },
+      updated: {
+        serializedName: "updated",
+        required: true,
+        readOnly: true,
+        type: {
+          name: "DateTime"
+        }
+      }
+    }
+  }
+};
+
+export const LibraryMemberLibrary: coreHttp.CompositeMapper = {
+  type: {
+    name: "Composite",
+    className: "LibraryMemberLibrary",
+    modelProperties: {
+      ...Library.type.modelProperties
+    }
+  }
+};

@@ -15,7 +15,11 @@ import {
   SignInDto,
   UsufructSignInResponse,
   UsufructGetMyProfileResponse,
-  VerificationDto
+  VerificationDto,
+  UsufructGetLibrariesResponse,
+  UpsertLibraryDto,
+  UsufructCreateLibraryResponse,
+  UsufructGetUserMembershipsResponse
 } from "./models";
 
 export class Usufruct extends UsufructContext {
@@ -202,6 +206,56 @@ export class Usufruct extends UsufructContext {
       verifyUserOperationSpec
     ) as Promise<coreHttp.RestResponse>;
   }
+
+  /**
+   * Get list of libraries
+   * @param options The options parameters.
+   */
+  getLibraries(
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructGetLibrariesResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { options: operationOptions },
+      getLibrariesOperationSpec
+    ) as Promise<UsufructGetLibrariesResponse>;
+  }
+
+  /**
+   * Create a new library with your user as the owner
+   * @param body
+   * @param options The options parameters.
+   */
+  createLibrary(
+    body: UpsertLibraryDto,
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructCreateLibraryResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { body, options: operationOptions },
+      createLibraryOperationSpec
+    ) as Promise<UsufructCreateLibraryResponse>;
+  }
+
+  /**
+   * Get the memberships and libraries for your user
+   * @param options The options parameters.
+   */
+  getUserMemberships(
+    options?: coreHttp.OperationOptions
+  ): Promise<UsufructGetUserMembershipsResponse> {
+    const operationOptions: coreHttp.RequestOptionsBase = coreHttp.operationOptionsToRequestOptionsBase(
+      options || {}
+    );
+    return this.sendOperationRequest(
+      { options: operationOptions },
+      getUserMembershipsOperationSpec
+    ) as Promise<UsufructGetUserMembershipsResponse>;
+  }
 }
 // Operation Specifications
 
@@ -345,5 +399,53 @@ const verifyUserOperationSpec: coreHttp.OperationSpec = {
   urlParameters: [Parameters.$host],
   headerParameters: [Parameters.contentType],
   mediaType: "json",
+  serializer
+};
+const getLibrariesOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/libraries",
+  httpMethod: "GET",
+  responses: {
+    200: {
+      bodyMapper: {
+        type: {
+          name: "Sequence",
+          element: { type: { name: "Composite", className: "Library" } }
+        }
+      }
+    }
+  },
+  urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.accept],
+  serializer
+};
+const createLibraryOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/libraries",
+  httpMethod: "POST",
+  responses: {
+    200: {
+      bodyMapper: Mappers.Library
+    }
+  },
+  requestBody: Parameters.body4,
+  urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.contentType, Parameters.accept1],
+  mediaType: "json",
+  serializer
+};
+const getUserMembershipsOperationSpec: coreHttp.OperationSpec = {
+  path: "/api/libraries/me",
+  httpMethod: "GET",
+  responses: {
+    200: {
+      bodyMapper: {
+        type: {
+          name: "Sequence",
+          element: { type: { name: "Composite", className: "LibraryMember" } }
+        }
+      }
+    }
+  },
+  urlParameters: [Parameters.$host],
+  headerParameters: [Parameters.accept],
   serializer
 };

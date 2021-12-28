@@ -143,6 +143,67 @@ export interface VerificationDto {
   token: string;
 }
 
+export interface Library {
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly id: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly created: Date;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly updated: Date;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly name: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly description: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly slug: string;
+}
+
+export interface UpsertLibraryDto {
+  name: string;
+  description?: string;
+}
+
+export interface LibraryMember {
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly libraryId: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly userId: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly role: string;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly library: Library;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly created: Date;
+  /**
+   * NOTE: This property will not be serialized. It can only be populated by the server.
+   */
+  readonly updated: Date;
+}
+
+export type LibraryMemberLibrary = Library & {};
+
 /**
  * Contains response data for the getCategories operation.
  */
@@ -300,6 +361,66 @@ export type UsufructGetMyProfileResponse = UserDto & {
      * The response body as parsed JSON or XML
      */
     parsedBody: UserDto;
+  };
+};
+
+/**
+ * Contains response data for the getLibraries operation.
+ */
+export type UsufructGetLibrariesResponse = Library[] & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: coreHttp.HttpResponse & {
+    /**
+     * The response body as text (string format)
+     */
+    bodyAsText: string;
+
+    /**
+     * The response body as parsed JSON or XML
+     */
+    parsedBody: Library[];
+  };
+};
+
+/**
+ * Contains response data for the createLibrary operation.
+ */
+export type UsufructCreateLibraryResponse = Library & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: coreHttp.HttpResponse & {
+    /**
+     * The response body as text (string format)
+     */
+    bodyAsText: string;
+
+    /**
+     * The response body as parsed JSON or XML
+     */
+    parsedBody: Library;
+  };
+};
+
+/**
+ * Contains response data for the getUserMemberships operation.
+ */
+export type UsufructGetUserMembershipsResponse = LibraryMember[] & {
+  /**
+   * The underlying HTTP response.
+   */
+  _response: coreHttp.HttpResponse & {
+    /**
+     * The response body as text (string format)
+     */
+    bodyAsText: string;
+
+    /**
+     * The response body as parsed JSON or XML
+     */
+    parsedBody: LibraryMember[];
   };
 };
 

@@ -60,6 +60,29 @@ export interface Label {
 }
 
 // @public (undocumented)
+export interface Library {
+    readonly created: Date;
+    readonly description: string;
+    readonly id: string;
+    readonly name: string;
+    readonly slug: string;
+    readonly updated: Date;
+}
+
+// @public (undocumented)
+export interface LibraryMember {
+    readonly created: Date;
+    readonly library: Library;
+    readonly libraryId: string;
+    readonly role: string;
+    readonly updated: Date;
+    readonly userId: string;
+}
+
+// @public (undocumented)
+export type LibraryMemberLibrary = Library & {};
+
+// @public (undocumented)
 export interface SignInDto {
     // (undocumented)
     email: string;
@@ -92,6 +115,14 @@ export interface UpsertItemDto {
 }
 
 // @public (undocumented)
+export interface UpsertLibraryDto {
+    // (undocumented)
+    description?: string;
+    // (undocumented)
+    name: string;
+}
+
+// @public (undocumented)
 export interface UserDto {
     // (undocumented)
     displayName: string;
@@ -105,12 +136,15 @@ export interface UserDto {
 export class Usufruct extends UsufructContext {
     constructor(credentials: coreHttp.TokenCredential | coreHttp.ServiceClientCredentials, $host: string, options?: UsufructOptionalParams);
     createItem(body: UpsertItemDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateItemResponse>;
+    createLibrary(body: UpsertLibraryDto, options?: coreHttp.OperationOptions): Promise<UsufructCreateLibraryResponse>;
     getCategories(options?: coreHttp.OperationOptions): Promise<UsufructGetCategoriesResponse>;
     getItem(id: string, options?: coreHttp.OperationOptions): Promise<UsufructGetItemResponse>;
     getItemAttributes(options?: coreHttp.OperationOptions): Promise<UsufructGetItemAttributesResponse>;
     getItems(options?: coreHttp.OperationOptions): Promise<UsufructGetItemsResponse>;
     getLabels(options?: coreHttp.OperationOptions): Promise<UsufructGetLabelsResponse>;
+    getLibraries(options?: coreHttp.OperationOptions): Promise<UsufructGetLibrariesResponse>;
     getMyProfile(options?: coreHttp.OperationOptions): Promise<UsufructGetMyProfileResponse>;
+    getUserMemberships(options?: coreHttp.OperationOptions): Promise<UsufructGetUserMembershipsResponse>;
     signIn(body: SignInDto, options?: coreHttp.OperationOptions): Promise<UsufructSignInResponse>;
     signUp(body: SignUpDto, options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
     verifyUser(body: VerificationDto, options?: coreHttp.OperationOptions): Promise<coreHttp.RestResponse>;
@@ -128,6 +162,14 @@ export type UsufructCreateItemResponse = Item & {
     _response: coreHttp.HttpResponse & {
         bodyAsText: string;
         parsedBody: Item;
+    };
+};
+
+// @public
+export type UsufructCreateLibraryResponse = Library & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: Library;
     };
 };
 
@@ -172,10 +214,26 @@ export type UsufructGetLabelsResponse = Label[] & {
 };
 
 // @public
+export type UsufructGetLibrariesResponse = Library[] & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: Library[];
+    };
+};
+
+// @public
 export type UsufructGetMyProfileResponse = UserDto & {
     _response: coreHttp.HttpResponse & {
         bodyAsText: string;
         parsedBody: UserDto;
+    };
+};
+
+// @public
+export type UsufructGetUserMembershipsResponse = LibraryMember[] & {
+    _response: coreHttp.HttpResponse & {
+        bodyAsText: string;
+        parsedBody: LibraryMember[];
     };
 };
 

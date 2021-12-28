@@ -3,7 +3,8 @@ import {
   UpsertItemDto as UpsertItemDtoMapper,
   SignUpDto as SignUpDtoMapper,
   SignInDto as SignInDtoMapper,
-  VerificationDto as VerificationDtoMapper
+  VerificationDto as VerificationDtoMapper,
+  UpsertLibraryDto as UpsertLibraryDtoMapper
 } from "../models/mappers";
 
 export const accept: OperationParameter = {
@@ -83,4 +84,9 @@ export const body2: OperationParameter = {
 export const body3: OperationParameter = {
   parameterPath: "body",
   mapper: VerificationDtoMapper
+};
+
+export const body4: OperationParameter = {
+  parameterPath: "body",
+  mapper: UpsertLibraryDtoMapper
 };
