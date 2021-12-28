@@ -45,6 +45,17 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
         }
       />
       <Stack direction="row" spacing={2}>
+        <Button
+          startIcon={<AddIcon />}
+          variant="contained"
+          color="primary"
+          size="small"
+          onClick={onAdd}
+        >
+          <Typography variant="button" sx={{ textTransform: 'none' }}>
+            Add item
+          </Typography>
+        </Button>
         <Tooltip title="Refresh items">
           <IconButton
             onClick={onRefresh}
@@ -57,17 +68,6 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
             <RefreshIcon color="action" />
           </IconButton>
         </Tooltip>
-        <Button
-          startIcon={<AddIcon />}
-          variant="contained"
-          color="primary"
-          size="small"
-          onClick={onAdd}
-        >
-          <Typography variant="button" sx={{ textTransform: 'none' }}>
-            Add item
-          </Typography>
-        </Button>
       </Stack>
     </Stack>
   );
