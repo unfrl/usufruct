@@ -1,24 +1,19 @@
-import {
-  Injectable,
-  InternalServerErrorException,
-  Logger,
-} from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { DbTransactionService } from 'src/common/services';
 import { getSlug } from 'src/utils';
-import { Connection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { UpsertLibraryDto } from '../dtos';
 import { Library, LibraryMember, LibraryMemberRole } from '../entities';
 
 @Injectable()
 export class LibraryService {
-  private readonly _logger = new Logger(LibraryService.name);
-
   public constructor(
     @InjectRepository(Library)
     private readonly _libraryRepository: Repository<Library>,
     @InjectRepository(LibraryMember)
     private readonly _libraryMemberRepository: Repository<LibraryMember>,
-    private readonly _connection: Connection,
+    private readonly _dbTransactionService: DbTransactionService,
   ) {}
 
   public async findOneBySlug(slug: string): Promise<Library | undefined> {
@@ -33,20 +28,21 @@ export class LibraryService {
     userId: string,
     libraryDto: UpsertLibraryDto,
   ): Promise<Library> {
-    const queryRunner = this._connection.createQueryRunner();
+    const { name, description } = libraryDto;
 
-    await queryRunner.connect();
-    await queryRunner.startTransaction();
+    const slug = getSlug(name);
+    if (await this.slugExists(slug)) {
+      throw new BadRequestException(
+        'Slug is already in use. Please enter a unique name.',
+      );
+    }
 
-    try {
-      const { name, description } = libraryDto;
-      const slug = getSlug(name);
-
-      const library = await queryRunner.manager.save(
+    return this._dbTransactionService.executeInTransaction(async (manager) => {
+      const library = await manager.save(
         new Library({ name, description, slug }),
       );
 
-      await queryRunner.manager.save(
+      await manager.save(
         new LibraryMember({
           library,
           userId,
@@ -54,24 +50,8 @@ export class LibraryService {
         }),
       );
 
-      await queryRunner.commitTransaction();
-
-      this._logger.log('Library successfully created', { userId, libraryDto });
-
       return library;
-    } catch (error) {
-      this._logger.error('Failed to create library', {
-        error,
-        userId,
-        libraryDto,
-      });
-
-      await queryRunner.rollbackTransaction();
-
-      throw new InternalServerErrorException('Unknown error.');
-    } finally {
-      await queryRunner.release();
-    }
+    });
   }
 
   public async getLibraryMember(
