@@ -16,6 +16,10 @@ export class LibraryService {
     private readonly _dbTransactionService: DbTransactionService,
   ) {}
 
+  public async getAll(): Promise<Library[]> {
+    return await this._libraryRepository.find();
+  }
+
   public async findOneBySlug(slug: string): Promise<Library | undefined> {
     return await this._libraryRepository.findOne({ where: { slug } });
   }

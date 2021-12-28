@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Post,
@@ -20,17 +21,27 @@ import { Library } from '../entities';
 import { LibraryService } from '../services';
 
 @ApiTags('Libraries')
-@ApiBearerAuth()
-@UseGuards(AuthGuard('jwt'))
 @Controller('libraries')
 export class LibraryController {
   public constructor(private readonly _libraryService: LibraryService) {}
+
+  @ApiOperation({
+    operationId: 'getLibraries',
+    summary: 'Get list of libraries',
+  })
+  @ApiResponse({ status: HttpStatus.OK, type: Library, isArray: true })
+  @Get()
+  public async getLibraries(): Promise<Library[]> {
+    return await this._libraryService.getAll();
+  }
 
   @ApiOperation({
     operationId: 'createLibrary',
     summary: 'Create a new library with your user as the owner',
   })
   @ApiResponse({ status: HttpStatus.OK, type: Library })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
   @Post()
   public async createLibrary(
