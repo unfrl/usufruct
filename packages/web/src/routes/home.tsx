@@ -1,26 +1,72 @@
-import { Grid, Paper, Stack, styled, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Grid, Link, Paper, Stack, styled, Typography } from '@mui/material';
+import { Library } from '@unfrl/usufruct-sdk';
+import { observer } from 'mobx-react';
+import React from 'react';
+import { Link as RouterLink } from 'react-router-dom';
+import { Spinner } from '../components';
+import { useStores } from '../hooks';
+import { tryParseRestError } from '../utils';
 
 const LibraryItem = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
-  height: 200,
+  height: 175,
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-end',
 }));
 
-const SAMPS = [1, 2, 3, 4, 5, 6];
-
 const Home = () => {
+  const [loading, setLoading] = React.useState(false);
+  const [libraries, setLibraries] = React.useState<Library[]>([]);
+  const { client, toasts } = useStores();
+
+  React.useEffect(() => {
+    const load = async () => {
+      try {
+        setLoading(true);
+        setLibraries(await client.getLibraries());
+      } catch (error) {
+        toasts.error(tryParseRestError(error));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    load();
+  }, []);
+
+  if (loading) {
+    return <Spinner />;
+  }
+
+  // TODO: handle case where it's first time and there's no libraries, prob toggle walk through or something
+
   return (
     <Stack>
-      <Link to="inventory">
-        <Typography>Admin inventory UI</Typography>
+      <Link
+        to="inventory"
+        component={RouterLink}
+        sx={{ color: 'inherit' }}
+        underline="hover"
+      >
+        Admin inventory UI
       </Link>
       <Typography variant="h2" fontSize="large" my={2}>
         Popular libraries (WIP)
       </Typography>
       <Grid container spacing={2}>
-        {SAMPS.map((samp) => (
-          <Grid key={samp} item xs={12} sm={6} md={4}>
-            <LibraryItem>{samp}</LibraryItem>
+        {libraries.map((library) => (
+          <Grid key={library.id} item xs={12} sm={6} md={4}>
+            <Link
+              to={`l/${library.slug}`}
+              component={RouterLink}
+              sx={{ color: 'inherit' }}
+              underline="hover"
+            >
+              <LibraryItem>
+                <Typography>{library.name}</Typography>
+              </LibraryItem>
+            </Link>
           </Grid>
         ))}
       </Grid>
@@ -28,4 +74,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default observer(Home);
