@@ -18,12 +18,15 @@ import {
 import { UserRequest } from 'src/identity';
 import { UpsertLibraryDto } from '../dtos';
 import { Library, LibraryMember } from '../entities';
-import { LibraryService } from '../services';
+import { LibraryMemberService, LibraryService } from '../services';
 
 @ApiTags('Libraries')
 @Controller('libraries')
 export class LibraryController {
-  public constructor(private readonly _libraryService: LibraryService) {}
+  public constructor(
+    private readonly _libraryService: LibraryService,
+    private readonly _libraryMemberService: LibraryMemberService,
+  ) {}
 
   @ApiOperation({
     operationId: 'getLibraries',
@@ -67,8 +70,6 @@ export class LibraryController {
   public async getUserMemberships(
     @Req() request: UserRequest,
   ): Promise<LibraryMember[]> {
-    return await this._libraryService.getLibraryMembersByUserId(
-      request.user.id,
-    );
+    return await this._libraryMemberService.findByUserId(request.user.id);
   }
 }

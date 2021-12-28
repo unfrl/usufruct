@@ -11,8 +11,6 @@ export class LibraryService {
   public constructor(
     @InjectRepository(Library)
     private readonly _libraryRepository: Repository<Library>,
-    @InjectRepository(LibraryMember)
-    private readonly _libraryMemberRepository: Repository<LibraryMember>,
     private readonly _dbTransactionService: DbTransactionService,
   ) {}
 
@@ -55,22 +53,6 @@ export class LibraryService {
       );
 
       return library;
-    });
-  }
-
-  public async getLibraryMember(
-    libraryId: string,
-    userId: string,
-  ): Promise<LibraryMember | undefined> {
-    return await this._libraryMemberRepository.findOne({
-      where: { libraryId, userId },
-    });
-  }
-
-  public async getLibraryMembersByUserId(userId: string) {
-    return await this._libraryMemberRepository.find({
-      where: { userId },
-      relations: ['library'],
     });
   }
 }

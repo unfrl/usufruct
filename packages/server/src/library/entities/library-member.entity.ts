@@ -1,7 +1,6 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
-import { BaseEntity } from 'src/common';
 import { User } from 'src/identity';
-import { Column, Entity, ManyToOne } from 'typeorm';
+import { Column, Entity, Index, ManyToOne, PrimaryColumn } from 'typeorm';
 import { Library } from './library.entity';
 
 export enum LibraryMemberRole {
@@ -11,13 +10,15 @@ export enum LibraryMemberRole {
 }
 
 @Entity()
-export class LibraryMember extends BaseEntity {
+export class LibraryMember {
   @ApiResponseProperty()
-  @Column()
+  @PrimaryColumn()
+  @Index()
   public libraryId: string;
 
   @ApiResponseProperty()
-  @Column()
+  @PrimaryColumn()
+  @Index()
   public userId: string;
 
   @ApiResponseProperty()
@@ -36,7 +37,6 @@ export class LibraryMember extends BaseEntity {
   public user: User;
 
   public constructor(member: Partial<LibraryMember>) {
-    super();
     Object.assign(this, member);
   }
 }

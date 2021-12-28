@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { UserRequest } from 'src/identity';
-import { LibraryService } from '../services';
+import { LibraryMemberService } from '../services';
 
 const HEADER_LIBRARY_ID = 'x-usufruct-library-id';
 
@@ -11,7 +11,9 @@ const HEADER_LIBRARY_ID = 'x-usufruct-library-id';
  */
 @Injectable()
 export class LibraryMemberGuard implements CanActivate {
-  public constructor(private readonly _libraryService: LibraryService) {}
+  public constructor(
+    private readonly _libraryMemberService: LibraryMemberService,
+  ) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest() as UserRequest;
@@ -19,7 +21,7 @@ export class LibraryMemberGuard implements CanActivate {
       return false;
     }
 
-    return !!(await this._libraryService.getLibraryMember(
+    return !!(await this._libraryMemberService.findOne(
       request.header(HEADER_LIBRARY_ID),
       request.user.id,
     ));
