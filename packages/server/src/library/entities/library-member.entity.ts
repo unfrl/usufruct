@@ -1,6 +1,14 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { User } from 'src/identity';
-import { Column, Entity, Index, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { Library } from './library.entity';
 
 export enum LibraryMemberRole {
@@ -35,6 +43,14 @@ export class LibraryMember {
 
   @ManyToOne(() => User)
   public user: User;
+
+  @ApiResponseProperty()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  public created: Date;
+
+  @ApiResponseProperty()
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  public updated: Date;
 
   public constructor(member: Partial<LibraryMember>) {
     Object.assign(this, member);

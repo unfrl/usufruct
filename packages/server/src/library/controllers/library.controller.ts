@@ -59,10 +59,9 @@ export class LibraryController {
 
   @ApiOperation({
     operationId: 'getUserMemberships',
-    summary:
-      'Based off bearer token, get associated libraries that the associated user is a member of',
+    summary: 'Get the memberships and libraries for your user',
   })
-  @ApiResponse({ status: HttpStatus.OK, type: Library, isArray: true })
+  @ApiResponse({ status: HttpStatus.OK, type: LibraryMember, isArray: true })
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.OK)
