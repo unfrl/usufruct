@@ -1,5 +1,12 @@
-import { Timestamps } from 'src/common';
-import { Column, Entity, Index, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  Index,
+  ManyToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import { ItemAttribute } from './item-attribute.entity';
 import { Item } from './item.entity';
 
@@ -24,8 +31,11 @@ export class ItemAttributeValue {
   @Column()
   public value: string;
 
-  @Column(() => Timestamps, { prefix: false })
-  public timestamps: Timestamps;
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  public created: Date;
+
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  public updated: Date;
 
   public constructor(itemAttributeValue: Partial<ItemAttributeValue>) {
     Object.assign(this, itemAttributeValue);

@@ -1,12 +1,20 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
-import { Column, PrimaryGeneratedColumn } from 'typeorm';
-import { Timestamps } from './timestamps.entity';
+import {
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 export abstract class BaseEntity {
   @ApiResponseProperty()
   @PrimaryGeneratedColumn('uuid')
   public id: string;
 
-  @Column(() => Timestamps, { prefix: false })
-  timestamps: Timestamps;
+  @ApiResponseProperty()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
+  public created: Date;
+
+  @ApiResponseProperty()
+  @UpdateDateColumn({ type: 'timestamp with time zone' })
+  public updated: Date;
 }
