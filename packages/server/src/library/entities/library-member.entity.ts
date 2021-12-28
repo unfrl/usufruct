@@ -29,4 +29,9 @@ export class LibraryMember extends BaseEntity {
 
   @ManyToOne(() => User)
   public user: User;
+
+  public constructor(member: Partial<LibraryMember>) {
+    super();
+    Object.assign(this, member);
+  }
 }
