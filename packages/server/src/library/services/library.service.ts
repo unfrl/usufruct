@@ -66,4 +66,11 @@ export class LibraryService {
       where: { libraryId, userId },
     });
   }
+
+  public async getLibraryMembersByUserId(userId: string) {
+    return await this._libraryMemberRepository.find({
+      where: { userId },
+      relations: ['library'],
+    });
+  }
 }

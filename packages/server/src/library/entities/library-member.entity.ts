@@ -1,3 +1,4 @@
+import { ApiResponseProperty } from '@nestjs/swagger';
 import { BaseEntity } from 'src/common';
 import { User } from 'src/identity';
 import { Column, Entity, ManyToOne } from 'typeorm';
@@ -11,12 +12,15 @@ export enum LibraryMemberRole {
 
 @Entity()
 export class LibraryMember extends BaseEntity {
+  @ApiResponseProperty()
   @Column()
   public libraryId: string;
 
+  @ApiResponseProperty()
   @Column()
   public userId: string;
 
+  @ApiResponseProperty()
   @Column({
     type: 'enum',
     enum: LibraryMemberRole,
@@ -24,6 +28,7 @@ export class LibraryMember extends BaseEntity {
   })
   public role: LibraryMemberRole;
 
+  @ApiResponseProperty()
   @ManyToOne(() => Library)
   public library: Library;
 

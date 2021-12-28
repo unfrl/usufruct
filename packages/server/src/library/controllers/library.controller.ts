@@ -17,7 +17,7 @@ import {
 } from '@nestjs/swagger';
 import { UserRequest } from 'src/identity';
 import { UpsertLibraryDto } from '../dtos';
-import { Library } from '../entities';
+import { Library, LibraryMember } from '../entities';
 import { LibraryService } from '../services';
 
 @ApiTags('Libraries')
@@ -51,6 +51,24 @@ export class LibraryController {
     return await this._libraryService.createLibrary(
       request.user.id,
       libraryDto,
+    );
+  }
+
+  @ApiOperation({
+    operationId: 'getUserMemberships',
+    summary:
+      'Based off bearer token, get associated libraries that the associated user is a member of',
+  })
+  @ApiResponse({ status: HttpStatus.OK, type: Library, isArray: true })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.OK)
+  @Get('me')
+  public async getUserMemberships(
+    @Req() request: UserRequest,
+  ): Promise<LibraryMember[]> {
+    return await this._libraryService.getLibraryMembersByUserId(
+      request.user.id,
     );
   }
 }
