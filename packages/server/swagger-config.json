@@ -3,5 +3,6 @@
     "npmVersion": "0.0.1",
     "snapshot": false,
     "supportsES6": true,
-    "useSingleRequestParameter": false
+    "useSingleRequestParameter": false,
+    "typescriptThreePlus": true
 }

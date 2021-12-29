@@ -29,7 +29,7 @@ export class LibraryMember {
   @Index()
   public userId: string;
 
-  @ApiResponseProperty()
+  @ApiResponseProperty({ enum: LibraryMemberRole })
   @Column({
     type: 'enum',
     enum: LibraryMemberRole,
