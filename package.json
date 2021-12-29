@@ -1,6 +1,9 @@
 {
     "private": true,
+    "scripts": {
+        "generate-client": "./scripts/generate-client.sh"
+    },
     "workspaces": [
         "packages/*"
     ]
-  }
+}

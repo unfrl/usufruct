@@ -4,6 +4,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as fs from 'fs';
 import * as helmet from 'helmet';
 import { AppModule } from './app.module';
+import { envConfig } from './config';
 
 const port = process.env.PORT || 1337;
 const origins = ['http://localhost:3000'];
@@ -28,7 +29,13 @@ async function bootstrap() {
 
   const swaggerDoc = SwaggerModule.createDocument(app, swaggerOptions);
 
-  fs.writeFileSync('./swagger-spec.json', JSON.stringify(swaggerDoc));
+  fs.writeFileSync('./swagger-spec.json', JSON.stringify(swaggerDoc, null, 2));
+  if (envConfig.openApiGenerationOnly) {
+    console.log(
+      'Exiting after generating swagger-spec.json because OPEN_API_GENERATION_ONLY variable is set',
+    );
+    process.exit();
+  }
 
   SwaggerModule.setup('api', app, swaggerDoc);
 

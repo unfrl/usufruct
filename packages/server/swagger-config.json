@@ -1,0 +1,7 @@
+{
+    "npmName": "@unfrl/usufruct-sdk",
+    "npmVersion": "0.0.1",
+    "snapshot": false,
+    "supportsES6": true,
+    "useSingleRequestParameter": false
+}
