@@ -187,7 +187,7 @@ export interface LibraryMember {
   /**
    * NOTE: This property will not be serialized. It can only be populated by the server.
    */
-  readonly role: string;
+  readonly role: LibraryMemberRole;
   /**
    * NOTE: This property will not be serialized. It can only be populated by the server.
    */
@@ -203,6 +203,10 @@ export interface LibraryMember {
 }
 
 export type LibraryMemberLibrary = Library & {};
+/**
+ * Defines values for LibraryMemberRole.
+ */
+export type LibraryMemberRole = "owner" | "admin" | "standard" | string;
 
 /**
  * Contains response data for the getCategories operation.

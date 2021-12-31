@@ -74,13 +74,16 @@ export interface LibraryMember {
     readonly created: Date;
     readonly library: Library;
     readonly libraryId: string;
-    readonly role: string;
+    readonly role: LibraryMemberRole;
     readonly updated: Date;
     readonly userId: string;
 }
 
 // @public (undocumented)
 export type LibraryMemberLibrary = Library & {};
+
+// @public
+export type LibraryMemberRole = "owner" | "admin" | "standard" | string;
 
 // @public (undocumented)
 export interface SignInDto {
