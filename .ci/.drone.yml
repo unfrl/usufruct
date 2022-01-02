@@ -1,0 +1,16 @@
+kind: pipeline
+type: kubernetes
+name: usufruct server
+
+steps:
+  - name: setup
+    image: node:16
+    commands:
+      - "yarn"
+  
+  - name: generate openapi-spec
+    image: node:16
+    commands:
+      - "yarn generate:openapi-spec"
+
+
