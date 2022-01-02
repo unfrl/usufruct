@@ -72,8 +72,8 @@ steps:
       - cd packages/sdk-new && yarn  && yarn pack
       - ls
       - echo "Publishing tar unfrl-usufruct-sdk-new-v$npmVersion.tgz"
-      # - npm publish "unfrl-usufruct-sdk-new-v$npmVersion.tgz" --access public
-      - yarn publish "unfrl-usufruct-sdk-new-v$npmVersion.tgz" --access public
+      - npm publish "unfrl-usufruct-sdk-new-v$npmVersion.tgz" --access public
+      # - yarn publish "unfrl-usufruct-sdk-new-v$npmVersion.tgz" --access public
     
 
 services:
