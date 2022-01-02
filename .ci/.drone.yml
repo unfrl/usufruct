@@ -63,7 +63,7 @@ steps:
     commands:
       - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
       - echo "Publishing SDK with version $npmVersion"
-      # - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+      - echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
       - cat ./.npmrc
       - cd packages/sdk-new && yarn  && yarn pack
       - ls
