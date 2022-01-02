@@ -1,8 +1,9 @@
 {
     "private": true,
     "scripts": {
-        "generate:sdk": "./scripts/generate-sdk.sh",
-        "generate:openapi-spec": "cd packages/server && OPEN_API_GENERATION_ONLY=true yarn start"
+        "generate:sdk": "yarn generate:openapi-spec && ./scripts/generate-sdk-project.sh && cd packages/sdk-new && yarn",
+        "publish:sdk": "./scripts/generate-sdk.sh",
+        "generate:openapi-spec": "./scripts/generate-openapi-spec.sh"
     },
     "workspaces": [
         "packages/*"

@@ -6,10 +6,11 @@ set -e
 # Remove existing sdk directory if it exists
 rm -rf packages/sdk-new
 
-# Generate teh swagger-spec.json file from the API
-cd ./packages/server
-OPEN_API_GENERATION_ONLY=true yarn start
-cd ../
+# # Generate teh swagger-spec.json file from the API
+# cd ./packages/server
+# OPEN_API_GENERATION_ONLY=true yarn start
+# cd ../
+cd packages
 
 if [ -z ${npmVersion+x} ]; then
     # Create the TypeScript client using openapi-generator-cli and the npmVersion specified in the swagger-config.json
@@ -30,5 +31,5 @@ else
 fi
 
 # Install dependencies and build the "dist" folder of the client
-cd ./sdk-new
-yarn
+# cd ./sdk-new
+# yarn

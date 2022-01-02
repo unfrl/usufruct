@@ -8,14 +8,25 @@ steps:
     commands:
       - "yarn"
   
-  - name: generate sdk
+  - name: generate openapi-spec
     image: node:16
     when:
       ref:
       - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
     commands:
+      - "yarn generate:openapi-spec"
+  
+  - name: generate sdk
+    image: docker:20.10-dind
+    when:
+      ref:
+      - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
+    commands:
       - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//) && echo $npmVersion'
-      - "yarn generate:sdk"
+      - "sh scripts/generate-openapi-spec.sh"
+    volumes:
+    - name: dockersock
+      path: /var/run
 
 services:
 - name: postgres
@@ -24,5 +35,17 @@ services:
     POSTGRES_PASSWORD: "local"
     POSTGRES_USER: "local"
     POSTGRES_DB: "usufruct"
+
 - name: redis
   image: redis:6.2.6
+
+- name: docker
+  image: docker:dind
+  privileged: true
+  volumes:
+  - name: dockersock
+    path: /var/run
+
+volumes:
+- name: dockersock
+  temp: {}
