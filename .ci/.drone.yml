@@ -21,28 +21,26 @@ steps:
     when:
       ref:
       - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
-    commands:
-      - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
-      - echo "Generating SDK with version $npmVersion"
-      - echo "where am i ${PWD}"
-      - echo $PWD
-      - ls
-      - "sh scripts/generate-sdk-project.sh"
+    commands: 
+    - |
+      export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)
+      echo "Generating SDK with version $npmVersion
+      sh scripts/generate-sdk-project.sh
     volumes:
     - name: dockersock
       path: /var/run
   
-  # - name: publish sdk
-  #   image: node:16
-  #   when:
-  #     ref:
-  #     - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
-  #   commands:
-  #     - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
-  #     - echo "Publishing SDK with version $npmVersion"
-  #     - cd packages/sdk-new && yarn pack
-  #     - ls
-  #     - yarn publish ""
+  - name: publish sdk
+    image: node:16
+    when:
+      ref:
+      - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
+    commands:
+      - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
+      - echo "Publishing SDK with version $npmVersion"
+      - cd packages/sdk-new && yarn pack
+      - ls
+      - yarn publish ""
     
 
 services:
