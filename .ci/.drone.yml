@@ -24,8 +24,9 @@ steps:
     commands:
       - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
       - echo "Generating SDK with version $npmVersion"
-      - echo "where am i"
-      - echo ${PWD}
+      - echo "where am i ${PWD}"
+      - echo $PWD
+      - ls
       - "sh scripts/generate-sdk-project.sh"
     volumes:
     - name: dockersock
