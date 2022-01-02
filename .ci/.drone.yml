@@ -9,7 +9,8 @@ steps:
     - |
       echo "hello"
       echo $DRONE_TAG
-      echo ${DRONE_TAG}
+      echo "double ${DRONE_TAG}"
+      echo 'single ${DRONE_TAG}'
 
 
   - name: setup
