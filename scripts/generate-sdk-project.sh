@@ -12,7 +12,3 @@ docker run --user 1000:1000 --rm -v ${PWD}/packages:/local \
     -g typescript-fetch \
     -o /local/sdk-new \
     -c /local/server/swagger-config.json
-
-# Install dependencies and build the "dist" folder of the client
-# cd ./sdk-new
-# yarn
