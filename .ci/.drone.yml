@@ -14,7 +14,8 @@ steps:
       ref:
       - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
     commands:
-      - "export npmVersion=${DRONE_TAG | sed -e 's/^server-//''} && echo $npmVersion"
+      - "export tag=$DRONE_TAG && echo $tag"
+      - 'export npmVersion=${tag/#server-} && echo $npmVersion'
       - "yarn generate:sdk"
 
 services:
