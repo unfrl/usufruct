@@ -17,7 +17,7 @@ steps:
       echo 'single npm ${npmVersion}'
       echo "double2 npm $npmVersion"
       echo 'single2 npm $npmVersion'
-      echo ${PWD}
+      echo $PWD
 
 
   - name: setup
@@ -42,7 +42,7 @@ steps:
       - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
       - echo "Generating SDK with version $npmVersion"
       - |
-        docker run --user 1000:1000 --rm -v ${PWD}/packages:/local \
+        docker run --user 1000:1000 --rm -v $PWD/packages:/local \
           openapitools/openapi-generator-cli generate --additional-properties=npmVersion=$npmVersion \
           -i /local/server/swagger-spec.json \
           -g typescript-fetch \
