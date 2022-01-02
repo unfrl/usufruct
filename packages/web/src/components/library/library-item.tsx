@@ -10,14 +10,13 @@ import { Library } from '@unfrl/usufruct-sdk';
 import { Link as RouterLink } from 'react-router-dom';
 import noData from '../../images/no-data.svg';
 
-const DEFAULT_CARD_HEIGHT = 250;
-
 export interface LibraryItemProps {
   library: Library;
+  height: number;
 }
 
 export const LibraryItem = (props: LibraryItemProps) => {
-  const { library } = props;
+  const { library, height } = props;
 
   return (
     <Link
@@ -25,7 +24,7 @@ export const LibraryItem = (props: LibraryItemProps) => {
       component={RouterLink}
       sx={{ color: 'inherit' }}
     >
-      <Card sx={{ height: DEFAULT_CARD_HEIGHT }}>
+      <Card sx={{ height }}>
         <CardActionArea sx={{ height: '100%' }}>
           <CardMedia
             component="img"

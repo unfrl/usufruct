@@ -1,6 +1,14 @@
-import { Grid, Typography } from '@mui/material';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Typography,
+} from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
 import { LibraryItem } from './library-item';
+
+const DEFAULT_ITEM_HEIGHT = 150;
 
 export interface LibraryListProps {
   title: string;
@@ -18,9 +26,25 @@ export const LibraryList = (props: LibraryListProps) => {
       <Grid container spacing={2}>
         {libraries.map((library) => (
           <Grid key={library.id} item xs={12} sm={6} md={4}>
-            <LibraryItem library={library} />
+            <LibraryItem library={library} height={DEFAULT_ITEM_HEIGHT} />
           </Grid>
         ))}
+        <Grid item xs={12} sm={6} md={4}>
+          <Card sx={{ height: DEFAULT_ITEM_HEIGHT }}>
+            <CardActionArea
+              sx={{
+                height: '100%',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <CardContent>
+                <Typography variant="h6">Create new library</Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+        </Grid>
       </Grid>
     </>
   );
