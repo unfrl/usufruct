@@ -33,9 +33,9 @@ const AppHome = () => {
         sx={{ color: 'inherit' }}
         underline="always"
       >
-        Admin inventory UI
+        ~~Misc admin UI~~
       </Link>
-      <LibraryList title="Popular libraries" libraries={libraries} />
+      <LibraryList title="Libraries" libraries={libraries} />
     </Stack>
   );
 };
