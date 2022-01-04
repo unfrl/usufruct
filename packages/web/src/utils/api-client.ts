@@ -7,7 +7,7 @@ import {
   LibrariesApi,
   UsersApi,
   VerificationApi,
-} from '@unfrl/usufruct-sdk-new';
+} from '@unfrl/usufruct-sdk';
 import { AuthStore } from '../stores';
 
 const API_BASE_PATH =

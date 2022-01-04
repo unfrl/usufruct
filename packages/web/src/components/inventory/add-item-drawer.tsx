@@ -5,7 +5,7 @@ import {
   Stack,
   TextField,
 } from '@mui/material';
-import { UpsertItemDto } from '@unfrl/usufruct-sdk-new';
+import { UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';

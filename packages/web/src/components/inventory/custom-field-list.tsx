@@ -1,6 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Stack } from '@mui/material';
-import { CustomFieldDto, ItemAttribute } from '@unfrl/usufruct-sdk-new';
+import { CustomFieldDto, ItemAttribute } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';

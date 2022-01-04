@@ -1,4 +1,4 @@
-import { Label } from '@unfrl/usufruct-sdk-new';
+import { Label } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';

@@ -1,4 +1,4 @@
-import { Item, UpsertItemDto } from '@unfrl/usufruct-sdk-new';
+import { Item, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { client } from '../utils';
 import { RootStore } from './root.store';

@@ -1,5 +1,5 @@
 import { Container, Grid, Stack, styled, Typography } from '@mui/material';
-import { Item } from '@unfrl/usufruct-sdk-new';
+import { Item } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ChipList, Spinner } from '../components';

@@ -5,7 +5,7 @@ import {
   Grid,
   Typography,
 } from '@mui/material';
-import { Library } from '@unfrl/usufruct-sdk-new';
+import { Library } from '@unfrl/usufruct-sdk';
 import { LibraryItem } from './library-item';
 
 const DEFAULT_ITEM_HEIGHT = 150;

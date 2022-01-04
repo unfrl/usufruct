@@ -1,5 +1,5 @@
 import { Link, Stack } from '@mui/material';
-import { Library } from '@unfrl/usufruct-sdk-new';
+import { Library } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';

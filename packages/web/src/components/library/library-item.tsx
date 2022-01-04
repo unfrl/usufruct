@@ -6,7 +6,7 @@ import {
   Link,
   Typography,
 } from '@mui/material';
-import { Library } from '@unfrl/usufruct-sdk-new';
+import { Library } from '@unfrl/usufruct-sdk';
 import { Link as RouterLink } from 'react-router-dom';
 import noData from '../../images/no-data.svg';
 

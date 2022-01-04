@@ -1,4 +1,4 @@
-import { UserDto } from '@unfrl/usufruct-sdk-new';
+import { UserDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
 import { client } from '../utils';
 import { RootStore } from './root.store';
