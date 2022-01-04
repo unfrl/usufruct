@@ -1,8 +1,8 @@
-import { Category } from '@unfrl/usufruct-sdk';
+import { Category } from '@unfrl/usufruct-sdk-new';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
-import { tryParseRestError } from '../../utils';
+import { client, tryParseRestError } from '../../utils';
 import { ComboBox, ComboBoxValue } from '../common';
 
 export interface CategorySelectionProps {
@@ -11,14 +11,14 @@ export interface CategorySelectionProps {
 }
 
 export const CategorySelection = observer((props: CategorySelectionProps) => {
-  const { client, toasts } = useStores();
+  const { toasts } = useStores();
   const { selected, onChange } = props;
   const [categories, setCategories] = React.useState<Category[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setCategories(await client.getCategories());
+        setCategories(await client.categories.getCategories());
       } catch (error) {
         toasts.error(tryParseRestError(error));
       }

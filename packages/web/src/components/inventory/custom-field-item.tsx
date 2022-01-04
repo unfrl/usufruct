@@ -1,6 +1,6 @@
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Stack, TextField, Tooltip } from '@mui/material';
-import { CustomFieldDto } from '@unfrl/usufruct-sdk';
+import { CustomFieldDto } from '@unfrl/usufruct-sdk-new';
 import { observer } from 'mobx-react';
 import { ComboBox } from '../common';
 

@@ -1,20 +1,20 @@
 import { Link, Stack } from '@mui/material';
-import { Library } from '@unfrl/usufruct-sdk';
+import { Library } from '@unfrl/usufruct-sdk-new';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { LibraryList } from '../components';
 import { useStores } from '../hooks';
-import { tryParseRestError } from '../utils';
+import { client, tryParseRestError } from '../utils';
 
 const AppHome = () => {
   const [libraries, setLibraries] = React.useState<Library[]>([]);
-  const { client, toasts } = useStores();
+  const { toasts } = useStores();
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setLibraries(await client.getLibraries());
+        setLibraries(await client.libraries.getLibraries());
       } catch (error) {
         toasts.error(tryParseRestError(error));
       }

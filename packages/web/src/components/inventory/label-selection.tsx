@@ -1,8 +1,8 @@
-import { Label } from '@unfrl/usufruct-sdk';
+import { Label } from '@unfrl/usufruct-sdk-new';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
-import { tryParseRestError } from '../../utils';
+import { client, tryParseRestError } from '../../utils';
 import { ComboBox, ComboBoxValue } from '../common';
 
 export interface LabelSelectionProps {
@@ -11,14 +11,14 @@ export interface LabelSelectionProps {
 }
 
 export const LabelSelection = observer((props: LabelSelectionProps) => {
-  const { client, toasts } = useStores();
+  const { toasts } = useStores();
   const { selected, onChange } = props;
   const [labels, setLabels] = React.useState<Label[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setLabels(await client.getLabels());
+        setLabels(await client.labels.getLabels());
       } catch (error) {
         toasts.error(tryParseRestError(error));
       }

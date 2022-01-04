@@ -1,11 +1,11 @@
 import { Container, Grid, Stack, styled, Typography } from '@mui/material';
-import { Item } from '@unfrl/usufruct-sdk';
+import { Item } from '@unfrl/usufruct-sdk-new';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { ChipList, Spinner } from '../components';
 import { useStores } from '../hooks';
 import noData from '../images/no-data.svg';
-import { tryParseRestError } from '../utils';
+import { client, tryParseRestError } from '../utils';
 
 const ItemImage = styled('img')(({ theme }) => ({
   width: '100%',
@@ -16,14 +16,14 @@ const ItemImage = styled('img')(({ theme }) => ({
 const ItemView = () => {
   const [ready, setReady] = React.useState(false);
   const [item, setItem] = React.useState<Item | null>(null);
-  const { client, toasts } = useStores();
+  const { toasts } = useStores();
   const { id } = useParams<'id'>();
 
   React.useEffect(() => {
     const load = async () => {
       try {
         if (id) {
-          setItem(await client.getItem(id));
+          setItem(await client.items.getItem(id));
         }
       } catch (error) {
         toasts.error(tryParseRestError(error));

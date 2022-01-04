@@ -1,10 +1,10 @@
 import AddIcon from '@mui/icons-material/Add';
 import { Button, Stack } from '@mui/material';
-import { CustomFieldDto, ItemAttribute } from '@unfrl/usufruct-sdk';
+import { CustomFieldDto, ItemAttribute } from '@unfrl/usufruct-sdk-new';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
-import { tryParseRestError } from '../../utils';
+import { client, tryParseRestError } from '../../utils';
 import { CustomFieldItem } from './custom-field-item';
 
 export interface CustomFieldListProps {
@@ -14,13 +14,13 @@ export interface CustomFieldListProps {
 
 export const CustomFieldList = observer((props: CustomFieldListProps) => {
   const { fields, onChange } = props;
-  const { client, toasts } = useStores();
+  const { toasts } = useStores();
   const [attributes, setAttributes] = React.useState<ItemAttribute[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setAttributes(await client.getItemAttributes());
+        setAttributes(await client.items.getItemAttributes());
       } catch (error) {
         toasts.error(tryParseRestError(error));
       }

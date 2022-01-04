@@ -2,7 +2,6 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
-import { tryParseRestError } from '../../utils';
 import { ChipList } from '../common';
 
 const COLUMNS: GridColDef[] = [
@@ -48,7 +47,7 @@ const InventoryDataGrid = (props: InventoryDataGridProps) => {
         // TODO: ideally dont wanna load all items every item this component is rendered
         await inventory.loadAllItems();
       } catch (error) {
-        toasts.error(tryParseRestError(error));
+        toasts.error((error as any).statusText);
       }
     };
 

@@ -1,5 +1,6 @@
-import { Item, UpsertItemDto } from '@unfrl/usufruct-sdk';
+import { Item, UpsertItemDto } from '@unfrl/usufruct-sdk-new';
 import { makeAutoObservable } from 'mobx';
+import { client } from '../utils';
 import { RootStore } from './root.store';
 
 export class InventoryStore {
@@ -21,7 +22,7 @@ export class InventoryStore {
   public loadAllItems = async () => {
     try {
       this.setLoading(true);
-      const items = await this._rootStore.client.getItems();
+      const items = await client.items.getItems();
       this.setItems(items);
     } catch (error) {
       console.error('failed to get items', error);
@@ -33,7 +34,7 @@ export class InventoryStore {
 
   public createItem = async (itemDto: UpsertItemDto): Promise<Item> => {
     try {
-      const item = await this._rootStore.client.createItem(itemDto);
+      const item = await client.items.createItem(itemDto);
       this.addItem(item);
       return item;
     } catch (error) {

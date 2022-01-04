@@ -1,5 +1,6 @@
-import { UserDto } from '@unfrl/usufruct-sdk';
+import { UserDto } from '@unfrl/usufruct-sdk-new';
 import { makeAutoObservable } from 'mobx';
+import { client } from '../utils';
 import { RootStore } from './root.store';
 
 const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';
@@ -32,7 +33,7 @@ export class AuthStore {
     this.setStatus(AuthStatus.Authenticating);
 
     try {
-      await this._root.client.signUp({
+      await client.auth.signUp({
         displayName,
         email,
         password,
@@ -46,7 +47,7 @@ export class AuthStore {
     this.setStatus(AuthStatus.Authenticating);
 
     try {
-      const { accessToken } = await this._root.client.signIn({
+      const { accessToken } = await client.auth.signIn({
         email,
         password,
       });
@@ -60,7 +61,7 @@ export class AuthStore {
   };
 
   public verifyUser = async (email: string, token: string): Promise<void> => {
-    await this._root.client.verifyUser({ email, token });
+    await client.verification.verifyUser({ email, token });
   };
 
   public logout = () => {
@@ -78,7 +79,7 @@ export class AuthStore {
 
   private loadUser = async () => {
     try {
-      const user = await this._root.client.getMyProfile();
+      const user = await client.users.getMyProfile();
 
       this.setUser(user);
     } catch (error) {
