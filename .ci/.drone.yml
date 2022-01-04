@@ -6,41 +6,40 @@ steps:
   - name: test-multiline
     image: node:16
     commands:
-    - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
-    - |
-      echo "hello"
-      echo $DRONE_TAG
-      echo "double ${DRONE_TAG}"
-      echo 'single ${DRONE_TAG}'
-      echo $npmVersion
-      echo "double npm ${npmVersion}"
-      echo 'single npm ${npmVersion}'
-      echo "double2 npm $npmVersion"
-      echo 'single2 npm $npmVersion'
-      echo $PWD
-
+      - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
+      - |
+        echo "hello"
+        echo $DRONE_TAG
+        echo "double ${DRONE_TAG}"
+        echo 'single ${DRONE_TAG}'
+        echo $npmVersion
+        echo "double npm ${npmVersion}"
+        echo 'single npm ${npmVersion}'
+        echo "double2 npm $npmVersion"
+        echo 'single2 npm $npmVersion'
+        echo $PWD
 
   - name: setup
     image: node:16
     when:
       ref:
-      - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
+        - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
     commands:
-      - "yarn"
-  
+      - 'yarn'
+
   - name: generate openapi-spec
     image: node:16
     when:
       ref:
-      - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
+        - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
     commands:
-      - "yarn generate:openapi-spec"
-  
+      - 'yarn generate:openapi-spec'
+
   - name: generate sdk
     image: docker:20.10-dind
     when:
       ref:
-      - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
+        - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
     commands:
       - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
       - echo "Generating SDK with version $npmVersion"
@@ -49,17 +48,17 @@ steps:
           openapitools/openapi-generator-cli generate --additional-properties=npmVersion=$npmVersion \
           -i /local/server/swagger-spec.json \
           -g typescript-fetch \
-          -o /local/sdk-new \
+          -o /local/sdk \
           -c /local/server/swagger-config.json
     volumes:
-    - name: dockersock
-      path: /var/run
-  
+      - name: dockersock
+        path: /var/run
+
   - name: publish sdk
     image: node:16
     when:
       ref:
-      - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
+        - refs/tags/server-*.*.* #When there is a tag like server-0.0.1 then build the sdk and publish it at version 0.0.1
     environment:
       YARN_NPM_ALWAYS_AUTH: 'true'
       YARN_NPM_AUTH_TOKEN:
@@ -69,30 +68,29 @@ steps:
       - echo "Publishing SDK with version $npmVersion"
       - echo "//registry.npmjs.org/:_authToken=$YARN_NPM_AUTH_TOKEN" > .npmrc
       - cat ./.npmrc
-      - cd packages/sdk-new && yarn  && yarn pack
+      - cd packages/sdk && yarn  && yarn pack
       - ls
-      - echo "Publishing tar unfrl-usufruct-sdk-new-v$npmVersion.tgz" 
-      - yarn publish "unfrl-usufruct-sdk-new-v$npmVersion.tgz" --access public
-    
+      - echo "Publishing tar unfrl-usufruct-sdk-v$npmVersion.tgz"
+      - yarn publish "unfrl-usufruct-sdk-v$npmVersion.tgz" --access public
 
 services:
-- name: postgres
-  image: postgres:14
-  environment:
-    POSTGRES_PASSWORD: "local"
-    POSTGRES_USER: "local"
-    POSTGRES_DB: "usufruct"
+  - name: postgres
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: 'local'
+      POSTGRES_USER: 'local'
+      POSTGRES_DB: 'usufruct'
 
-- name: redis
-  image: redis:6.2.6
+  - name: redis
+    image: redis:6.2.6
 
-- name: docker
-  image: docker:dind
-  privileged: true
-  volumes:
-  - name: dockersock
-    path: /var/run
+  - name: docker
+    image: docker:dind
+    privileged: true
+    volumes:
+      - name: dockersock
+        path: /var/run
 
 volumes:
-- name: dockersock
-  temp: {}
+  - name: dockersock
+    temp: {}
