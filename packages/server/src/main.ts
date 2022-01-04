@@ -15,9 +15,7 @@ async function bootstrap() {
   app.use(helmet());
 
   app.setGlobalPrefix('api');
-  app.enableCors({
-    origin: origins,
-  });
+  app.enableCors({ origin: origins });
   app.useGlobalPipes(new ValidationPipe());
 
   const swaggerOptions = new DocumentBuilder()
