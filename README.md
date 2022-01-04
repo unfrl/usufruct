@@ -16,3 +16,7 @@ For now, using `yarn link` to develop with the generated sdk client locally. Doc
 
 1. `cd packages/sdk && yarn link`
 2. `cd packages/web && yarn link @unfrl/usufruct-sdk`
+
+# CI
+
+New version of the client sdk (currently called `sdk-new`) are generated/published by the CI when the commit has a tag matching the pattern `server-*.*.*`
