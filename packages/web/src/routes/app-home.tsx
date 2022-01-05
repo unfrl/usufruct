@@ -49,9 +49,9 @@ const AppHome = () => {
       <ResponsiveDialog
         fullWidth
         maxWidth="xs"
+        title="New Library"
         open={showLibraryForm}
         onClose={() => setShowLibraryForm(false)}
-        title="New Library"
       >
         <NewLibraryForm
           onSave={handleCreate}
