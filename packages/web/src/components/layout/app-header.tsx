@@ -1,7 +1,7 @@
 import { AppBar, Link, Toolbar, Typography } from '@mui/material';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
-import { UserMenu } from '../user-menu';
+import { UserMenu } from '../user';
 
 export interface AppHeaderProps {
   title: string;

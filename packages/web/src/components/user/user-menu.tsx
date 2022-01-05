@@ -11,9 +11,9 @@ import {
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { useStores } from '../hooks';
-import { AuthStatus } from '../stores';
-import { getInitials } from '../utils';
+import { useStores } from '../../hooks';
+import { AuthStatus } from '../../stores';
+import { getInitials } from '../../utils';
 
 export const UserMenu = observer(() => {
   const { auth } = useStores();

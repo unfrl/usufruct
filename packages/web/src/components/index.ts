@@ -6,4 +6,4 @@ export * from './layout';
 export * from './library';
 export * from './not-found';
 export * from './toasts';
-export * from './user-menu';
+export * from './user';
