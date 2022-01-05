@@ -49,7 +49,7 @@ export const LibraryItem = (props: LibraryItemProps) => {
               variant="body2"
               color="text.secondary"
             >
-              {library.description || '---'}
+              {library.description}
             </Typography>
           </CardContent>
         </CardActionArea>

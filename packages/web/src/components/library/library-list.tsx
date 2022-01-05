@@ -3,7 +3,7 @@ import { Library } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import { LibraryItem } from './library-item';
 
-const DEFAULT_ITEM_HEIGHT = 150;
+const DEFAULT_ITEM_HEIGHT = 250;
 
 export interface LibraryListProps {
   title: string;

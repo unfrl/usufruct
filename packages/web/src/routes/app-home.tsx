@@ -26,8 +26,18 @@ const AppHome = () => {
 
   // TODO: handle case where it's first time and there's no libraries, prob toggle walk through or something
 
-  const handleCreate = (name: string) => {
-    console.log('todo create library', name);
+  const handleShowForm = () => setShowLibraryForm(true);
+
+  const handleCloseForm = () => setShowLibraryForm(false);
+
+  const handleCreate = async (name: string) => {
+    try {
+      const library = await client.libraries.createLibrary({ name });
+      setLibraries([...libraries, library]);
+      handleCloseForm();
+    } catch (error) {
+      toasts.error(JSON.stringify(error));
+    }
   };
 
   return (
@@ -38,7 +48,7 @@ const AppHome = () => {
         alignItems="center"
         spacing={1}
       >
-        <Button onClick={() => setShowLibraryForm(true)} variant="contained">
+        <Button onClick={handleShowForm} variant="contained">
           New Library (temp btn)
         </Button>
         <Link to="inventory" component={RouterLink}>
@@ -51,12 +61,9 @@ const AppHome = () => {
         maxWidth="xs"
         title="New Library"
         open={showLibraryForm}
-        onClose={() => setShowLibraryForm(false)}
+        onClose={handleCloseForm}
       >
-        <NewLibraryForm
-          onSave={handleCreate}
-          onCancel={() => setShowLibraryForm(false)}
-        />
+        <NewLibraryForm onSave={handleCreate} onCancel={handleCloseForm} />
       </ResponsiveDialog>
     </Stack>
   );
