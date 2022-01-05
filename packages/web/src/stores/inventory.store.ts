@@ -15,7 +15,7 @@ export class InventoryStore {
     return this.items.filter((item) => item.name.search(query) > -1);
   }
 
-  public constructor(private readonly _rootStore: RootStore) {
+  public constructor(private readonly _root: RootStore) {
     makeAutoObservable(this);
   }
 
