@@ -9,7 +9,7 @@ import { client, tryParseRestError } from '../utils';
 
 const AppHome = () => {
   const [libraries, setLibraries] = React.useState<Library[]>([]);
-  const { toasts } = useStores();
+  const { auth, toasts } = useStores();
 
   React.useEffect(() => {
     const load = async () => {
@@ -35,7 +35,11 @@ const AppHome = () => {
       >
         ~~Misc admin UI~~
       </Link>
-      <LibraryList title="Libraries" libraries={libraries} />
+      <LibraryList
+        title="Libraries"
+        libraries={libraries}
+        canCreate={auth.authenticated}
+      />
     </Stack>
   );
 };
