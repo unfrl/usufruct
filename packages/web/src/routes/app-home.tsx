@@ -1,21 +1,19 @@
 import { Button, Link, Stack } from '@mui/material';
-import { Library } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import { LibraryList, NewLibraryForm, ResponsiveDialog } from '../components';
 import { useStores } from '../hooks';
-import { client, tryParseRestError } from '../utils';
+import { tryParseRestError } from '../utils';
 
 const AppHome = () => {
   const [showLibraryForm, setShowLibraryForm] = React.useState(false);
-  const [libraries, setLibraries] = React.useState<Library[]>([]);
-  const { toasts } = useStores();
+  const { library, toasts } = useStores();
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setLibraries(await client.libraries.getLibraries());
+        await library.fetchLibraries();
       } catch (error) {
         toasts.error(tryParseRestError(error));
       }
@@ -32,8 +30,7 @@ const AppHome = () => {
 
   const handleCreate = async (name: string) => {
     try {
-      const library = await client.libraries.createLibrary({ name });
-      setLibraries([...libraries, library]);
+      await library.createLibrary({ name });
       handleCloseForm();
     } catch (error) {
       toasts.error(JSON.stringify(error));
@@ -55,7 +52,7 @@ const AppHome = () => {
           ~~Misc admin UI~~
         </Link>
       </Stack>
-      <LibraryList title="Libraries" libraries={libraries} />
+      <LibraryList title="Libraries" libraries={library.libraries} />
       <ResponsiveDialog
         fullWidth
         maxWidth="xs"
