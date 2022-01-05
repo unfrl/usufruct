@@ -44,7 +44,6 @@ export const LibraryItem = (props: LibraryItemProps) => {
               {library.name}
             </Typography>
             <Typography
-              noWrap
               title={library.description}
               variant="body2"
               color="text.secondary"
