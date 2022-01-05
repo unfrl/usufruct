@@ -1,4 +1,5 @@
 import { Button, Link, Stack } from '@mui/material';
+import { UpsertLibraryDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
@@ -28,9 +29,9 @@ const AppHome = () => {
 
   const handleCloseForm = () => setShowLibraryForm(false);
 
-  const handleCreate = async (name: string) => {
+  const handleCreate = async (dto: UpsertLibraryDto) => {
     try {
-      await library.createLibrary({ name });
+      await library.createLibrary(dto);
       handleCloseForm();
     } catch (error) {
       toasts.error(JSON.stringify(error));
