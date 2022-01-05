@@ -12,20 +12,20 @@ import {
 } from '@mui/material';
 import React from 'react';
 
-export interface ResponsiveDialogProps extends Omit<DialogProps, 'open'> {
+export interface ResponsiveDialogProps extends DialogProps {
   title: string;
   onClose: () => void;
   children: React.ReactChild;
 }
 
 export const ResponsiveDialog = (props: ResponsiveDialogProps) => {
-  const { title, onClose, fullScreen, children, ...rest } = props;
+  const { title, onClose, children, fullScreen, ...rest } = props;
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   return (
-    <Dialog open={true} fullScreen={isMobile || fullScreen} {...rest}>
-      <AppBar color="default">
+    <Dialog fullScreen={isMobile || fullScreen} {...rest}>
+      <AppBar color="default" sx={{ position: 'relative' }}>
         <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Typography noWrap variant="h6">
             {title}
