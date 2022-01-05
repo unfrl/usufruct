@@ -1,9 +1,9 @@
-import { Button, Link, Stack, Typography } from '@mui/material';
+import { Button, Link, Stack } from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-import { LibraryList, ResponsiveDialog } from '../components';
+import { LibraryList, NewLibraryForm, ResponsiveDialog } from '../components';
 import { useStores } from '../hooks';
 import { client, tryParseRestError } from '../utils';
 
@@ -25,6 +25,10 @@ const AppHome = () => {
   }, []);
 
   // TODO: handle case where it's first time and there's no libraries, prob toggle walk through or something
+
+  const handleCreate = (name: string) => {
+    console.log('todo create library', name);
+  };
 
   return (
     <Stack>
@@ -49,7 +53,10 @@ const AppHome = () => {
         onClose={() => setShowLibraryForm(false)}
         title="New Library"
       >
-        <Typography>hi</Typography>
+        <NewLibraryForm
+          onSave={handleCreate}
+          onCancel={() => setShowLibraryForm(false)}
+        />
       </ResponsiveDialog>
     </Stack>
   );
