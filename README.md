@@ -19,4 +19,4 @@ For now, using `yarn link` to develop with the generated sdk client locally. Doc
 
 # CI
 
-New version of the client sdk (currently called `sdk`) are generated/published by the CI when the commit has a tag matching the pattern `server-*.*.*`
+New versions of the client sdk are generated/published by the CI when the commit has a tag matching the pattern `server-*.*.*`
