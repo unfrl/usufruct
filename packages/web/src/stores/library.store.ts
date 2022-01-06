@@ -11,13 +11,23 @@ export class LibraryStore {
   }
 
   public fetchLibraries = async () => {
-    try {
-      const libraries = await client.libraries.getLibraries();
-      this.setLibraries(libraries);
-    } catch (error) {
-      console.error('failed to fetch libraries', error);
-      throw error;
+    const libraries = await client.libraries.getLibraries();
+    this.setLibraries(libraries);
+  };
+
+  public fetchLibrary = async (slug: string): Promise<Library> => {
+    const existing = this.libraries.find((l) => l.slug === slug);
+    if (existing) {
+      return existing;
     }
+
+    const library = await client.libraries.getLibrary(slug);
+    if (!library) {
+      throw new Error('Library not found');
+    }
+
+    this.addLibrary(library);
+    return library;
   };
 
   public createLibrary = async (newLibrary: UpsertLibraryDto) => {
@@ -25,13 +35,8 @@ export class LibraryStore {
       throw new Error('unauthorized');
     }
 
-    try {
-      const library = await client.libraries.createLibrary(newLibrary);
-      this.addLibrary(library);
-    } catch (error) {
-      console.error('failed to create library', error);
-      throw error;
-    }
+    const library = await client.libraries.createLibrary(newLibrary);
+    this.addLibrary(library);
   };
 
   private setLibraries = (libraries: Library[]) => {
