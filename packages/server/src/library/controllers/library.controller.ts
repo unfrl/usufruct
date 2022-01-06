@@ -4,6 +4,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Param,
   Post,
   Req,
   UseGuards,
@@ -36,6 +37,16 @@ export class LibraryController {
   @Get()
   public async getLibraries(): Promise<Library[]> {
     return await this._libraryService.getAll();
+  }
+
+  @ApiOperation({
+    operationId: 'getLibrary',
+    summary: 'Get a library by its slug',
+  })
+  @ApiResponse({ status: HttpStatus.OK, type: Library })
+  @Get(':slug')
+  public async getLibrary(@Param('slug') slug: string): Promise<Library> {
+    return await this._libraryService.findOneBySlug(slug);
   }
 
   @ApiOperation({
