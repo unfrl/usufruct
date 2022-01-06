@@ -2,7 +2,7 @@ import { Button, Link, Stack } from '@mui/material';
 import { UpsertLibraryDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { LibraryList, NewLibraryForm, ResponsiveDialog } from '../components';
 import { useStores } from '../hooks';
 import { tryParseRestError } from '../utils';
@@ -10,6 +10,7 @@ import { tryParseRestError } from '../utils';
 const AppHome = () => {
   const [showLibraryForm, setShowLibraryForm] = React.useState(false);
   const { library, toasts } = useStores();
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const load = async () => {
@@ -31,8 +32,9 @@ const AppHome = () => {
 
   const handleCreate = async (dto: UpsertLibraryDto) => {
     try {
-      await library.createLibrary(dto);
+      const created = await library.createLibrary(dto);
       handleCloseForm();
+      navigate(`/l/${created.slug}`);
     } catch (error) {
       toasts.error(JSON.stringify(error));
     }

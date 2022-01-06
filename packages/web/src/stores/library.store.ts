@@ -27,16 +27,21 @@ export class LibraryStore {
     }
 
     this.addLibrary(library);
+
     return library;
   };
 
-  public createLibrary = async (newLibrary: UpsertLibraryDto) => {
+  public createLibrary = async (
+    newLibrary: UpsertLibraryDto,
+  ): Promise<Library> => {
     if (!this._root.auth.authenticated) {
       throw new Error('unauthorized');
     }
 
     const library = await client.libraries.createLibrary(newLibrary);
+
     this.addLibrary(library);
+    return library;
   };
 
   private setLibraries = (libraries: Library[]) => {
