@@ -1,4 +1,13 @@
-import { Button, Link, Stack } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+import {
+  Button,
+  Container,
+  InputAdornment,
+  Link,
+  OutlinedInput,
+  Stack,
+  Typography,
+} from '@mui/material';
 import { UpsertLibraryDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
@@ -42,6 +51,22 @@ const AppHome = () => {
 
   return (
     <Stack>
+      <Container maxWidth="sm" sx={{ marginBottom: 4 }}>
+        <Typography textAlign="center" sx={{ marginBottom: 2 }}>
+          Maybe an inventory search that spans all of the available/public
+          libraries?
+        </Typography>
+        <OutlinedInput
+          fullWidth
+          size="small"
+          placeholder="Search inventory"
+          startAdornment={
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          }
+        />
+      </Container>
       <Stack
         direction="row"
         justifyContent="flex-start"
