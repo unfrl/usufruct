@@ -77,6 +77,11 @@ export function getThemedComponents(theme: Theme) {
         defaultProps: {
           disableTouchRipple: true,
         },
+        styleOverrides: {
+          root: {
+            textTransform: 'none',
+          },
+        },
       },
       MuiTableCell: {
         styleOverrides: {

@@ -1,4 +1,4 @@
-import { Grid, Stack, styled, Typography } from '@mui/material';
+import { Grid, Stack, styled, Tab, Tabs, Typography } from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
@@ -16,6 +16,7 @@ const LibraryHome = () => {
   const { library, toasts } = useStores();
   const [selected, setSelected] = React.useState<Library | null>(null);
   const [ready, setReady] = React.useState(false);
+  const [tab, setTab] = React.useState(0);
   const { slug } = useParams<'slug'>();
 
   React.useEffect(() => {
@@ -48,7 +49,7 @@ const LibraryHome = () => {
   return (
     <Stack>
       <DocumentHead title={name} description={description} />
-      <Grid container spacing={2}>
+      <Grid container spacing={2} sx={{ marginBottom: 2 }}>
         <Grid item xs={12} sm={4}>
           <ProfileImage src={noData} alt={name} />
         </Grid>
@@ -59,6 +60,16 @@ const LibraryHome = () => {
           </Stack>
         </Grid>
       </Grid>
+      <Tabs
+        textColor="inherit"
+        variant="scrollable"
+        scrollButtons="auto"
+        value={tab}
+        onChange={(e, value) => setTab(value)}
+      >
+        <Tab label="Overview" />
+        <Tab label="Inventory" />
+      </Tabs>
     </Stack>
   );
 };
