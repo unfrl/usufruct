@@ -8,7 +8,6 @@ import noData from '../images/no-data.svg';
 
 const ProfileImage = styled('img')(() => ({
   height: 150,
-  width: '100%',
   objectFit: 'contain',
 }));
 
@@ -50,7 +49,16 @@ const LibraryHome = () => {
     <Stack>
       <DocumentHead title={name} description={description} />
       <Grid container spacing={2} sx={{ marginBottom: 2 }}>
-        <Grid item xs={12} sm={4}>
+        <Grid
+          item
+          xs={12}
+          sm={4}
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
           <ProfileImage src={noData} alt={name} />
         </Grid>
         <Grid item xs={12} sm={8}>
@@ -65,7 +73,7 @@ const LibraryHome = () => {
         variant="scrollable"
         scrollButtons="auto"
         value={tab}
-        onChange={(e, value) => setTab(value)}
+        onChange={(_e, value) => setTab(value)}
       >
         <Tab label="Overview" />
         <Tab label="Inventory" />
