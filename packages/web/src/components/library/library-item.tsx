@@ -4,7 +4,7 @@ import {
   CardContent,
   CardMedia,
   Link,
-  Typography,
+  Typography
 } from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
 import { Link as RouterLink } from 'react-router-dom';
@@ -24,7 +24,7 @@ export const LibraryItem = (props: LibraryItemProps) => {
       component={RouterLink}
       sx={{ color: 'inherit' }}
     >
-      <Card sx={{ height }}>
+      <Card sx={{ height }} variant="outlined">
         <CardActionArea sx={{ height: '100%' }}>
           <CardMedia
             component="img"
