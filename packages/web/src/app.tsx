@@ -2,7 +2,13 @@ import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { AppLayout, NotFound, Spinner, Toasts } from './components';
+import {
+  AppLayout,
+  DocumentHead,
+  NotFound,
+  Spinner,
+  Toasts,
+} from './components';
 import { getThemedComponents, getThemeOptions } from './config';
 
 const AppHome = React.lazy(() => import('./routes/app-home'));
@@ -20,6 +26,7 @@ export const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <DocumentHead />
       <CssBaseline />
       <React.Suspense fallback={<Spinner />}>
         <Routes>
