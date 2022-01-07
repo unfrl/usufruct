@@ -1,5 +1,6 @@
 export * from './authentication-form';
 export * from './common';
+export * from './document-head';
 export * from './email-sent';
 export * from './inventory';
 export * from './layout';
