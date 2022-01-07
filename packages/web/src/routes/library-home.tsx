@@ -2,7 +2,7 @@ import { Stack, Typography } from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { Spinner } from '../components';
+import { DocumentHead, Spinner } from '../components';
 import { useStores } from '../hooks';
 
 const LibraryHome = () => {
@@ -40,6 +40,7 @@ const LibraryHome = () => {
 
   return (
     <Stack>
+      <DocumentHead title={name} description={description} />
       <Typography variant="h4" sx={{ marginBottom: 2 }}>
         {name}
       </Typography>

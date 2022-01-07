@@ -6,6 +6,7 @@ import {
   AuthenticationForm,
   AuthenticationPayload,
   Content,
+  DocumentHead,
   EmailSent,
 } from '../components';
 import { useStores } from '../hooks';
@@ -57,6 +58,7 @@ const Authentication = observer((props: AuthenticationProps) => {
 
     return (
       <FormContainer>
+        <DocumentHead title={signUp ? 'Create an account' : 'Login'} />
         <AuthenticationForm
           authenticating={authenticating}
           onAuthenticate={handleAuthenticate}
