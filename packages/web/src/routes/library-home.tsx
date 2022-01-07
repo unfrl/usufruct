@@ -40,7 +40,9 @@ const LibraryHome = () => {
 
   return (
     <Stack>
-      <Typography variant="h4">{name}</Typography>
+      <Typography variant="h4" sx={{ marginBottom: 2 }}>
+        {name}
+      </Typography>
       <Typography variant="body1">{description}</Typography>
     </Stack>
   );
