@@ -1,9 +1,16 @@
-import { Stack, Typography } from '@mui/material';
+import { Grid, Stack, styled, Typography } from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { DocumentHead, Spinner } from '../components';
 import { useStores } from '../hooks';
+import noData from '../images/no-data.svg';
+
+const ProfileImage = styled('img')(() => ({
+  height: 150,
+  width: '100%',
+  objectFit: 'contain',
+}));
 
 const LibraryHome = () => {
   const { library, toasts } = useStores();
@@ -41,10 +48,17 @@ const LibraryHome = () => {
   return (
     <Stack>
       <DocumentHead title={name} description={description} />
-      <Typography variant="h4" sx={{ marginBottom: 2 }}>
-        {name}
-      </Typography>
-      <Typography variant="body1">{description}</Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={4}>
+          <ProfileImage src={noData} alt={name} />
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <Stack spacing={1}>
+            <Typography variant="h4">{name}</Typography>
+            <Typography variant="body1">{description}</Typography>
+          </Stack>
+        </Grid>
+      </Grid>
     </Stack>
   );
 };
