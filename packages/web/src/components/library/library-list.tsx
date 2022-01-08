@@ -15,7 +15,7 @@ export const LibraryList = observer((props: LibraryListProps) => {
 
   return (
     <>
-      <Typography variant="h2" fontSize="large" my={2}>
+      <Typography variant="h2" fontSize="large" sx={{ marginBottom: 2 }}>
         {title}
       </Typography>
       <Grid container spacing={2}>

@@ -2,6 +2,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import {
   Button,
   Container,
+  Divider,
   InputAdornment,
   Link,
   OutlinedInput,
@@ -67,19 +68,18 @@ const AppHome = () => {
           }
         />
       </Container>
-      <Stack
-        direction="row"
-        justifyContent="flex-start"
-        alignItems="center"
-        spacing={1}
-      >
+      <Typography variant="h2" fontSize="large" my={2}>
+        Temp dev UI
+      </Typography>
+      <Stack alignItems="flex-start" spacing={2}>
         <Button onClick={handleShowForm} variant="contained">
-          New Library (temp btn)
+          New library
         </Button>
-        <Link to="inventory" component={RouterLink}>
-          ~~Misc admin UI~~
+        <Link to="inventory" component={RouterLink} underline="always">
+          Inventory demo
         </Link>
       </Stack>
+      <Divider sx={{ my: 2 }} />
       <LibraryList title="Libraries" libraries={library.libraries} />
       <ResponsiveDialog
         fullWidth
