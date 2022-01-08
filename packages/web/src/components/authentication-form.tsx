@@ -57,11 +57,10 @@ export const AuthenticationForm = (props: AuthenticationFormProps) => {
         value={state.password}
         onChange={(e) => setState({ ...state, password: e.target.value })}
       />
-      <Box sx={{ marginTop: 2 }}>
+      <Box sx={{ my: 2 }}>
         <LoadingButton
           fullWidth
           variant="contained"
-          size="large"
           type="submit"
           loading={props.authenticating}
         >

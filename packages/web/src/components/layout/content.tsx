@@ -4,7 +4,7 @@ import { Spinner } from '../common';
 
 export interface ContentProps {
   children: any;
-  maxWidth?: 'xl' | 'lg' | 'md' | 'sm';
+  maxWidth?: 'xl' | 'lg' | 'md' | 'sm' | 'xs';
 }
 
 export const Content = (props: ContentProps) => {

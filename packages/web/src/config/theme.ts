@@ -58,6 +58,11 @@ export function getThemedComponents(theme: Theme) {
           },
         },
       },
+      MuiTextField: {
+        defaultProps: {
+          size: 'small',
+        },
+      },
       MuiLink: {
         defaultProps: {
           underline: 'none',

@@ -69,7 +69,7 @@ const Authentication = observer((props: AuthenticationProps) => {
     );
   };
 
-  return <Content maxWidth="sm">{content()}</Content>;
+  return <Content maxWidth="xs">{content()}</Content>;
 });
 
 export default Authentication;
