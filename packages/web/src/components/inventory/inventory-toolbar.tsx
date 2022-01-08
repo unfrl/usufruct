@@ -33,7 +33,7 @@ export const InventoryToolbar = observer((props: InventoryToolbarProps) => {
   return (
     <Stack direction="row" justifyContent="space-between" alignItems="center">
       <SearchField
-        placeholder="Search"
+        placeholder="Search (mock UI)"
         size="small"
         value={searchValue}
         onChange={(e) => onSearchChange(e.target.value)}
