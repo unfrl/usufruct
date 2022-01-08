@@ -65,7 +65,7 @@ const Authentication = observer((props: AuthenticationProps) => {
           submitText={signUp ? 'Sign up' : 'Login'}
           includeDisplayName={signUp}
         />
-        <Divider sx={{ marginBottom: 1 }}>OR</Divider>
+        <Divider sx={{ marginBottom: 1 }}>or</Divider>
         <Stack direction="row" justifyContent="center">
           <Link
             to={signUp ? '/login' : '/sign-up'}
