@@ -1,7 +1,7 @@
-import { CircularProgress, styled } from '@mui/material';
+import { CircularProgress, Divider, Link, Stack, styled } from '@mui/material';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Navigate } from 'react-router-dom';
+import { Link as RouterLink, Navigate } from 'react-router-dom';
 import {
   AuthenticationForm,
   AuthenticationPayload,
@@ -62,9 +62,20 @@ const Authentication = observer((props: AuthenticationProps) => {
         <AuthenticationForm
           authenticating={authenticating}
           onAuthenticate={handleAuthenticate}
-          submitText={signUp ? 'Sign Up' : 'Login'}
+          submitText={signUp ? 'Sign up' : 'Login'}
           includeDisplayName={signUp}
         />
+        <Divider sx={{ marginBottom: 1 }}>OR</Divider>
+        <Stack direction="row" justifyContent="center">
+          <Link
+            to={signUp ? '/login' : '/sign-up'}
+            component={RouterLink}
+            underline="hover"
+            color="primary"
+          >
+            {signUp ? 'Login with existing' : 'Create an account'}
+          </Link>
+        </Stack>
       </FormContainer>
     );
   };
