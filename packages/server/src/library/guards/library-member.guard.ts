@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  Logger,
+} from '@nestjs/common';
 import { UserRequest } from 'src/identity';
 import { LibraryMember } from '../entities';
 import { LibraryMemberService } from '../services';
@@ -28,21 +33,34 @@ export interface LibraryMemberRequest extends UserRequest {
  */
 @Injectable()
 export class LibraryMemberGuard implements CanActivate {
+  private readonly _logger = new Logger(LibraryMemberGuard.name);
+
   public constructor(
     private readonly _libraryMemberService: LibraryMemberService,
   ) {}
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest() as UserRequest;
-    if (!request?.user || !request.header(LIBRARY_ID_HEADER_NAME)) {
+    if (!request?.user) {
+      this._logger.warn('No user attached to request object');
+      return false;
+    }
+
+    const libraryId = request.header(LIBRARY_ID_HEADER_NAME);
+    if (!libraryId) {
+      this._logger.warn('No library ID in header');
       return false;
     }
 
     const libraryMember = await this._libraryMemberService.findOne(
-      request.header(LIBRARY_ID_HEADER_NAME),
+      libraryId,
       request.user.id,
     );
     if (!libraryMember) {
+      this._logger.warn('No library member found', {
+        libraryId,
+        userId: request.user.id,
+      });
       return false;
     }
 
