@@ -4,15 +4,15 @@ import { LibraryMember } from '../entities';
 import { LibraryMemberService } from '../services';
 
 /**
- * ID of the custom header used for the library ID. Used to verify a user's membership
- * and filter records based on the library they belong to.
- */
-const HEADER_LIBRARY_ID = 'x-usufruct-library-id';
-
-/**
  * Name of the property that the `library_member` record is set to on the request object.
  */
 const LIBRARY_MEMBER_PROPERTY_NAME = 'libraryMember';
+
+/**
+ * ID of the custom header used for the library ID. Used to verify a user's membership
+ * and filter records based on the library they belong to.
+ */
+export const LIBRARY_ID_HEADER_NAME = 'x-usufruct-library-id';
 
 /**
  * Extends the `UserRequest` definition with a `libraryMember` field for the user and library.
@@ -34,12 +34,12 @@ export class LibraryMemberGuard implements CanActivate {
 
   public async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest() as UserRequest;
-    if (!request?.user || !request.header(HEADER_LIBRARY_ID)) {
+    if (!request?.user || !request.header(LIBRARY_ID_HEADER_NAME)) {
       return false;
     }
 
     const libraryMember = await this._libraryMemberService.findOne(
-      request.header(HEADER_LIBRARY_ID),
+      request.header(LIBRARY_ID_HEADER_NAME),
       request.user.id,
     );
     if (!libraryMember) {
