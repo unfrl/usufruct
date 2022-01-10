@@ -34,7 +34,7 @@ export const LibraryItem = (props: LibraryItemProps) => {
             alt={library.name}
             sx={{ objectFit: 'contain', padding: 2 }}
           />
-          <CardContent sx={{ paddingTop: 0 }}>
+          <CardContent sx={{ paddingTop: 0, height: 150, maxHeight: 150 }}>
             <Typography
               noWrap
               gutterBottom
