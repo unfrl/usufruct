@@ -36,7 +36,6 @@ export const LibraryItem = (props: LibraryItemProps) => {
           />
           <CardContent sx={{ paddingTop: 0, height: 150, maxHeight: 150 }}>
             <Typography
-              noWrap
               gutterBottom
               title={library.name}
               variant="h5"
