@@ -42,7 +42,6 @@ export class LibraryMemberGuard implements CanActivate {
       request.header(HEADER_LIBRARY_ID),
       request.user.id,
     );
-
     if (!libraryMember) {
       return false;
     }
