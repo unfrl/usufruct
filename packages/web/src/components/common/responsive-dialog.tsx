@@ -30,7 +30,12 @@ export const ResponsiveDialog = (props: ResponsiveDialogProps) => {
           <Typography noWrap variant="h6">
             {title}
           </Typography>
-          <IconButton color="inherit" onClick={onClose} aria-label="close">
+          <IconButton
+            color="inherit"
+            onClick={onClose}
+            aria-label="close"
+            edge="end"
+          >
             <CloseIcon />
           </IconButton>
         </Toolbar>
