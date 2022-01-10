@@ -4,11 +4,12 @@ import {
   CardContent,
   CardMedia,
   Link,
-  Typography
+  Typography,
 } from '@mui/material';
 import { Library } from '@unfrl/usufruct-sdk';
 import { Link as RouterLink } from 'react-router-dom';
 import noData from '../../images/no-data.svg';
+import { clipAtMaxLength } from '../../utils';
 
 export interface LibraryItemProps {
   library: Library;
@@ -48,7 +49,7 @@ export const LibraryItem = (props: LibraryItemProps) => {
               variant="body2"
               color="text.secondary"
             >
-              {library.description}
+              {clipAtMaxLength(library.description)}
             </Typography>
           </CardContent>
         </CardActionArea>
