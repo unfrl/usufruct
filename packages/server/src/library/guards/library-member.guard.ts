@@ -18,7 +18,7 @@ const LIBRARY_MEMBER_PROPERTY_NAME = 'libraryMember';
  * Extends the `UserRequest` definition with a `libraryMember` field for the user and library.
  */
 export interface LibraryMemberRequest extends UserRequest {
-  [LIBRARY_MEMBER_PROPERTY_NAME]: LibraryMember;
+  libraryMember: LibraryMember;
 }
 
 /**
