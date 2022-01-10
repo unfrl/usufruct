@@ -13,7 +13,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.use(helmet());
-
   app.setGlobalPrefix('api');
   app.enableCors({ origin: origins });
   app.useGlobalPipes(new ValidationPipe());
