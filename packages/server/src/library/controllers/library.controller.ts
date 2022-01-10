@@ -40,6 +40,21 @@ export class LibraryController {
   }
 
   @ApiOperation({
+    operationId: 'getUserMemberships',
+    summary: 'Get the memberships and libraries for your user',
+  })
+  @ApiResponse({ status: HttpStatus.OK, type: LibraryMember, isArray: true })
+  @ApiBearerAuth()
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.OK)
+  @Get('me')
+  public async getUserMemberships(
+    @Req() request: UserRequest,
+  ): Promise<LibraryMember[]> {
+    return await this._libraryMemberService.findByUserId(request.user.id);
+  }
+
+  @ApiOperation({
     operationId: 'getLibrary',
     summary: 'Get a library by its slug',
   })
@@ -66,20 +81,5 @@ export class LibraryController {
       request.user.id,
       libraryDto,
     );
-  }
-
-  @ApiOperation({
-    operationId: 'getUserMemberships',
-    summary: 'Get the memberships and libraries for your user',
-  })
-  @ApiResponse({ status: HttpStatus.OK, type: LibraryMember, isArray: true })
-  @ApiBearerAuth()
-  @UseGuards(AuthGuard('jwt'))
-  @HttpCode(HttpStatus.OK)
-  @Get('me')
-  public async getUserMemberships(
-    @Req() request: UserRequest,
-  ): Promise<LibraryMember[]> {
-    return await this._libraryMemberService.findByUserId(request.user.id);
   }
 }
