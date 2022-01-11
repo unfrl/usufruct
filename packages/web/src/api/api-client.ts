@@ -13,7 +13,8 @@ import { AuthStore } from '../stores';
 const API_BASE_PATH =
   import.meta.env.VITE_API_BASE_PATH?.toString() ?? 'http://localhost:1337';
 
-// TODO: maybe we can move this to a middleware and have the auto-run defined there -- just to get it out of the store
+const AUTH_HEADER = 'Authorization';
+
 const LIBRARY_ID_HEADER =
   import.meta.env.VITE_LIBRARY_ID_HEADER?.toString() ?? 'x-usufruct-library-id';
 
@@ -35,7 +36,7 @@ export class ApiClient {
         {
           pre: (context) => {
             context.init.headers = Object.assign({}, context.init.headers, {
-              Authorization: `Bearer ${AuthStore.getAccessToken()}`,
+              [AUTH_HEADER]: `Bearer ${AuthStore.getAccessToken()}`,
               [LIBRARY_ID_HEADER]: this.libraryId,
             });
 
