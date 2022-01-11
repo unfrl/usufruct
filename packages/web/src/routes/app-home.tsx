@@ -3,7 +3,6 @@ import {
   Button,
   Container,
   InputAdornment,
-  Link,
   OutlinedInput,
   Stack,
   Typography,
@@ -11,7 +10,7 @@ import {
 import { UpsertLibraryDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
-import { Link as RouterLink, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { LibraryList, NewLibraryForm, ResponsiveDialog } from '../components';
 import { useStores } from '../hooks';
 
@@ -67,15 +66,12 @@ const AppHome = () => {
         />
       </Container>
       <Typography variant="h2" fontSize="large" mb={2}>
-        Temp dev UI
+        Dev Buttons
       </Typography>
       <Stack alignItems="flex-start" spacing={2} mb={2}>
         <Button onClick={handleShowForm} variant="contained">
           New library
         </Button>
-        <Link to="inventory" component={RouterLink} underline="always">
-          Inventory demo
-        </Link>
       </Stack>
       <LibraryList title="Libraries" libraries={library.libraries} />
       <ResponsiveDialog
