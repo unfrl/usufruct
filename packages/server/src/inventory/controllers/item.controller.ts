@@ -79,7 +79,9 @@ export class ItemController {
     @Req() request: LibraryMemberRequest,
     @Body() itemDto: UpsertItemDto,
   ): Promise<Item> {
-    console.log('testing library member guard', request.libraryMember);
-    return await this._itemService.createItem(itemDto);
+    return await this._itemService.createItem(
+      itemDto,
+      request.libraryMember.libraryId,
+    );
   }
 }
