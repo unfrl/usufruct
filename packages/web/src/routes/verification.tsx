@@ -2,7 +2,6 @@ import { Alert, Box, CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { useStores } from '../hooks';
-import { tryParseRestError } from '../utils';
 
 const Verification = () => {
   const [redirect, setRedirect] = React.useState('');
@@ -23,7 +22,7 @@ const Verification = () => {
         await auth.verifyUser(email, token);
         setRedirect('/login');
       } catch (error) {
-        setError(tryParseRestError(error));
+        setError((error as any).message);
       }
     };
 

@@ -14,7 +14,6 @@ import React from 'react';
 import { Link as RouterLink, useNavigate } from 'react-router-dom';
 import { LibraryList, NewLibraryForm, ResponsiveDialog } from '../components';
 import { useStores } from '../hooks';
-import { tryParseRestError } from '../utils';
 
 const AppHome = () => {
   const [showLibraryForm, setShowLibraryForm] = React.useState(false);
@@ -26,7 +25,7 @@ const AppHome = () => {
       try {
         await library.fetchLibraries();
       } catch (error) {
-        toasts.error(tryParseRestError(error));
+        toasts.error((error as any).message);
       }
     };
 

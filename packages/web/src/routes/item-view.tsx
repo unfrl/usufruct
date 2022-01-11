@@ -2,10 +2,10 @@ import { Container, Grid, Stack, styled, Typography } from '@mui/material';
 import { Item } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
+import { client } from '../api';
 import { ChipList, Spinner } from '../components';
 import { useStores } from '../hooks';
 import noData from '../images/no-data.svg';
-import { client, tryParseRestError } from '../utils';
 
 const ItemImage = styled('img')(({ theme }) => ({
   width: '100%',
@@ -26,7 +26,7 @@ const ItemView = () => {
           setItem(await client.items.getItem(id));
         }
       } catch (error) {
-        toasts.error(tryParseRestError(error));
+        toasts.error((error as any).message);
       }
 
       setReady(true);

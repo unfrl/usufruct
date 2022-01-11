@@ -11,7 +11,6 @@ import {
 } from '../components';
 import { useStores } from '../hooks';
 import { AuthStatus } from '../stores';
-import { tryParseRestError } from '../utils';
 
 export interface AuthenticationProps {
   signUp: boolean;
@@ -37,7 +36,7 @@ const Authentication = observer((props: AuthenticationProps) => {
         await auth.signIn(email, password);
       }
     } catch (error) {
-      toasts.error(tryParseRestError(error));
+      toasts.error((error as any).message);
     }
   };
 
