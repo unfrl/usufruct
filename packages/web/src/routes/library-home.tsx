@@ -1,6 +1,6 @@
 import { Grid, Stack, styled, Tab, Tabs, Typography } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 import { DocumentHead, Spinner } from '../components';
 import { useStores } from '../hooks';
 import noData from '../images/no-data.svg';
@@ -10,11 +10,18 @@ const ProfileImage = styled('img')(() => ({
   objectFit: 'contain',
 }));
 
+const LinkTab = (props: { label: string; to: string }) => {
+  return <Tab component={Link} {...props} />;
+};
+
 const LibraryHome = () => {
   const { library, toasts } = useStores();
   const [ready, setReady] = React.useState(false);
-  const [tab, setTab] = React.useState(0);
   const { slug } = useParams<'slug'>();
+  const location = useLocation();
+
+  // TODO: just for testing, needs to be updated to handle multiple routes + decide if tabs needed
+  const tab = location.pathname.indexOf('inventory') === -1 ? 0 : 1;
 
   React.useEffect(() => {
     const load = async () => {
@@ -71,11 +78,17 @@ const LibraryHome = () => {
         variant="scrollable"
         scrollButtons="auto"
         value={tab}
-        onChange={(_e, value) => setTab(value)}
+        onChange={(_e, _value) => {
+          /** no-op, active tab handled by route */
+        }}
+        sx={{ marginBottom: 2 }}
       >
-        <Tab label="Overview" />
-        <Tab label="Inventory" />
+        <LinkTab label="Overview" to="" />
+        <LinkTab label="Inventory" to="inventory" />
       </Tabs>
+      <React.Suspense fallback={<Spinner />}>
+        <Outlet />
+      </React.Suspense>
     </Stack>
   );
 };

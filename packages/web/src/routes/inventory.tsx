@@ -27,7 +27,7 @@ const Inventory = observer(() => {
     // note: this is the item's GUID, but we want to route by the shortId
     const item = inventory.items.find((i) => i.id === itemId);
     if (item) {
-      navigate(`/inventory/${item.shortId}`);
+      navigate(item.shortId);
     }
   };
 
@@ -39,7 +39,7 @@ const Inventory = observer(() => {
         onSearchChange={handleSearchChange}
         onRefresh={inventory.loadAllItems}
       />
-      <Box sx={{ marginTop: 2, height: '70vh', width: '100%' }}>
+      <Box sx={{ marginTop: 2, height: '55vh', width: '100%' }}>
         <InventoryDataGrid onItemSelect={handleItemSelect} />
       </Box>
       <AddItemDrawer open={open} onClose={handleClose} />
