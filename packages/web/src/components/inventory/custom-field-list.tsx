@@ -3,8 +3,8 @@ import { Button, Stack } from '@mui/material';
 import { CustomFieldDto, ItemAttribute } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { client } from '../../api';
 import { useStores } from '../../hooks';
-import { client, tryParseRestError } from '../../utils';
 import { CustomFieldItem } from './custom-field-item';
 
 export interface CustomFieldListProps {
@@ -22,7 +22,7 @@ export const CustomFieldList = observer((props: CustomFieldListProps) => {
       try {
         setAttributes(await client.items.getItemAttributes());
       } catch (error) {
-        toasts.error(tryParseRestError(error));
+        toasts.error((error as any).message);
       }
     };
 

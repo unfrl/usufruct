@@ -1,6 +1,6 @@
 import { UserDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
-import { client } from '../utils';
+import { client } from '../api';
 import { RootStore } from './root.store';
 
 const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';

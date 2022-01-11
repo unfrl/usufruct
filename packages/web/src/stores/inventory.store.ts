@@ -1,6 +1,6 @@
 import { Item, UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { makeAutoObservable } from 'mobx';
-import { client } from '../utils';
+import { client } from '../api';
 import { RootStore } from './root.store';
 
 export class InventoryStore {
