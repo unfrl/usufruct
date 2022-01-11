@@ -56,7 +56,7 @@ export class ApiClient {
   }
 
   /**
-   * Set the libraryId to be applied in the header, or an empty string to clear out.
+   * Set the libraryId to be applied as a header, or an empty string to clear it out.
    */
   public setLibraryId(libraryId: string) {
     this.libraryId = libraryId;
