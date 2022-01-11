@@ -75,10 +75,6 @@ export class AuthStore {
     }
   };
 
-  public verifyUser = async (email: string, token: string): Promise<void> => {
-    await client.verification.verifyUser({ email, token });
-  };
-
   public logout = () => {
     this.clearUser();
     this.clearAccessToken();
@@ -94,14 +90,14 @@ export class AuthStore {
 
   private loadUser = async () => {
     try {
-      const user = await client.users.getMyProfile();
-
-      this.setUser(user);
+      this.setUser(await client.users.getMyProfile());
     } catch (error) {
       console.log('failed to get profile, accessToken likely expired', error);
       this.logout();
     }
   };
+
+  //#region Actions
 
   private setStatus = (status: AuthStatus) => {
     this.status = status;
@@ -114,8 +110,6 @@ export class AuthStore {
   private clearUser = () => {
     this.user = null;
   };
-
-  //#region Access token
 
   private setAccessToken = (token: string) => {
     this.accessToken = token;

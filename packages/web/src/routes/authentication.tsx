@@ -16,6 +16,12 @@ export interface AuthenticationProps {
   signUp: boolean;
 }
 
+const FormContainer = styled('div')(({ theme }) => ({
+  padding: theme.spacing(2),
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius,
+}));
+
 const Authentication = observer((props: AuthenticationProps) => {
   const { auth, toasts } = useStores();
   const [emailSent, setEmailSent] = React.useState(false);
@@ -83,9 +89,3 @@ const Authentication = observer((props: AuthenticationProps) => {
 });
 
 export default Authentication;
-
-const FormContainer = styled('div')(({ theme }) => ({
-  padding: theme.spacing(2),
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: theme.shape.borderRadius,
-}));
