@@ -9,7 +9,6 @@ import { UpsertItemDto } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
 import { useStores } from '../../hooks';
-import { tryParseRestError } from '../../utils';
 import {
   ComboBoxValue,
   FormActions,
@@ -59,7 +58,7 @@ export const AddItemDrawer = observer((props: AddItemDrawerProps) => {
       setItem(DEFAULT_ITEM_DTO);
       onClose();
     } catch (error) {
-      toasts.error(tryParseRestError(error));
+      toasts.error((error as any).message);
     } finally {
       setSaving(false);
     }

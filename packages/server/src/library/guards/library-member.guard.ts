@@ -11,13 +11,13 @@ import { LibraryMemberService } from '../services';
 /**
  * Name of the property that the `library_member` record is set to on the request object.
  */
-const LIBRARY_MEMBER_PROPERTY_NAME = 'libraryMember';
+const LIBRARY_MEMBER_PROPERTY = 'libraryMember';
 
 /**
  * ID of the custom header used for the library ID. Used to verify a user's membership
  * and filter records based on the library they belong to.
  */
-export const LIBRARY_ID_HEADER_NAME = 'x-usufruct-library-id';
+export const LIBRARY_ID_HEADER = 'x-usufruct-library-id';
 
 /**
  * Extends the `UserRequest` definition with a `libraryMember` field for the user and library.
@@ -46,7 +46,7 @@ export class LibraryMemberGuard implements CanActivate {
       return false;
     }
 
-    const libraryId = request.header(LIBRARY_ID_HEADER_NAME);
+    const libraryId = request.header(LIBRARY_ID_HEADER);
     if (!libraryId) {
       this._logger.warn('No library ID in header');
       return false;
@@ -64,7 +64,7 @@ export class LibraryMemberGuard implements CanActivate {
       return false;
     }
 
-    request[LIBRARY_MEMBER_PROPERTY_NAME] = libraryMember;
+    request[LIBRARY_MEMBER_PROPERTY] = libraryMember;
 
     return true;
   }

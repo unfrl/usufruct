@@ -1,4 +1,9 @@
-import { CssBaseline, ThemeProvider, useMediaQuery } from '@mui/material';
+import {
+  CssBaseline,
+  ThemeProvider,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
@@ -32,9 +37,11 @@ export const App = () => {
         <Routes>
           <Route path="/" element={<AppLayout />}>
             <Route index element={<AppHome />} />
-            <Route path="inventory" element={<Inventory />} />
-            <Route path="inventory/:id" element={<ItemView />} />
-            <Route path="l/:slug" element={<LibraryHome />} />
+            <Route path="l/:slug" element={<LibraryHome />}>
+              <Route path="inventory" element={<Inventory />} />
+              <Route path="inventory/:id" element={<ItemView />} />
+              <Route index element={<Typography>Test</Typography>} />
+            </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="sign-up" element={<Authentication signUp={true} />} />

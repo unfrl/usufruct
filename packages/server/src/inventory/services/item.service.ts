@@ -32,11 +32,18 @@ export class ItemService {
     return await this._itemRepository.find();
   }
 
+  public async getByLibraryId(libraryId: string): Promise<Item[]> {
+    return await this._itemRepository.find({ where: { libraryId } });
+  }
+
   public async getAttributes(): Promise<ItemAttribute[]> {
     return await this._attributeRepository.find();
   }
 
-  public async createItem(itemDto: UpsertItemDto): Promise<Item> {
+  public async createItem(
+    itemDto: UpsertItemDto,
+    libraryId: string,
+  ): Promise<Item> {
     const { categoryNames, labelNames, customFields, ...rest } = itemDto;
 
     const [categories, labels] = await Promise.all([
@@ -46,7 +53,7 @@ export class ItemService {
 
     // TODO: since we create item first _and then_ process fields, we should probably wrap this in a transaction
     const item = await this._itemRepository.save(
-      new Item({ categories, labels, ...rest }),
+      new Item({ libraryId, categories, labels, ...rest }),
     );
 
     await this.processCustomFields(item.id, customFields);

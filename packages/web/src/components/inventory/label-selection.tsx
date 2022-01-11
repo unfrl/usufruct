@@ -1,8 +1,8 @@
 import { Label } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { client } from '../../api';
 import { useStores } from '../../hooks';
-import { client, tryParseRestError } from '../../utils';
 import { ComboBox, ComboBoxValue } from '../common';
 
 export interface LabelSelectionProps {
@@ -20,7 +20,7 @@ export const LabelSelection = observer((props: LabelSelectionProps) => {
       try {
         setLabels(await client.labels.getLabels());
       } catch (error) {
-        toasts.error(tryParseRestError(error));
+        toasts.error((error as any).message);
       }
     };
 

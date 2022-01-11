@@ -1,6 +1,6 @@
 import { UserDto } from '@unfrl/usufruct-sdk';
-import { makeAutoObservable } from 'mobx';
-import { client } from '../utils';
+import { autorun, makeAutoObservable } from 'mobx';
+import { client } from '../api';
 import { RootStore } from './root.store';
 
 const ACCESS_TOKEN_KEY = 'usufruct.authStore.accessToken';
@@ -12,6 +12,8 @@ export enum AuthStatus {
 }
 
 export class AuthStore {
+  public accessToken: string = '';
+
   public user: UserDto | null = null;
 
   public status: AuthStatus = AuthStatus.Initializing;
@@ -22,6 +24,19 @@ export class AuthStore {
 
   public constructor(private readonly _root: RootStore) {
     makeAutoObservable(this);
+
+    this.setAccessToken(localStorage.getItem(ACCESS_TOKEN_KEY) ?? '');
+
+    autorun(() => {
+      client.setAccessTokenHeader(this.accessToken);
+
+      if (this.accessToken) {
+        localStorage.setItem(ACCESS_TOKEN_KEY, this.accessToken);
+      } else {
+        localStorage.removeItem(ACCESS_TOKEN_KEY);
+      }
+    });
+
     this.initialize();
   }
 
@@ -52,7 +67,7 @@ export class AuthStore {
         password,
       });
 
-      AuthStore.setAccessToken(accessToken);
+      this.setAccessToken(accessToken);
 
       await this.loadUser();
     } finally {
@@ -60,17 +75,13 @@ export class AuthStore {
     }
   };
 
-  public verifyUser = async (email: string, token: string): Promise<void> => {
-    await client.verification.verifyUser({ email, token });
-  };
-
   public logout = () => {
     this.clearUser();
-    AuthStore.clearAccessToken();
+    this.clearAccessToken();
   };
 
   private initialize = async () => {
-    if (AuthStore.getAccessToken()) {
+    if (this.accessToken) {
       await this.loadUser();
     }
 
@@ -79,14 +90,14 @@ export class AuthStore {
 
   private loadUser = async () => {
     try {
-      const user = await client.users.getMyProfile();
-
-      this.setUser(user);
+      this.setUser(await client.users.getMyProfile());
     } catch (error) {
       console.log('failed to get profile, accessToken likely expired', error);
       this.logout();
     }
   };
+
+  //#region Actions
 
   private setStatus = (status: AuthStatus) => {
     this.status = status;
@@ -100,18 +111,12 @@ export class AuthStore {
     this.user = null;
   };
 
-  //#region Access token
-
-  public static getAccessToken = (): string => {
-    return localStorage.getItem(ACCESS_TOKEN_KEY) ?? '';
+  private setAccessToken = (token: string) => {
+    this.accessToken = token;
   };
 
-  private static setAccessToken = (token: string) => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token);
-  };
-
-  private static clearAccessToken = () => {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  private clearAccessToken = () => {
+    this.accessToken = '';
   };
 
   //#endregion

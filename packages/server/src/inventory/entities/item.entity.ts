@@ -1,7 +1,16 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
 import { BaseEntity } from 'src/common';
+import { Library } from 'src/library';
 import { getShortId } from 'src/utils';
-import { BeforeInsert, Column, Entity, JoinTable, ManyToMany } from 'typeorm';
+import {
+  BeforeInsert,
+  Column,
+  Entity,
+  Index,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+} from 'typeorm';
 import { Category } from './category.entity';
 import { Label } from './label.entity';
 
@@ -33,6 +42,14 @@ export class Item extends BaseEntity {
   @ManyToMany(() => Label, { eager: true })
   @JoinTable()
   public labels: Label[];
+
+  @ApiResponseProperty()
+  @Index()
+  @Column()
+  public libraryId: string;
+
+  @ManyToOne(() => Library)
+  public library: Library;
 
   public constructor(item: Partial<Item>) {
     super();

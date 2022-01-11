@@ -1,8 +1,8 @@
 import { Category } from '@unfrl/usufruct-sdk';
 import { observer } from 'mobx-react';
 import React from 'react';
+import { client } from '../../api';
 import { useStores } from '../../hooks';
-import { client, tryParseRestError } from '../../utils';
 import { ComboBox, ComboBoxValue } from '../common';
 
 export interface CategorySelectionProps {
@@ -20,7 +20,7 @@ export const CategorySelection = observer((props: CategorySelectionProps) => {
       try {
         setCategories(await client.categories.getCategories());
       } catch (error) {
-        toasts.error(tryParseRestError(error));
+        toasts.error((error as any).message);
       }
     };
 

@@ -1,13 +1,11 @@
 import { Alert, Box, CircularProgress, Typography } from '@mui/material';
 import React from 'react';
 import { Navigate, useSearchParams } from 'react-router-dom';
-import { useStores } from '../hooks';
-import { tryParseRestError } from '../utils';
+import { client } from '../api';
 
 const Verification = () => {
   const [redirect, setRedirect] = React.useState('');
   const [error, setError] = React.useState('');
-  const { auth } = useStores();
   const [params] = useSearchParams();
   const email = params.get('email');
   const token = params.get('token');
@@ -20,10 +18,10 @@ const Verification = () => {
       }
 
       try {
-        await auth.verifyUser(email, token);
+        await client.verification.verifyUser({ email, token });
         setRedirect('/login');
       } catch (error) {
-        setError(tryParseRestError(error));
+        setError((error as any).message);
       }
     };
 

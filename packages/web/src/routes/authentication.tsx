@@ -11,11 +11,16 @@ import {
 } from '../components';
 import { useStores } from '../hooks';
 import { AuthStatus } from '../stores';
-import { tryParseRestError } from '../utils';
 
 export interface AuthenticationProps {
   signUp: boolean;
 }
+
+const FormContainer = styled('div')(({ theme }) => ({
+  padding: theme.spacing(2),
+  border: `1px solid ${theme.palette.divider}`,
+  borderRadius: theme.shape.borderRadius,
+}));
 
 const Authentication = observer((props: AuthenticationProps) => {
   const { auth, toasts } = useStores();
@@ -37,7 +42,7 @@ const Authentication = observer((props: AuthenticationProps) => {
         await auth.signIn(email, password);
       }
     } catch (error) {
-      toasts.error(tryParseRestError(error));
+      toasts.error((error as any).message);
     }
   };
 
@@ -84,9 +89,3 @@ const Authentication = observer((props: AuthenticationProps) => {
 });
 
 export default Authentication;
-
-const FormContainer = styled('div')(({ theme }) => ({
-  padding: theme.spacing(2),
-  border: `1px solid ${theme.palette.divider}`,
-  borderRadius: theme.shape.borderRadius,
-}));
