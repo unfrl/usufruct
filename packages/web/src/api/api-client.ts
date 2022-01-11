@@ -54,12 +54,11 @@ export class ApiClient {
     this.verification = new VerificationApi(configuration);
   }
 
+  /**
+   * Set the libraryId to be applied in the header, or an empty string to clear out.
+   */
   public setLibraryId(libraryId: string) {
     this.libraryId = libraryId;
-  }
-
-  public clearLibraryId() {
-    this.libraryId = '';
   }
 }
 
