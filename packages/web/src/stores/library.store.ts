@@ -11,7 +11,7 @@ export class LibraryStore {
     makeAutoObservable(this);
 
     autorun(() => {
-      client.setLibraryId(this.selectedLibrary?.id ?? '');
+      client.setLibraryIdHeader(this.selectedLibrary?.id ?? '');
     });
   }
 

@@ -8,7 +8,6 @@ import {
   UsersApi,
   VerificationApi,
 } from '@unfrl/usufruct-sdk';
-import { AuthStore } from '../stores';
 
 const API_BASE_PATH =
   import.meta.env.VITE_API_BASE_PATH?.toString() ?? 'http://localhost:1337';
@@ -27,7 +26,8 @@ export class ApiClient {
   public readonly users: UsersApi;
   public readonly verification: VerificationApi;
 
-  private libraryId: string = '';
+  private _accessToken: string = '';
+  private _libraryId: string = '';
 
   public constructor() {
     const configuration = new Configuration({
@@ -36,8 +36,8 @@ export class ApiClient {
         {
           pre: (context) => {
             context.init.headers = Object.assign({}, context.init.headers, {
-              [AUTH_HEADER]: `Bearer ${AuthStore.getAccessToken()}`,
-              [LIBRARY_ID_HEADER]: this.libraryId,
+              [AUTH_HEADER]: `Bearer ${this._accessToken}`,
+              [LIBRARY_ID_HEADER]: this._libraryId,
             });
 
             return Promise.resolve();
@@ -55,11 +55,12 @@ export class ApiClient {
     this.verification = new VerificationApi(configuration);
   }
 
-  /**
-   * Set the libraryId to be applied as a header, or an empty string to clear it out.
-   */
-  public setLibraryId(libraryId: string) {
-    this.libraryId = libraryId;
+  public setAccessTokenHeader(token: string) {
+    this._accessToken = token;
+  }
+
+  public setLibraryIdHeader(libraryId: string) {
+    this._libraryId = libraryId;
   }
 }
 
