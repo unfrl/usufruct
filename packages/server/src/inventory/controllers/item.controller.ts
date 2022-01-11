@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Headers,
   HttpCode,
   HttpStatus,
   Param,
@@ -20,7 +21,7 @@ import {
 import {
   LibraryMemberGuard,
   LibraryMemberRequest,
-  LIBRARY_ID_HEADER_NAME,
+  LIBRARY_ID_HEADER,
 } from 'src/library';
 import { UpsertItemDto } from '../dtos';
 import { Item, ItemAttribute } from '../entities';
@@ -28,10 +29,7 @@ import { ItemService } from '../services';
 
 @ApiTags('Items')
 @ApiBearerAuth()
-@ApiHeader({
-  name: LIBRARY_ID_HEADER_NAME,
-  description: 'Id of the library you asking about',
-})
+@ApiHeader({ name: LIBRARY_ID_HEADER })
 @UseGuards(AuthGuard('jwt'))
 @Controller('items')
 export class ItemController {
@@ -43,8 +41,11 @@ export class ItemController {
   })
   @ApiResponse({ status: HttpStatus.OK, type: Item, isArray: true })
   @Get()
-  public async getItems(): Promise<Item[]> {
-    return await this._itemService.getAll();
+  public async getItems(
+    // TODO: figure out consistent way to make sure this is required -- currently allows undefined
+    @Headers(LIBRARY_ID_HEADER) libraryId: string,
+  ): Promise<Item[]> {
+    return await this._itemService.getByLibraryId(libraryId);
   }
 
   @ApiOperation({

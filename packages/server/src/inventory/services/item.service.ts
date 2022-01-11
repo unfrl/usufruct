@@ -32,8 +32,8 @@ export class ItemService {
     return await this._itemRepository.find();
   }
 
-  public async getAllByLibrary(libraryId: string): Promise<Item[]> {
-    return await this._itemRepository.find({ where: libraryId });
+  public async getByLibraryId(libraryId: string): Promise<Item[]> {
+    return await this._itemRepository.find({ where: { libraryId } });
   }
 
   public async getAttributes(): Promise<ItemAttribute[]> {
