@@ -1,5 +1,4 @@
 import { Grid, Stack, styled, Tab, Tabs, Typography } from '@mui/material';
-import { Library } from '@unfrl/usufruct-sdk';
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { DocumentHead, Spinner } from '../components';
@@ -13,7 +12,6 @@ const ProfileImage = styled('img')(() => ({
 
 const LibraryHome = () => {
   const { library, toasts } = useStores();
-  const [selected, setSelected] = React.useState<Library | null>(null);
   const [ready, setReady] = React.useState(false);
   const [tab, setTab] = React.useState(0);
   const { slug } = useParams<'slug'>();
@@ -21,9 +19,7 @@ const LibraryHome = () => {
   React.useEffect(() => {
     const load = async () => {
       try {
-        if (slug) {
-          setSelected(await library.fetchLibrary(slug));
-        }
+        await library.loadLibrary(slug);
       } catch (error) {
         console.error('failed to fetch library', error);
         toasts.error((error as any).message);
@@ -33,17 +29,19 @@ const LibraryHome = () => {
     };
 
     load();
+
+    return () => library.clearLibrary();
   }, [slug]);
 
   if (!ready) {
     return <Spinner />;
   }
 
-  if (!selected) {
+  if (!library.selectedLibrary) {
     return <Typography>{slug} not found!</Typography>;
   }
 
-  const { name, description } = selected;
+  const { name, description } = library.selectedLibrary;
 
   return (
     <Stack>
