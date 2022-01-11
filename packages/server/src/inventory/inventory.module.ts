@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { LibraryModule } from 'src/library';
 import {
   CategoryController,
   ItemController,
@@ -25,6 +26,7 @@ import { CategoryService, ItemService, LabelService } from './services';
       Label,
       LendableItem,
     ]),
+    LibraryModule,
   ],
   controllers: [CategoryController, ItemController, LabelController],
   providers: [CategoryService, ItemService, LabelService],

@@ -6,21 +6,32 @@ import {
   HttpStatus,
   Param,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
+  ApiHeader,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import {
+  LibraryMemberGuard,
+  LibraryMemberRequest,
+  LIBRARY_ID_HEADER_NAME,
+} from 'src/library';
 import { UpsertItemDto } from '../dtos';
 import { Item, ItemAttribute } from '../entities';
 import { ItemService } from '../services';
 
 @ApiTags('Items')
 @ApiBearerAuth()
+@ApiHeader({
+  name: LIBRARY_ID_HEADER_NAME,
+  description: 'Id of the library you asking about',
+})
 @UseGuards(AuthGuard('jwt'))
 @Controller('items')
 export class ItemController {
@@ -62,8 +73,13 @@ export class ItemController {
   })
   @ApiResponse({ status: HttpStatus.OK, type: Item })
   @HttpCode(HttpStatus.OK)
+  @UseGuards(LibraryMemberGuard)
   @Post()
-  public async createItem(@Body() itemDto: UpsertItemDto): Promise<Item> {
+  public async createItem(
+    @Req() request: LibraryMemberRequest,
+    @Body() itemDto: UpsertItemDto,
+  ): Promise<Item> {
+    console.log('testing library member guard', request.libraryMember);
     return await this._itemService.createItem(itemDto);
   }
 }
