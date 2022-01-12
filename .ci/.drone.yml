@@ -45,7 +45,7 @@ steps:
       - echo "Generating SDK with version $npmVersion"
       - |
         docker run --rm -v $PWD/packages:/local \
-          openapitools/openapi-generator-cli generate --additional-properties=npmVersion=$npmVersion \
+          openapitools/openapi-generator-cli:latest-release generate --additional-properties=npmVersion=$npmVersion \
           -i /local/server/swagger-spec.json \
           -g typescript-fetch \
           -o /local/sdk \

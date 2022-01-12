@@ -13,7 +13,6 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
-  ApiHeader,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -29,7 +28,6 @@ import { ItemService } from '../services';
 
 @ApiTags('Items')
 @ApiBearerAuth()
-@ApiHeader({ name: LIBRARY_ID_HEADER })
 @UseGuards(AuthGuard('jwt'))
 @Controller('items')
 export class ItemController {
