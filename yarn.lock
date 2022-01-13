@@ -1577,10 +1577,10 @@
     "@typescript-eslint/types" "5.4.0"
     eslint-visitor-keys "^3.0.0"
 
-"@unfrl/usufruct-sdk@^0.0.26":
-  version "0.0.26"
-  resolved "https://registry.yarnpkg.com/@unfrl/usufruct-sdk/-/usufruct-sdk-0.0.26.tgz#fc829eb7ea123bf3f5200822bd1ec0b9067e012c"
-  integrity sha512-del6g3NmBRuWnDPLsu2tVpZjZJoZk2iOAV4U/nEuLcmFZ8vf8hJnRO4F7+BZmt1ECL3CRJ+/2Lc5pUUDO+lgtA==
+"@unfrl/usufruct-sdk@^0.0.27":
+  version "0.0.27"
+  resolved "https://registry.yarnpkg.com/@unfrl/usufruct-sdk/-/usufruct-sdk-0.0.27.tgz#f492ee115c0b8f63e5ac611fe04c791cec98c4ac"
+  integrity sha512-AJzlRdiIbFXzzFOUDmPAhYbE30r/uFa5HfyeRrpEfrX6bwQWpThh7b6m1SNtmoYFd6y7MiNN7KbokLgkG4IMUQ==
 
 "@vitejs/plugin-react@^1.0.0":
   version "1.0.9"
