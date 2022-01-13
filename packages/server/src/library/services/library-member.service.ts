@@ -19,7 +19,7 @@ export class LibraryMemberService {
     });
   }
 
-  public async findByUserId(userId: string) {
+  public async findByUserId(userId: string): Promise<LibraryMember[]> {
     return await this._libraryMemberRepository.find({
       where: { userId },
       relations: ['library'],
