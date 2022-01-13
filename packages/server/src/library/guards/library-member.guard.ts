@@ -17,7 +17,7 @@ const LIBRARY_MEMBER_PROPERTY = 'libraryMember';
  * ID of the custom header used for the library ID. Used to verify a user's membership
  * and filter records based on the library they belong to.
  */
-export const LIBRARY_ID_HEADER = 'x-usufruct-library-id';
+export const LIBRARY_ID_HEADER = 'library-id';
 
 /**
  * Extends the `UserRequest` definition with a `libraryMember` field for the user and library.
