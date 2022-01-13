@@ -20,10 +20,14 @@ export class InventoryStore {
   }
 
   public loadAllItems = async () => {
+    if (!this._root.library.selectedLibrary) {
+      return;
+    }
+
     try {
       this.setLoading(true);
-      const items = await client.items.getItems();
-      this.setItems(items);
+      const { id } = this._root.library.selectedLibrary;
+      this.setItems(await client.items.getItems(id));
     } catch (error) {
       console.error('failed to get items', error);
       throw error;
