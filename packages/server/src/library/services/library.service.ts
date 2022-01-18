@@ -18,6 +18,10 @@ export class LibraryService {
     return await this._libraryRepository.find();
   }
 
+  public async findOneById(id: string): Promise<Library | undefined> {
+    return await this._libraryRepository.findOne(id);
+  }
+
   public async findOneBySlug(slug: string): Promise<Library | undefined> {
     return await this._libraryRepository.findOne({ where: { slug } });
   }

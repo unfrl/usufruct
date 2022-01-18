@@ -2,7 +2,6 @@ import {
   Body,
   Controller,
   Get,
-  Headers,
   HttpCode,
   HttpStatus,
   Param,
@@ -13,14 +12,17 @@ import {
 import { AuthGuard } from '@nestjs/passport';
 import {
   ApiBearerAuth,
+  ApiHeader,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
 import {
+  LibraryGuard,
   LibraryMemberGuard,
   LibraryMemberRequest,
-  LIBRARY_ID_HEADER,
+  LibraryRequest,
+  LIBRARY_HEADER_OPTIONS,
 } from 'src/library';
 import { UpsertItemDto } from '../dtos';
 import { Item, ItemAttribute } from '../entities';
@@ -38,11 +40,11 @@ export class ItemController {
     summary: 'Get items',
   })
   @ApiResponse({ status: HttpStatus.OK, type: Item, isArray: true })
+  @ApiHeader(LIBRARY_HEADER_OPTIONS)
+  @UseGuards(LibraryGuard)
   @Get()
-  public async getItems(
-    @Headers(LIBRARY_ID_HEADER) libraryId: string,
-  ): Promise<Item[]> {
-    return await this._itemService.getByLibraryId(libraryId);
+  public async getItems(@Req() request: LibraryRequest): Promise<Item[]> {
+    return await this._itemService.getByLibraryId(request.library.id);
   }
 
   @ApiOperation({

@@ -7,16 +7,12 @@ import {
 import { UserRequest } from 'src/identity';
 import { LibraryMember } from '../entities';
 import { LibraryMemberService } from '../services';
+import { LIBRARY_ID_HEADER } from './library.guard';
 
 /**
  * Name of the property that the `library_member` record is set to on the request object.
  */
 const LIBRARY_MEMBER_PROPERTY = 'libraryMember';
-
-/**
- * Used to verify a user's membership and filter records based on the library they belong to.
- */
-export const LIBRARY_ID_HEADER = 'library-id';
 
 /**
  * Extends the `UserRequest` definition with a `libraryMember` field for the user and library.
@@ -26,9 +22,8 @@ export interface LibraryMemberRequest extends UserRequest {
 }
 
 /**
- * Pulls the library ID from header and verifies that the user in the request
- * object is a member of the library. Note: this requires that `AuthGuard('jwt')`
- * be called first as it depends on the `user` property that it sets.
+ * Verifies that the user in the request is a member of the library.
+ * Note: this requires that `AuthGuard('jwt')` be called first to access the user's ID.
  */
 @Injectable()
 export class LibraryMemberGuard implements CanActivate {
