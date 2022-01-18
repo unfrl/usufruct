@@ -14,8 +14,7 @@ import { LibraryMemberService } from '../services';
 const LIBRARY_MEMBER_PROPERTY = 'libraryMember';
 
 /**
- * ID of the custom header used for the library ID. Used to verify a user's membership
- * and filter records based on the library they belong to.
+ * Used to verify a user's membership and filter records based on the library they belong to.
  */
 export const LIBRARY_ID_HEADER = 'library-id';
 

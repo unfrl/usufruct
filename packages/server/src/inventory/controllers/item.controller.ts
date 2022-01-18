@@ -40,7 +40,6 @@ export class ItemController {
   @ApiResponse({ status: HttpStatus.OK, type: Item, isArray: true })
   @Get()
   public async getItems(
-    // TODO: figure out consistent way to make sure this is required -- currently allows undefined
     @Headers(LIBRARY_ID_HEADER) libraryId: string,
   ): Promise<Item[]> {
     return await this._itemService.getByLibraryId(libraryId);
