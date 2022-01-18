@@ -37,8 +37,13 @@ export class InventoryStore {
   };
 
   public createItem = async (itemDto: UpsertItemDto): Promise<Item> => {
+    if (!this._root.library.selectedLibrary) {
+      throw new Error('Unauthorized');
+    }
+
     try {
-      const item = await client.items.createItem(itemDto);
+      const { id } = this._root.library.selectedLibrary;
+      const item = await client.items.createItem(id, itemDto);
       this.addItem(item);
       return item;
     } catch (error) {
