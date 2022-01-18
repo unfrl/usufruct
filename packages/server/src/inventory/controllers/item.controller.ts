@@ -72,8 +72,9 @@ export class ItemController {
     summary: 'Create a new item definition',
   })
   @ApiResponse({ status: HttpStatus.OK, type: Item })
-  @HttpCode(HttpStatus.OK)
+  @ApiHeader(LIBRARY_HEADER_OPTIONS)
   @UseGuards(LibraryMemberGuard)
+  @HttpCode(HttpStatus.OK)
   @Post()
   public async createItem(
     @Req() request: LibraryMemberRequest,
