@@ -21,9 +21,7 @@ export class ApiClient {
   public readonly users: UsersApi;
   public readonly verification: VerificationApi;
 
-  private _accessToken: string = '';
-
-  public constructor() {
+  public constructor(private _accessToken: string = '') {
     const configuration = new Configuration({
       basePath: API_BASE_PATH,
       accessToken: () => this._accessToken,
