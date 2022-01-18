@@ -5,4 +5,4 @@ export * from './toast.store';
 
 import { RootStore } from './root.store';
 
-export const rootStore = new RootStore();
+export const stores = new RootStore();
