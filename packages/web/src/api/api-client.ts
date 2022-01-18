@@ -26,17 +26,7 @@ export class ApiClient {
   public constructor() {
     const configuration = new Configuration({
       basePath: API_BASE_PATH,
-      middleware: [
-        {
-          pre: (context) => {
-            context.init.headers = Object.assign({}, context.init.headers, {
-              Authorization: `Bearer ${this._accessToken}`,
-            });
-
-            return Promise.resolve();
-          },
-        },
-      ],
+      accessToken: () => this._accessToken,
     });
 
     this.auth = new AuthApi(configuration);
