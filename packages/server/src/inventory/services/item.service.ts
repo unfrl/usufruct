@@ -47,11 +47,10 @@ export class ItemService {
     const { categoryNames, labelNames, customFields, ...rest } = itemDto;
 
     const [categories, labels] = await Promise.all([
-      this._categoryService.findOrCreateMany(categoryNames),
+      this._categoryService.findOrCreateMany(categoryNames, libraryId),
       this._labelService.findOrCreateMany(labelNames, libraryId),
     ]);
 
-    // TODO: since we create item first _and then_ process fields, we should probably wrap this in a transaction
     const item = await this._itemRepository.save(
       new Item({ libraryId, categories, labels, ...rest }),
     );

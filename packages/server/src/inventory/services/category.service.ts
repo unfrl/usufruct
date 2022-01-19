@@ -10,18 +10,24 @@ export class CategoryService {
     private readonly _categoryRepository: Repository<Category>,
   ) {}
 
-  public async getAll(): Promise<Category[]> {
-    return await this._categoryRepository.find();
+  public async getAll(libraryId: string): Promise<Category[]> {
+    return await this._categoryRepository.find({ where: { libraryId } });
   }
 
-  public async findOneByName(name: string): Promise<Category | undefined> {
+  public async findOneByName(
+    name: string,
+    libraryId: string,
+  ): Promise<Category | undefined> {
     return await this._categoryRepository.findOne({
-      where: { name },
+      where: { name, libraryId },
     });
   }
 
-  public async findOrCreate(name: string): Promise<Category> {
-    const existing = await this.findOneByName(name);
+  public async findOrCreate(
+    name: string,
+    libraryId: string,
+  ): Promise<Category> {
+    const existing = await this.findOneByName(name, libraryId);
     if (existing) {
       return existing;
     }
@@ -29,9 +35,12 @@ export class CategoryService {
     return await this._categoryRepository.save(new Category({ name }));
   }
 
-  public async findOrCreateMany(names: string[]): Promise<Category[]> {
+  public async findOrCreateMany(
+    names: string[],
+    libraryId: string,
+  ): Promise<Category[]> {
     return await Promise.all(
-      [...new Set(names)].map((name) => this.findOrCreate(name)),
+      [...new Set(names)].map((name) => this.findOrCreate(name, libraryId)),
     );
   }
 }
