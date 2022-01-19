@@ -10,22 +10,27 @@ export class LabelService {
     private readonly _labelRepository: Repository<Label>,
   ) {}
 
-  public async getAll(): Promise<Label[]> {
-    return await this._labelRepository.find();
+  public async getAll(libraryId: string): Promise<Label[]> {
+    return await this._labelRepository.find({ where: { libraryId } });
   }
 
-  public async findOrCreate(name: string): Promise<Label> {
-    const label = await this._labelRepository.findOne({ where: { name } });
+  public async findOrCreate(name: string, libraryId: string): Promise<Label> {
+    const label = await this._labelRepository.findOne({
+      where: { name, libraryId },
+    });
     if (label) {
       return label;
     }
 
-    return await this._labelRepository.save(new Label({ name }));
+    return await this._labelRepository.save(new Label({ name, libraryId }));
   }
 
-  public async findOrCreateMany(names: string[]): Promise<Label[]> {
+  public async findOrCreateMany(
+    names: string[],
+    libraryId: string,
+  ): Promise<Label[]> {
     return await Promise.all(
-      [...new Set(names)].map((name) => this.findOrCreate(name)),
+      [...new Set(names)].map((name) => this.findOrCreate(name, libraryId)),
     );
   }
 }
