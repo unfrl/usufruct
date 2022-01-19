@@ -37,18 +37,18 @@ const LibraryHome = () => {
 
     load();
 
-    return () => library.clearLibrary();
+    return () => library.clearActiveLibrary();
   }, [slug]);
 
   if (!ready) {
     return <Spinner />;
   }
 
-  if (!library.selectedLibrary) {
+  if (!library.activeLibrary) {
     return <Typography>{slug} not found!</Typography>;
   }
 
-  const { name, description } = library.selectedLibrary;
+  const { name, description } = library.activeLibrary;
 
   return (
     <Stack>

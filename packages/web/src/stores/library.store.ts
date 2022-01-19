@@ -4,8 +4,13 @@ import { client } from '../api';
 import { RootStore } from './root.store';
 
 export class LibraryStore {
-  public selectedLibrary: Library | null = null;
+  public activeLibrary: Library | null = null;
+
   public libraries: Library[] = [];
+
+  public get activeLibraryId(): string {
+    return this.activeLibrary?.id ?? '';
+  }
 
   public constructor(private readonly _root: RootStore) {
     makeAutoObservable(this);
@@ -18,19 +23,19 @@ export class LibraryStore {
 
   public loadLibrary = async (slug?: string): Promise<void> => {
     if (!slug) {
-      return this.clearLibrary();
+      return this.clearActiveLibrary();
     }
 
     const library = await this.fetchLibrary(slug);
-    this.selectLibrary(library);
+    this.setActiveLibrary(library);
   };
 
-  public clearLibrary = () => {
-    this.selectedLibrary = null;
+  public clearActiveLibrary = () => {
+    this.activeLibrary = null;
   };
 
-  private selectLibrary = (library: Library) => {
-    this.selectedLibrary = library;
+  private setActiveLibrary = (library: Library) => {
+    this.activeLibrary = library;
   };
 
   public fetchLibrary = async (slug: string): Promise<Library> => {

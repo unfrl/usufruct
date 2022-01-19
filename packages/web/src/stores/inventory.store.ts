@@ -20,13 +20,13 @@ export class InventoryStore {
   }
 
   public loadAllItems = async () => {
-    if (!this._root.library.selectedLibrary) {
+    if (!this._root.library.activeLibrary) {
       return;
     }
 
     try {
       this.setLoading(true);
-      const { id } = this._root.library.selectedLibrary;
+      const { id } = this._root.library.activeLibrary;
       this.setItems(await client.items.getItems(id));
     } catch (error) {
       console.error('failed to get items', error);
@@ -37,12 +37,12 @@ export class InventoryStore {
   };
 
   public createItem = async (itemDto: UpsertItemDto): Promise<Item> => {
-    if (!this._root.library.selectedLibrary) {
+    if (!this._root.library.activeLibrary) {
       throw new Error('Unauthorized');
     }
 
     try {
-      const { id } = this._root.library.selectedLibrary;
+      const { id } = this._root.library.activeLibrary;
       const item = await client.items.createItem(id, itemDto);
       this.addItem(item);
       return item;
