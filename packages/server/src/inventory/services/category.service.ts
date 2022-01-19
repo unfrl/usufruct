@@ -32,7 +32,9 @@ export class CategoryService {
       return existing;
     }
 
-    return await this._categoryRepository.save(new Category({ name }));
+    return await this._categoryRepository.save(
+      new Category({ name, libraryId }),
+    );
   }
 
   public async findOrCreateMany(

@@ -46,6 +46,8 @@ export class ItemService {
   ): Promise<Item> {
     const { categoryNames, labelNames, customFields, ...rest } = itemDto;
 
+    // TODO: this all needs to be wrapped in a transaction
+
     const [categories, labels] = await Promise.all([
       this._categoryService.findOrCreateMany(categoryNames, libraryId),
       this._labelService.findOrCreateMany(labelNames, libraryId),
