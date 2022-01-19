@@ -11,14 +11,14 @@ export interface LabelSelectionProps {
 }
 
 export const LabelSelection = observer((props: LabelSelectionProps) => {
-  const { toasts } = useStores();
+  const { library, toasts } = useStores();
   const { selected, onChange } = props;
   const [labels, setLabels] = React.useState<Label[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setLabels(await client.labels.getLabels());
+        setLabels(await client.labels.getLabels(library.activeLibraryId));
       } catch (error) {
         toasts.error((error as any).message);
       }

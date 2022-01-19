@@ -11,14 +11,16 @@ export interface CategorySelectionProps {
 }
 
 export const CategorySelection = observer((props: CategorySelectionProps) => {
-  const { toasts } = useStores();
+  const { library, toasts } = useStores();
   const { selected, onChange } = props;
   const [categories, setCategories] = React.useState<Category[]>([]);
 
   React.useEffect(() => {
     const load = async () => {
       try {
-        setCategories(await client.categories.getCategories());
+        setCategories(
+          await client.categories.getCategories(library.activeLibraryId),
+        );
       } catch (error) {
         toasts.error((error as any).message);
       }
