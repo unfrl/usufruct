@@ -140,7 +140,7 @@ export const AddItemDrawer = observer((props: AddItemDrawerProps) => {
             onUpload={(files) => console.log('todo handle file upload', files)}
           />
 
-          <Divider>Category</Divider>
+          <Divider>Classification</Divider>
           <CategorySelection
             selected={selectedCategory}
             onChange={handleSelect('categoryNames')}
@@ -150,7 +150,7 @@ export const AddItemDrawer = observer((props: AddItemDrawerProps) => {
             onChange={handleSelect('labelNames')}
           />
 
-          <Divider>Custom fields</Divider>
+          <Divider>Custom</Divider>
           <CustomFieldList
             fields={item.customFields}
             onChange={(fields) => handleChange('customFields', fields)}
