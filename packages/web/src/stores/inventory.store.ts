@@ -20,14 +20,11 @@ export class InventoryStore {
   }
 
   public loadAllItems = async () => {
-    if (!this._root.library.activeLibrary) {
-      return;
-    }
-
     try {
       this.setLoading(true);
-      const { id } = this._root.library.activeLibrary;
-      this.setItems(await client.items.getItems(id));
+      this.setItems(
+        await client.items.getItems(this._root.library.activeLibraryId),
+      );
     } catch (error) {
       console.error('failed to get items', error);
       throw error;
@@ -42,8 +39,10 @@ export class InventoryStore {
     }
 
     try {
-      const { id } = this._root.library.activeLibrary;
-      const item = await client.items.createItem(id, itemDto);
+      const item = await client.items.createItem(
+        this._root.library.activeLibraryId,
+        itemDto,
+      );
       this.addItem(item);
       return item;
     } catch (error) {
