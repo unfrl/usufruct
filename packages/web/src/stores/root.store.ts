@@ -11,8 +11,8 @@ export class RootStore {
 
   public constructor() {
     this.auth = new AuthStore(this);
-    this.inventory = new InventoryStore(this);
     this.library = new LibraryStore(this);
+    this.inventory = new InventoryStore(this);
     this.toasts = new ToastStore();
   }
 }

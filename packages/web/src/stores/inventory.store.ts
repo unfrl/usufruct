@@ -12,7 +12,11 @@ export class InventoryStore {
 
   public get filteredItems() {
     const query = this.query.trim().toLowerCase();
-    return this.items.filter((item) => item.name.search(query) > -1);
+    return this.items.filter(
+      (item) =>
+        item.libraryId === this._root.library?.activeLibraryId &&
+        item.name.search(query) > -1,
+    );
   }
 
   public constructor(private readonly _root: RootStore) {
