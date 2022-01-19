@@ -4,7 +4,7 @@ import { Library } from 'src/library';
 import { Column, Entity, Index, ManyToOne } from 'typeorm';
 
 @Entity()
-@Index(['name', 'libraryId'])
+@Index(['name', 'libraryId'], { unique: true })
 export class Category extends BaseEntity {
   @ApiResponseProperty()
   @Column()

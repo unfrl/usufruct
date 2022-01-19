@@ -43,20 +43,22 @@ export class LibraryService {
       );
     }
 
-    return this._dbTransactionService.executeInTransaction(async (manager) => {
-      const library = await manager.save(
-        new Library({ name, description, slug }),
-      );
+    return await this._dbTransactionService.executeInTransaction(
+      async (manager) => {
+        const library = await manager.save(
+          new Library({ name, description, slug }),
+        );
 
-      await manager.save(
-        new LibraryMember({
-          library,
-          userId,
-          role: LibraryMemberRole.Owner,
-        }),
-      );
+        await manager.save(
+          new LibraryMember({
+            library,
+            userId,
+            role: LibraryMemberRole.Owner,
+          }),
+        );
 
-      return library;
-    });
+        return library;
+      },
+    );
   }
 }
