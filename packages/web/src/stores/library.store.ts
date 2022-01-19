@@ -17,8 +17,7 @@ export class LibraryStore {
   }
 
   public fetchLibraries = async () => {
-    const libraries = await client.libraries.getLibraries();
-    this.setLibraries(libraries);
+    this.setLibraries(await client.libraries.getLibraries());
   };
 
   public loadLibrary = async (slug?: string): Promise<void> => {
@@ -26,8 +25,7 @@ export class LibraryStore {
       return this.clearActiveLibrary();
     }
 
-    const library = await this.fetchLibrary(slug);
-    this.setActiveLibrary(library);
+    this.setActiveLibrary(await this.fetchLibrary(slug));
   };
 
   public clearActiveLibrary = () => {
@@ -64,6 +62,7 @@ export class LibraryStore {
     const library = await client.libraries.createLibrary(newLibrary);
 
     this.addLibrary(library);
+
     return library;
   };
 
