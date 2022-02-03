@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { VerificationDto } from '../dtos';
 import { User } from '../entities';
 
+const BASE_VERIFICATION_URL = `${appConfig.scheme}://${appConfig.host}/verification`;
 const TOKEN_EXPIRATION_SECONDS = 60 * 60 * 24; // 1 day
 
 @Injectable()
@@ -27,17 +28,15 @@ export class VerificationService {
   public async sendVerificationEmail(user: User): Promise<void> {
     const token = uuidv4();
     const redisKey = this.getVerificationTokenRedisKey(token, user.email);
+    const verificationUrl = `${BASE_VERIFICATION_URL}?token=${token}&email=${user.email}`;
 
     await this._redisClient.setex(redisKey, TOKEN_EXPIRATION_SECONDS, '');
 
-    const { host, scheme } = appConfig;
-    const verificationUrl = `${scheme}://${host}/verification?token=${token}&email=${user.email}`;
-
     await this._mailerService.sendMail({
       to: user.email,
-      from: 'noreply@carpool+unfrl.com',
-      subject: 'Welcome to Carpool!',
-      html: `<h1>Welcome!</h1>\n<p>\nThanks for joining Carpool! Please verify your account by clicking\n<a href="${verificationUrl}">here</a>\n</p>\n`,
+      from: 'noreply@usufruct+unfrl.com',
+      subject: 'Welcome!',
+      html: `<h1>Welcome!</h1>\n<p>\nThanks for joining! Please verify your account by clicking\n<a href="${verificationUrl}">here</a>\n</p>\n`,
     });
   }
 
