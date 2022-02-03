@@ -57,7 +57,7 @@ const AppHome = () => {
         <OutlinedInput
           fullWidth
           size="small"
-          placeholder="Search inventory (jk doesnt work)"
+          placeholder="Search inventory (jk not real)"
           startAdornment={
             <InputAdornment position="start">
               <SearchIcon />
