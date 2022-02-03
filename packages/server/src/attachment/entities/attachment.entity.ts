@@ -29,15 +29,20 @@ export class Attachment extends BaseEntity {
   })
   public acl: AccessControlList;
 
-  @Column()
-  public libraryId: string;
+  @Column({ nullable: true })
+  public libraryId?: string;
 
   @ManyToOne(() => Library)
-  public library: Library;
+  public library?: Library;
 
   @Column()
   public userId: string;
 
   @ManyToOne(() => User)
   public user: User;
+
+  public constructor(attachment: Partial<Attachment>) {
+    super();
+    Object.assign(this, attachment);
+  }
 }
