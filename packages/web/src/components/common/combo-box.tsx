@@ -91,6 +91,7 @@ export const ComboBox = (props: ComboBoxProps) => {
           label={label}
           size="small"
           fullWidth
+          InputLabelProps={{ shrink: true }}
           {...textFieldProps}
         />
       )}

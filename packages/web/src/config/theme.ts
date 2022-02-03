@@ -61,6 +61,9 @@ export function getThemedComponents(theme: Theme) {
       MuiTextField: {
         defaultProps: {
           size: 'small',
+          InputLabelProps: {
+            shrink: true,
+          },
         },
       },
       MuiLink: {
