@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DbTransactionService } from 'src/common';
-import { getSlug } from 'src/utils';
+import { DbTransactionService, getSlug } from 'src/common';
 import { Repository } from 'typeorm';
 import { UpsertLibraryDto } from '../dtos';
 import { Library, LibraryMember, LibraryMemberRole } from '../entities';

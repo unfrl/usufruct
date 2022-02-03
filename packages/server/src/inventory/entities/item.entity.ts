@@ -1,7 +1,6 @@
 import { ApiResponseProperty } from '@nestjs/swagger';
-import { BaseEntity } from 'src/common';
+import { BaseEntity, getShortId } from 'src/common';
 import { Library } from 'src/library';
-import { getShortId } from 'src/utils';
 import {
   BeforeInsert,
   Column,
