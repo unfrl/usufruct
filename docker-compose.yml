@@ -21,14 +21,14 @@ services:
       - "ADMINER_DEFAULT_DB_NAME=usufruct"
     depends_on:
       - postgres
-  
+
   maildev:
     container_name: usufruct_maildev
     image: maildev/maildev
     ports:
       - "1080:80"
       - "1025:25"
-  
+
   redis:
     container_name: usufruct_redis
     image: redis:6.2.6
@@ -45,3 +45,10 @@ services:
       - "8081:8081"
     depends_on:
       - redis
+
+  s3:
+    container_name: usufruct_s3
+    image: adobe/s3mock
+    ports:
+      - "9090:9090"
+      - "9191:9191"
