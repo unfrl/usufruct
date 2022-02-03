@@ -13,4 +13,7 @@ export class UpsertAttachmentDto {
   @ApiProperty()
   @IsPositive()
   public size: number;
+
+  @ApiProperty()
+  public isPublic: boolean;
 }

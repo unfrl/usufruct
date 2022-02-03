@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { S3Service } from 'src/common';
 import { Repository } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { UpsertAttachmentDto } from '../dtos';
@@ -10,19 +11,22 @@ export class AttachmentService {
   public constructor(
     @InjectRepository(Attachment)
     private readonly _attachmentRepository: Repository<Attachment>,
+    private readonly _s3Service: S3Service,
   ) {}
 
   public async createAttachment(
     dto: UpsertAttachmentDto,
     userId: string,
     libraryId?: string,
-  ): Promise<Attachment> {
-    const { name, contentType, size } = dto;
+  ) {
+    const { name, contentType, size, isPublic } = dto;
 
-    const guid = uuidv4();
-    const bucket = 'public';
-    const key = `${bucket}/${userId}/${guid}/${name}`;
-    const url = 'todo';
+    const acl = isPublic ? 'public-read' : 'private';
+    const bucket = isPublic ? 'public' : 'private';
+    const key = `${bucket}/${userId}/${uuidv4()}/${name}`;
+    const form = this._s3Service.makeFormData(contentType, acl, key);
+    const uploadUrl = this._s3Service.publicEndpoint();
+    const url = `${uploadUrl}/${key}`;
 
     const attachment = await this._attachmentRepository.save(
       new Attachment({
@@ -35,9 +39,10 @@ export class AttachmentService {
       }),
     );
 
-    // TODO: return type will be different from an attachment
-    // new dto w/ all the props needed to make an upload req to s3 provider
-
-    return attachment;
+    return {
+      form,
+      uploadUrl,
+      attachment,
+    };
   }
 }
