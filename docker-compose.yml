@@ -48,7 +48,6 @@ services:
 
   s3:
     container_name: usufruct_s3
-    image: adobe/s3mock
+    image: lphoward/fake-s3
     ports:
-      - "9090:9090"
-      - "9191:9191"
+      - "4569:4569"
