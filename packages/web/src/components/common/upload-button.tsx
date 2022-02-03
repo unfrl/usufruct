@@ -44,7 +44,7 @@ export const UploadButton = (props: UploadButtonProps) => {
   return (
     <label htmlFor={inputId}>
       <Input
-        multiple
+        multiple={multiple}
         accept={accept}
         id={inputId}
         type="file"
