@@ -1,20 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import crypto from 'crypto';
 import { addHours, format } from 'date-fns';
 import { s3Config } from 'src/config';
+import { hmac } from '../utils';
 
 const { accessKeyId, secretAccessKey, region, uploadBucketName } = s3Config;
-
-const hmac = (
-  key: string,
-  message: string,
-  encoding?: crypto.BinaryToTextEncoding,
-) => {
-  return crypto
-    .createHmac('sha256', key)
-    .update(message, 'utf8')
-    .digest(encoding);
-};
 
 @Injectable()
 export class S3Service {
