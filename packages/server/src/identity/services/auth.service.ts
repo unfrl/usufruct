@@ -67,7 +67,7 @@ export class AuthService {
     return this.generateAccessToken(user.id);
   }
 
-  public generateAccessToken(userId: string): AuthDto {
+  private generateAccessToken(userId: string): AuthDto {
     return {
       accessToken: this._jwtService.sign({ sub: userId }),
     };
