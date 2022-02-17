@@ -12,7 +12,7 @@ export class S3Service {
   }
 
   /**
-   * Constructs the form data to return to client in order to upload their files.
+   * Constructs the form data to return to client to upload files.
    */
   public makeFormData(contentType: string, acl: string, key: string) {
     const credential = this.makeCredential();
