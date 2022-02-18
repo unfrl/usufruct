@@ -14,11 +14,7 @@ export class AttachmentService {
     private readonly _s3Service: S3Service,
   ) {}
 
-  public async createAttachment(
-    dto: UpsertAttachmentDto,
-    userId: string,
-    libraryId?: string,
-  ) {
+  public async createAttachment(dto: UpsertAttachmentDto, userId: string) {
     const { name, contentType, size, isPublic } = dto;
 
     const acl = isPublic
@@ -37,7 +33,6 @@ export class AttachmentService {
         url,
         contentType,
         size,
-        libraryId,
         userId,
       }),
     );

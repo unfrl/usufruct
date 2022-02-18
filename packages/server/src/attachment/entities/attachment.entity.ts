@@ -1,6 +1,5 @@
 import { BaseEntity } from 'src/common';
 import { User } from 'src/identity';
-import { Library } from 'src/library';
 import { Column, Entity, ManyToOne } from 'typeorm';
 
 export enum AccessControlList {
@@ -28,12 +27,6 @@ export class Attachment extends BaseEntity {
     default: AccessControlList.PublicRead,
   })
   public acl: AccessControlList;
-
-  @Column({ nullable: true })
-  public libraryId?: string;
-
-  @ManyToOne(() => Library)
-  public library?: Library;
 
   @Column()
   public userId: string;
