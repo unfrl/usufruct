@@ -8,7 +8,8 @@ const { accessKeyId, secretAccessKey, region, uploadBucketName } = s3Config;
 @Injectable()
 export class S3Service {
   public publicEndpoint() {
-    return 'todo';
+    // TODO: add production endpoint
+    return `http://localhost:4569/${uploadBucketName}`;
   }
 
   /**
