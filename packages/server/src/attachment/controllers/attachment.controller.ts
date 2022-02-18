@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserRequest } from 'src/identity';
@@ -15,8 +23,9 @@ export class AttachmentController {
   @ApiOperation({
     operationId: 'createAttachment',
     summary:
-      'Create a new attachment. Returned payload will include the URL to upload the file to.',
+      'Create a new attachment. Response payload will include upload URL.',
   })
+  @HttpCode(HttpStatus.OK)
   @Post()
   public async createAttachment(
     @Req() request: UserRequest,
