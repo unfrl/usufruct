@@ -4,12 +4,14 @@ import { client } from '../api';
 import { RootStore } from './root.store';
 
 export class LibraryStore {
-  public activeLibrary: Library | null = null;
-
   public libraries: Library[] = [];
 
-  public get activeLibraryId(): string {
-    return this.activeLibrary?.id ?? '';
+  public activeLibraryId: string | null = null;
+
+  public get activeLibrary(): Library | null | undefined {
+    return this.activeLibraryId
+      ? this.libraries.find((l) => l.id === this.activeLibraryId)
+      : null;
   }
 
   public constructor(private readonly _root: RootStore) {
@@ -25,15 +27,9 @@ export class LibraryStore {
       return this.clearActiveLibrary();
     }
 
-    this.setActiveLibrary(await this.fetchLibrary(slug));
-  };
+    const library = await this.fetchLibrary(slug);
 
-  public clearActiveLibrary = () => {
-    this.activeLibrary = null;
-  };
-
-  private setActiveLibrary = (library: Library) => {
-    this.activeLibrary = library;
+    this.setActiveLibrary(library.id);
   };
 
   public fetchLibrary = async (slug: string): Promise<Library> => {
@@ -66,6 +62,16 @@ export class LibraryStore {
     return library;
   };
 
+  //#region Actions
+
+  public clearActiveLibrary = () => {
+    this.activeLibraryId = null;
+  };
+
+  private setActiveLibrary = (id: string) => {
+    this.activeLibraryId = id;
+  };
+
   private setLibraries = (libraries: Library[]) => {
     this.libraries = libraries;
   };
@@ -73,4 +79,6 @@ export class LibraryStore {
   private addLibrary = (library: Library) => {
     this.libraries.push(library);
   };
+
+  //#endregion
 }
