@@ -38,9 +38,9 @@ export const App = () => {
           <Route path="/" element={<AppLayout />}>
             <Route index element={<AppHome />} />
             <Route path="l/:slug" element={<LibraryHome />}>
+              <Route index element={<Typography>Test</Typography>} />
               <Route path="inventory" element={<Inventory />} />
               <Route path="inventory/:id" element={<ItemView />} />
-              <Route index element={<Typography>Test</Typography>} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Route>
