@@ -3,22 +3,6 @@ type: kubernetes
 name: usufruct server
 
 steps:
-  - name: test-multiline
-    image: node:16
-    commands:
-      - 'export npmVersion=$(echo $DRONE_TAG | sed -e s/^server-//)'
-      - |
-        echo "hello"
-        echo $DRONE_TAG
-        echo "double ${DRONE_TAG}"
-        echo 'single ${DRONE_TAG}'
-        echo $npmVersion
-        echo "double npm ${npmVersion}"
-        echo 'single npm ${npmVersion}'
-        echo "double2 npm $npmVersion"
-        echo 'single2 npm $npmVersion'
-        echo $PWD
-
   - name: setup
     image: node:16
     when:
